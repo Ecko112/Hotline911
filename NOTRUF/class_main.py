@@ -11,6 +11,7 @@ class Main:
     Levels = []
     # Booleans
     add_one_level = True
+    inLevel = False
     # Cstes
     SCREEN_RESOLUTION = (1366, 713)
 
@@ -27,6 +28,7 @@ class Main:
 
     def add_level(self, level):
         self.Levels.append(level)
+        self.inLevel = True
 
     def game_display(self):
         for level in self.Levels:
@@ -41,6 +43,14 @@ class Main:
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
+        key_input = pygame.key.get_pressed()
+        if key_input[pygame.K_BACKSPACE]:
+            if self.inLevel:
+                self.Levels.pop(0)
+            else:
+                self.create_level()
+                self.Levels[0].Structures[0].ignite()
+
         for level in self.Levels:
             class_level.Level.process_input(level)
 
