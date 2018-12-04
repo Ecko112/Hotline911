@@ -13,7 +13,7 @@ class Hose:
     watercone = []
     waterfront_length = 0
     waterfront = None
-    min_spray = math.pi/20
+    min_spray = math.pi/30
     max_spray = 8*math.pi/20
     min_debit = 25
     max_debit = 250
@@ -40,7 +40,7 @@ class Hose:
 
     def spray_actual_water(self):
         nbr_water_entities = int(self.spray*50)
-        direction = self.handler.orientation - self.spray -(self.spray*2/nbr_water_entities)
+        direction = self.handler.orientation - self.spray/2 -(self.spray*2/nbr_water_entities)
         for water in range(0, nbr_water_entities+1, 1):
             direction += self.spray*2/nbr_water_entities
             class_water.Water(self, direction)

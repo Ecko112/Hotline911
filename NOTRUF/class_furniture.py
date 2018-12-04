@@ -45,7 +45,7 @@ class Furniture:
                 return self.rect.collidelist([other.influence_rect]) != -1
 
     def isCooledDown(self):
-        # for water in self.
+        # for water in self.LEVEL.
         pass
 
     def burn(self):

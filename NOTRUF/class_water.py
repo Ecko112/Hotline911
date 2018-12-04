@@ -29,13 +29,20 @@ class Water:
             for wall in structure.Walls:
                 if self.rect.colliderect(wall.Rect):
                     self.parent_hose.water.remove(self)
-                    return 'collision'
-
+                    return 'collision mur'
+        for structure in self.parent_hose.handler.LEVEL.Structures:
+            for room in structure.Rooms:
+                for furniture in room.Furniture:
+                    if self.rect.colliderect(furniture.rect):
+                        self.parent_hose.water.remove(self)
+                        return 'collision object'
         if self.debit > 1:
             if self.debit%2:
                 texture = (0, 50, 50)
+                self.direction += math.pi/10
             else:
                 texture = (0, 20, 20)
+                self.direction -= math.pi/10
             self.pos[X] += 10*math.cos(self.direction)
             self.pos[Y] += 10*math.sin(self.direction)
             self.rect.center = self.pos

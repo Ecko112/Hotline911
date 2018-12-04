@@ -76,7 +76,7 @@ class Level:
     def paint_level(self, screen):
         screen.fill(self.HERBE_TEXTURE)
         pygame.draw.rect(screen, self.BITUME_TEXTURE, (self.ROUTEH, (self.SCREEN_RESOLUTION[X], self.SCREEN_RESOLUTION[Y] - self.ROUTEH[Y])))
-        pygame.draw.rect(screen, self.PLAYER_TEXTURE, ((self.STARTING_POS[X]-300, self.STARTING_POS[Y]), (400, self.SCREEN_RESOLUTION[Y])))
+        pygame.draw.rect(screen, (255, 10, 20), ((self.STARTING_POS[X]-300, self.STARTING_POS[Y]), (400, self.SCREEN_RESOLUTION[Y])))
 
         for structure in self.Structures:
             class_structure.Structure.paint_structure(structure, screen)
@@ -87,30 +87,35 @@ class Level:
     def process_input(self):
         mouse_pos = pygame.mouse.get_pos()
         for unit in self.Units:
+            # ROTATE_PLAYER
             class_player.Player.rotate_player(unit, mouse_pos)
-            input = pygame.key.get_pressed()
-            if input[self.UP]:
+            # KEYBOARD INPUT
+            key_input = pygame.key.get_pressed()
+            # MOVE_PLAYER 4 DIRECTIONS
+            if key_input[self.UP]:
                 class_player.Player.mov_player(self.Units[0], self.up, Y)
-            elif input[self.DOWN]:
+            elif key_input[self.DOWN]:
                 class_player.Player.mov_player(self.Units[0], self.down, Y)
-            if input[self.RGHT]:
+            if key_input[self.RGHT]:
                 class_player.Player.mov_player(self.Units[0], self.rght, X)
-            elif input[self.LEFT]:
+            elif key_input[self.LEFT]:
                 class_player.Player.mov_player(self.Units[0], self.left, X)
-            if input[self.increase_debit]:
+            # SET_HOSE_DEBIT +/-
+            if key_input[self.increase_debit]:
                 self.Units[0].hose.set_hose_debit(1)
-            elif input[self.decrease_debit]:
+            elif key_input[self.decrease_debit]:
                 self.Units[0].hose.set_hose_debit(-1)
-            if input[self.increase_spray]:
+            # SET_HOSE_ANGLE +/-
+            if key_input[self.increase_spray]:
                 self.Units[0].hose.set_hose_spray(1)
-            elif input[self.decrease_spray]:
+            elif key_input[self.decrease_spray]:
                 self.Units[0].hose.set_hose_spray(-1)
-
-            click = pygame.mouse.get_pressed()
-
-            if click[0]:
+            # MOUSE INPUT
+            mouse_input = pygame.mouse.get_pressed()
+            # HOSE_OPEN/CLOSE
+            if mouse_input[0]:
                 class_player.Player.spray(self.Units[0])
-            if not click[0]:
+            if not mouse_input[0]:
                 class_player.Player.stop_spray(self.Units[0])
 
     def draw_grid(self, screen):
