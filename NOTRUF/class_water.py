@@ -19,7 +19,6 @@ class Water:
         self.rect = pygame.Rect(0, 0, self.debit/5, self.debit/5)
         self.pos = self.spawnpos
         self.rect.center = self.pos
-        print(self.rect.center)
 
     def draw_water(self, screen):
         pygame.draw.rect(screen, texture, self.rect)

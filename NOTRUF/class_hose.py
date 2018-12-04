@@ -41,11 +41,8 @@ class Hose:
     def spray_actual_water(self):
         nbr_water_entities = int(self.spray*50)
         direction = self.handler.orientation - self.spray -(self.spray*2/nbr_water_entities)
-        print('entré pour ', nbr_water_entities, 'itération(s)')
         for water in range(0, nbr_water_entities+1, 1):
-            print("iteration = ", water)
             direction += self.spray*2/nbr_water_entities
-            print(direction)
             class_water.Water(self, direction)
 
     def set_hose_spray(self, input):

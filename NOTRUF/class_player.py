@@ -37,10 +37,10 @@ class Player:
     def paint_player(self, screen):
         pygame.draw.circle(screen, self.texture, self.pos, self.SIZE)
         pygame.draw.circle(screen, (100, 100, 100), self.p_bouteille, 15)
-        if self.spraying:
-            pygame.draw.polygon(screen, (42, 164, 201), self.hose.watercone)
-            pygame.draw.aalines(screen, (100, 0, 0), True, self.hose.watercone, 1)
-            pygame.draw.rect(screen, (150, 0, 0), self.hose.waterfront, 1)
+        # if self.spraying:
+            # pygame.draw.polygon(screen, (42, 164, 201), self.hose.watercone)
+            # pygame.draw.aalines(screen, (100, 0, 0), True, self.hose.watercone, 1)
+            # pygame.draw.rect(screen, (150, 0, 0), self.hose.waterfront, 1)
         for water in self.hose.water:
             water.move_water()
 
