@@ -1,5 +1,6 @@
 import pygame
 import math
+from NOTRUF import class_water
 
 X = 0
 Y = 1
@@ -45,7 +46,7 @@ class Hose:
             print("iteration = ", water)
             direction += self.spray*2/nbr_water_entities
             print(direction)
-            Water(self, direction)
+            class_water.Water(self, direction)
 
     def set_hose_spray(self, input):
         self.spray += (math.pi/100)*input
@@ -66,57 +67,3 @@ class Hose:
     def move_water(self):
         for water in self.water:
             water.mov_water()
-
-
-class Water:
-    debit = 20
-    spawnpoint = [0, 0]
-
-    def __init__(self, hose, direction):
-        self.parent_hose = hose
-        self.direction = direction
-        self.debit = self.parent_hose.debit
-        self.parent_hose.water.append(self)
-        self.spawnpoint = [self.parent_hose.hose_p[X], self.parent_hose.hose_p[Y]]
-
-        self.rect = pygame.Rect(0, 0, self.debit/5, self.debit/5)
-        self.pos = self.spawnpoint
-        self.rect.center = self.pos
-        print(self.rect.center)
-
-    def draw_water(self, screen):
-        pygame.draw.rect(screen, texture, self.rect)
-
-    def move_water(self):
-        screen = self.parent_hose.handler.MAIN.screen
-        for structure in self.parent_hose.handler.LEVEL.Structures:
-            for wall in structure.Walls:
-                if self.rect.colliderect(wall.Rect):
-                    self.parent_hose.water.remove(self)
-                    return 'collision'
-
-        if self.debit > 1:
-            if self.debit%2:
-                texture = (0, 50, 50)
-            else:
-                texture = (0, 20, 20)
-            self.pos[X] += 10*math.cos(self.direction)
-            self.pos[Y] += 10*math.sin(self.direction)
-            self.rect.center = self.pos
-            pygame.draw.rect(screen, texture, self.rect)
-            self.debit -= 1
-        elif -5 <= self.debit <= 1:
-            texture = (255, 0, 255)
-            self.pos[X] -= 10*math.cos(self.direction)
-            self.pos[Y] -= 10*math.sin(self.direction)
-            self.rect.center = self.pos
-            pygame.draw.rect(screen, texture, self.rect)
-            self.debit -= 1
-        elif -30 <= self.debit < -5:
-            self.debit -= 1
-        else:
-            self.parent_hose.water.remove(self)
-
-
-
-
