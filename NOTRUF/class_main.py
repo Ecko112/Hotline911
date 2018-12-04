@@ -5,35 +5,42 @@ from NOTRUF import class_level
 X = 0
 Y = 1
 
-
 class Main:
-    # Lists
-    Levels = []
-    # Booleans
-    add_one_level = True
-    inLevel = False
-    # Cstes
-    SCREEN_RESOLUTION = (1366, 713)
+    # Game Stages
+    User_Stage = None
+    Stages = ["inMenu", "inLevel"]
+    # Level
+    Level = None
+    # Menu
+    Menu = None
 
-    def __init__(self):
-        self.screen = pygame.display.set_mode(self.SCREEN_RESOLUTION)
+    def __init__(self, screen_resolution):
+        # Set SCREEN_RESOLUTION while keeping ratio
+        self.SCREEN_RESOLUTION = [0, 0]
+        self.SCREEN_RESOLUTION[X] = screen_resolution[X]
+        self.SCREEN_RESOLUTION[Y] = int(self.SCREEN_RESOLUTION[X]/1.9158)
+        # Set PYGAME screen
+        self.SCREEN = pygame.display.set_mode(self.SCREEN_RESOLUTION)
         pygame.display.set_caption('Hotline 911')
 
     def create_level(self):
-        i = 1
-        while self.add_one_level:
-            level = class_level.Level('level_' + str(i), self.SCREEN_RESOLUTION, self)
-            self.add_level(level)
-            self.add_one_level = False
+        self.Level = class_level.Level(self)
 
-    def add_level(self, level):
-        self.Levels.append(level)
-        self.inLevel = True
+    def delete_level(self):
+        self.Level = None
+
+    def update_user_stage(self, new_stage):
+        if new_stage is 'goMenu':
+            self.User_Stage = self.Stages[0]
+        elif new_stage is 'goLevel':
+            self.User_Stage = self.Stages[1]
 
     def game_display(self):
-        for level in self.Levels:
-            class_level.Level.paint_level(level, self.screen)
-
+        if self.User_Stage is 'inLevel':
+            self.Level.paint_level()
+        elif self.User_Stage is 'inMenu':
+            self.Menu.paint_menu()
+        # Update screen
         pygame.display.flip()
 
     def process_input(self):
@@ -44,16 +51,15 @@ class Main:
                 pygame.quit()
                 sys.exit()
         key_input = pygame.key.get_pressed()
-        if self.inLevel:
+        if self.User_Stage is self.Stages[1]:
             if key_input[pygame.K_DELETE]:
-                self.Levels.pop(0)
+                self.Level = None
                 self.inLevel = False
-        else:
+        if self.User_Stage is self
             if key_input[pygame.K_BACKSPACE]:
                 self.create_level()
-                self.Levels[0].Structures[0].ignite()
+
+                self.Level.ignite()
                 self.inLevel = True
 
-        for level in self.Levels:
             class_level.Level.process_input(level)
-

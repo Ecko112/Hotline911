@@ -31,13 +31,13 @@ class Level:
     increase_debit = pygame.K_RIGHT
     decrease_debit = pygame.K_LEFT
 
-    def __init__(self, name, screen_resolution, MAIN):
+    def __init__(self, MAIN):
         # INIT
-        self.NAME = name
         self.MAIN = MAIN
-        self.SCREEN_RESOLUTION = screen_resolution
+        self.SCREEN_RESOLUTION = self.MAIN.SCREEN_RESOLUTION
+        self.SCREEN = self.MAIN.SCREEN
         # BUILDABLE ZONE
-        self.ZONE = [screen_resolution[X]//1.1234, screen_resolution[Y]//1.424]
+        self.ZONE = [self.SCREEN_RESOLUTION[X]//1.1234, self.SCREEN_RESOLUTION[Y]//1.424]
         self.PLAYER_SIZE = screen_resolution[Y]//28.4
         self.STARTING_POS = (self.ZONE[X] - self.ZONE[X]//10, self.ZONE[Y] + 1*self.ZONE[Y]//10 + self.PLAYER_SIZE + 10)
         self.MIN_ROOM = self.PLAYER_SIZE*6
@@ -88,7 +88,7 @@ class Level:
         for unit in self.Units:
             class_player.Player.paint_player(unit, screen)
         # [DEV] GRID
-        self.draw_grid(screen)
+        # self.draw_grid(screen)
 
     def process_input(self):
         mouse_pos = pygame.mouse.get_pos()
