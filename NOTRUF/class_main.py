@@ -13,6 +13,13 @@ class Main:
     Level = None
     # Menu
     Menu = None
+    ##########
+    # COLORS #
+    ##########
+    RED = (255, 0, 0)
+    GREEN = (0, 153, 0)
+    LIGHT_GREY = (169, 169, 169)
+    DARK_GREY = (32, 32, 32)
 
     def __init__(self, screen_resolution):
         # Set SCREEN_RESOLUTION while keeping ratio
@@ -24,9 +31,11 @@ class Main:
         pygame.display.set_caption('Hotline 911')
 
     def create_level(self):
+        self.update_user_stage('goLevel')
         self.Level = class_level.Level(self)
 
     def delete_level(self):
+        self.update_user_stage('goMenu')
         self.Level = None
 
     def update_user_stage(self, new_stage):
@@ -34,6 +43,8 @@ class Main:
             self.User_Stage = self.Stages[0]
         elif new_stage is 'goLevel':
             self.User_Stage = self.Stages[1]
+        else:
+            print('MOVING USER STAGE : ERROR')
 
     def game_display(self):
         if self.User_Stage is 'inLevel':
@@ -44,22 +55,17 @@ class Main:
         pygame.display.flip()
 
     def process_input(self):
-        pygame.key.set_repeat()
-
+        # pygame.key.set_repeat()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
-        key_input = pygame.key.get_pressed()
-        if self.User_Stage is self.Stages[1]:
-            if key_input[pygame.K_DELETE]:
-                self.Level = None
-                self.inLevel = False
-        if self.User_Stage is self
-            if key_input[pygame.K_BACKSPACE]:
-                self.create_level()
+        # key_input = pygame.key.get_pressed()
+        #         if self.User_Stage is 'inLevel':
+        #             if key_input[pygame.K_DELETE]:
+        #                 self.delete_level()
 
-                self.Level.ignite()
-                self.inLevel = True
-
-            class_level.Level.process_input(level)
+        if self.User_Stage is 'inMenu':
+            self.Menu.process_input()
+        elif self.User_Stage is 'inLevel':
+            self.Level.process_input()

@@ -7,17 +7,11 @@ Y = 1
 
 class Level:
     # Lists
-    Zones = []
     Structures = []
     Units = []
-    # Booleans
-    add_one_structure = True
-    # Colors
-    RED = (255, 0, 0)
-    GREEN = (0, 153, 0)
-    LIGHT_GREY = (169, 169, 169)
-    DARK_GREY = (32, 32, 32)
-    # KEY BINDINGS
+    ################
+    # KEY BINDINGS #
+    ################
     # Player
     UP = pygame.K_z
     DOWN = pygame.K_s
@@ -38,21 +32,29 @@ class Level:
         self.SCREEN = self.MAIN.SCREEN
         # BUILDABLE ZONE
         self.ZONE = [self.SCREEN_RESOLUTION[X]//1.1234, self.SCREEN_RESOLUTION[Y]//1.424]
-        self.PLAYER_SIZE = screen_resolution[Y]//28.4
-        self.STARTING_POS = (self.ZONE[X] - self.ZONE[X]//10, self.ZONE[Y] + 1*self.ZONE[Y]//10 + self.PLAYER_SIZE + 10)
+        # Round down to match grid
+        self.ZONE[X] -= self.ZONE[X] % self.MIN_ROOM
+        self.ZONE[Y] -= self.ZONE[Y] % self.MIN_ROOM
+        # STRUCTURE SETTINGS
         self.MIN_ROOM = self.PLAYER_SIZE*6
         self.DOOR_SIZE = self.PLAYER_SIZE*3-10
-        self.ZONE[X] = self.ZONE[X] - self.ZONE[X]%self.MIN_ROOM
-        self.ZONE[Y] = self.ZONE[Y] - self.ZONE[Y]%self.MIN_ROOM
-        self.UPPER_LEFT = (screen_resolution[X]//18.21, 5)
+        # PLAYER SETTINGS
+        self.STARTING_POS = (self.ZONE[X] - self.ZONE[X]//10, self.ZONE[Y] + 1*self.ZONE[Y]//10 + self.PLAYER_SIZE + 10)
+        self.PLAYER_SIZE = self.SCREEN_RESOLUTION[Y]//28.4
+        # SET USEFUL POINTS
+        self.UPPER_LEFT = (self.SCREEN_RESOLUTION[X]//18.21, 5)
         self.LOWER_RGHT = (self.UPPER_LEFT[X]+self.ZONE[X], self.UPPER_LEFT[Y]+self.ZONE[Y])
-        self.ROUTEH = (0, self.ZONE[Y] + 1*self.ZONE[Y]//10)
-        # Textures
-        self.PLAYER_TEXTURE = self.RED
-        self.HERBE_TEXTURE = self.GREEN
-        self.BETON_TEXTURE = self.LIGHT_GREY
-        self.BITUME_TEXTURE = self.DARK_GREY
-
+        self.ROUTEH = (0, 11*self.ZONE[Y]//10)
+        ############
+        # TEXTURES #
+        ############
+        self.PLAYER_TEXTURE = self.MAIN.RED
+        self.HERBE_TEXTURE = self.MAIN.GREEN
+        self.BETON_TEXTURE = self.MAIN.LIGHT_GREY
+        self.BITUME_TEXTURE = self.MAIN.DARK_GREY
+        ##############
+        # FILL LEVEL #
+        ##############
         self.create_structure()
         self.create_player()
 
