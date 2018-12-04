@@ -44,11 +44,12 @@ class Hose:
     def set_hose_line(self):
         self.hose_line[-1] = self.handler.pos
         dist = get_dist(self.handler.pos, self.hose_line[-2])
-        if dist > 100:
+        if dist > 75:
             self.hose_line.insert(-1, self.handler.pos[:])
-        else:
-            if len(self.hose_line) > 3:
-                self.hose_line.pop(-2)
+        elif len(self.hose_line) > 3 and get_dist(self.handler.pos, self.hose_line[-3]) < 100:
+            self.hose_line.pop(-2)
+        #     # if len(self.hose_line) > 3:
+        #     #     self.hose_line.pop(-2)
         # 3 < len(self.hose_line):
         #     self.hose_line.pop(-1)
         #     self.hose_line.insert(-1, self.handler.pos[:])
@@ -65,5 +66,5 @@ def get_dist(point1, point2):
     return int(math.sqrt(((point1[X]-point2[X])**2)+(point1[Y]-point2[Y])**2))
 
 
-
-
+def get_angle(point1, point2):
+    return math.atan2(point2[Y]-point1[Y], point2[X]-point1[X])

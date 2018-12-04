@@ -76,6 +76,7 @@ class Level:
     def paint_level(self, screen):
         screen.fill(self.HERBE_TEXTURE)
         pygame.draw.rect(screen, self.BITUME_TEXTURE, (self.ROUTEH, (self.SCREEN_RESOLUTION[X], self.SCREEN_RESOLUTION[Y] - self.ROUTEH[Y])))
+        pygame.draw.rect(screen, self.PLAYER_TEXTURE, ((self.STARTING_POS[X]-300, self.STARTING_POS[Y]), (400, self.SCREEN_RESOLUTION[Y])))
 
         for structure in self.Structures:
             class_structure.Structure.paint_structure(structure, screen)
