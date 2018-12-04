@@ -10,9 +10,6 @@ clock = pygame.time.Clock()
 
 main = class_main.Main()
 
-# main.create_level()
-
-# main.Levels[0].Structures[0].ignite()
 
 while True:
     main.process_input()

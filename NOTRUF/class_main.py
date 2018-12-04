@@ -44,12 +44,15 @@ class Main:
                 pygame.quit()
                 sys.exit()
         key_input = pygame.key.get_pressed()
-        if key_input[pygame.K_BACKSPACE]:
-            if self.inLevel:
+        if self.inLevel:
+            if key_input[pygame.K_DELETE]:
                 self.Levels.pop(0)
-            else:
+                self.inLevel = False
+        else:
+            if key_input[pygame.K_BACKSPACE]:
                 self.create_level()
                 self.Levels[0].Structures[0].ignite()
+                self.inLevel = True
 
         for level in self.Levels:
             class_level.Level.process_input(level)

@@ -39,10 +39,10 @@ class Water:
         if self.debit > 1:
             if self.debit%2:
                 texture = (0, 50, 50)
-                self.direction += math.pi/10
+                # self.direction += math.pi/2
             else:
                 texture = (0, 20, 20)
-                self.direction -= math.pi/10
+                # self.direction -= math.pi/2
             self.pos[X] += 10*math.cos(self.direction)
             self.pos[Y] += 10*math.sin(self.direction)
             self.rect.center = self.pos
