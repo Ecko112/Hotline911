@@ -30,7 +30,8 @@ class Structure:
         self.DOOR_SIZE = self.LEVEL.DOOR_SIZE
         self.ZONE_LENGTH = random.randrange(10*self.GRID_SIZE, 48*self.GRID_SIZE, self.GRID_SIZE)
         self.ZONE_WIDTH = self.LEVEL.ZONE[Y]
-        # self.ZONE_LENGTH = zone[X]
+        # [DEV] FORCE LARGE_BUILDING
+        # self.ZONE_LENGTH = 48*self.GRID_SIZE
         self.WALL_SIZE = self.MIN_ROOM // 15
         # POINTS
         self.UPPER_LEFT = self.LEVEL.UPPER_LEFT

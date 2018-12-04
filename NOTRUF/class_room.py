@@ -66,9 +66,10 @@ class Room:
         pygame.draw.polygon(screen, self.floor_texture, self.polyroom)
 
     def paint_furniture(self, screen):
-        for object in self.Furniture:
-            pygame.draw.rect(screen, object.texture, object.rect)
-            pygame.draw.rect(screen, (0,0,0), object.influence_rect, 2)
+        for objet in self.Furniture:
+            pygame.draw.rect(screen, objet.texture, objet.rect)
+            # [DEV] DRAW RADIATION ZONE
+            pygame.draw.rect(screen, (0, 0, 0), objet.influence_rect, 2)
 
     def stuff_up(self):
         nbr_meubles = random.randint(1, 5)

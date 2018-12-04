@@ -27,22 +27,19 @@ class Hose:
     def spray_water(self, unit):
         self.handler = unit
         self.hose_p = (int(self.handler.pos[X]+unit.SIZE*math.cos(self.handler.orientation)), int(self.handler.pos[Y]+self.handler.SIZE*math.sin(self.handler.orientation)))
-        p2 = (int(self.handler.pos[X]+self.debit*math.cos(self.handler.orientation+self.spray)), int(self.handler.pos[Y]+self.debit*math.sin(self.handler.orientation+self.spray)))
-        p3 = (int(self.handler.pos[X]+self.debit*math.cos(self.handler.orientation-self.spray)), int(self.handler.pos[Y]+self.debit*math.sin(self.handler.orientation-self.spray)))
-        self.waterfront_length = math.sqrt(((p3[X]-p2[X])**2)+((p3[Y]-p2[Y])**2))
-        self.waterfront = pygame.Rect(0, 0, self.waterfront_length, 10)
-        self.waterfront.center = (int(self.handler.pos[X]+self.debit), int(self.handler.pos[Y]+self.debit))
-
         unit.spraying = True
-        self.watercone = [self.hose_p, p2, p3]
-        # if self.water == []:
-        self.spray_actual_water()
+        if len(self.water) < 500:
+            self.spray_actual_water()
+        else:
+            # [DEV] UNLIMITED WATER PARICLES
+            #     self.spray_actual_water()
+            pass
 
     def spray_actual_water(self):
         nbr_water_entities = int(self.spray*50)
         direction = self.handler.orientation - self.spray/2 -(self.spray*2/nbr_water_entities)
         for water in range(0, nbr_water_entities+1, 1):
-            direction += self.spray*2/nbr_water_entities
+            direction += self.spray/nbr_water_entities
             class_water.Water(self, direction)
 
     def set_hose_spray(self, input):

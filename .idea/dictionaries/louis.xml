@@ -23,9 +23,12 @@
       <w>largeur</w>
       <w>lengthprim</w>
       <w>lengthsec</w>
+      <w>meuble</w>
+      <w>meubles</w>
       <w>nombuilding</w>
       <w>polyhose</w>
       <w>polyroom</w>
+      <w>posx</w>
       <w>pygame</w>
       <w>rght</w>
       <w>spawnpos</w>

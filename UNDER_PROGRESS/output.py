@@ -33,8 +33,8 @@ while True:
             sys.exit()
     deal_w_input()
     screen.fill((100, 100, 100))
-    unit.paint_player()
     unit.hose.paint_hose()
+    unit.paint_player()
 
     pygame.display.flip()
     clock.tick(50)

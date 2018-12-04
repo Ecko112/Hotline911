@@ -88,7 +88,7 @@ class Level:
         for unit in self.Units:
             class_player.Player.paint_player(unit, screen)
         # [DEV] GRID
-        # self.draw_grid(screen)
+        self.draw_grid(screen)
 
     def process_input(self):
         mouse_pos = pygame.mouse.get_pos()
