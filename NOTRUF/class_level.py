@@ -17,7 +17,7 @@ class Level:
     GREEN = (0, 153, 0)
     LIGHT_GREY = (169, 169, 169)
     DARK_GREY = (32, 32, 32)
-    # INPUT
+    # KEY BINDINGS
     # Player
     UP = pygame.K_z
     DOWN = pygame.K_s
@@ -32,7 +32,11 @@ class Level:
     decrease_debit = pygame.K_LEFT
 
     def __init__(self, name, screen_resolution, MAIN):
+        # INIT
         self.NAME = name
+        self.MAIN = MAIN
+        self.SCREEN_RESOLUTION = screen_resolution
+        # BUILDABLE ZONE
         self.ZONE = [screen_resolution[X]//1.1234, screen_resolution[Y]//1.424]
         self.PLAYER_SIZE = screen_resolution[Y]//28.4
         self.STARTING_POS = (self.ZONE[X] - self.ZONE[X]//10, self.ZONE[Y] + 1*self.ZONE[Y]//10 + self.PLAYER_SIZE + 10)
@@ -43,8 +47,6 @@ class Level:
         self.UPPER_LEFT = (screen_resolution[X]//18.21, 5)
         self.LOWER_RGHT = (self.UPPER_LEFT[X]+self.ZONE[X], self.UPPER_LEFT[Y]+self.ZONE[Y])
         self.ROUTEH = (0, self.ZONE[Y] + 1*self.ZONE[Y]//10)
-        self.SCREEN_RESOLUTION = screen_resolution
-        self.MAIN = MAIN
         # Textures
         self.PLAYER_TEXTURE = self.RED
         self.HERBE_TEXTURE = self.GREEN
@@ -74,14 +76,18 @@ class Level:
         self.Structures.append(structure)
 
     def paint_level(self, screen):
+        # BACKGROUND
         screen.fill(self.HERBE_TEXTURE)
         pygame.draw.rect(screen, self.BITUME_TEXTURE, (self.ROUTEH, (self.SCREEN_RESOLUTION[X], self.SCREEN_RESOLUTION[Y] - self.ROUTEH[Y])))
+        # VEHICLES
         pygame.draw.rect(screen, (255, 10, 20), ((self.STARTING_POS[X]-300, self.STARTING_POS[Y]), (400, self.SCREEN_RESOLUTION[Y])))
-
+        # STRUCTURES
         for structure in self.Structures:
             class_structure.Structure.paint_structure(structure, screen)
+        # UNITS
         for unit in self.Units:
             class_player.Player.paint_player(unit, screen)
+        # [DEV] GRID
         # self.draw_grid(screen)
 
     def process_input(self):

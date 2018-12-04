@@ -51,8 +51,6 @@ class Hose:
             self.spray = self.min_spray
         elif self.spray > self.max_spray:
             self.spray = self.max_spray
-        if self.debit == self.max_debit:
-            self.spray = self.spray
 
     def set_hose_debit(self, input):
         self.debit += 10*input
