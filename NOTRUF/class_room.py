@@ -37,13 +37,15 @@ class Room:
         self.MAIN = MAIN
         self.LEVEL = LEVEL
         self.STRUCTURE = STRUCTURE
-        self.burning = False
         self.WALL_SIZE = self.STRUCTURE.WALL_SIZE
         self.GRID_SIZE = self.STRUCTURE.GRID_SIZE
+        # SET DEFAULT
+        self.burning = False
         self.heat = 30
 
     def ignite(self):
         self.burning = True
+        # IGNITE A RANDOM OBJECT IN THE ROOM
         self.Furniture[random.randint(0, len(self.Furniture)-1)].ignite()
 
     def burn(self):
@@ -52,6 +54,8 @@ class Room:
                 object.burn()
             if 400 < int(self.heat) < 401:
                 self.flashover()
+        else:
+            pass
 
     def flashover(self):
         for object in self.Furniture:
@@ -185,11 +189,3 @@ class Wall:
 
     def __init__(self, name):
         self.name = name
-
-
-# class Door:
-#     p1 = None
-#     length = None
-#     width = None
-#     Rect = None
-#     passable = False

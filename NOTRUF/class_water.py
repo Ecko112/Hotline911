@@ -55,7 +55,5 @@ class Water:
             self.rect.center = self.pos
             pygame.draw.rect(screen, texture, self.rect)
             self.debit -= 1
-        elif -30 <= self.debit < -5:
-            self.debit -= 1
         else:
             self.parent_hose.water.remove(self)
