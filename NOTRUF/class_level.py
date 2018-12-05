@@ -32,7 +32,7 @@ class Level:
         self.SCREEN = self.MAIN.SCREEN
         # BUILDABLE ZONE
         self.ZONE = [self.SCREEN_RESOLUTION[X]//1.1234, self.SCREEN_RESOLUTION[Y]//1.424]
-        # Round down to match grid
+        #
         self.ZONE[X] -= self.ZONE[X] % self.MIN_ROOM
         self.ZONE[Y] -= self.ZONE[Y] % self.MIN_ROOM
         # STRUCTURE SETTINGS
@@ -45,6 +45,8 @@ class Level:
         self.UPPER_LEFT = (self.SCREEN_RESOLUTION[X]//18.21, 5)
         self.LOWER_RGHT = (self.UPPER_LEFT[X]+self.ZONE[X], self.UPPER_LEFT[Y]+self.ZONE[Y])
         self.ROUTEH = (0, 11*self.ZONE[Y]//10)
+        # OTHER
+        self.GRID_SIZE = self.MIN_ROOM//6
         ############
         # TEXTURES #
         ############
@@ -66,13 +68,9 @@ class Level:
         self.Units.append(unit)
 
     def create_structure(self):
-        i = 1
-        while self.add_one_structure:
-
-            structure = class_structure.Structure('structure_'+str(i), self.MAIN, self)
-
-            self.add_structure(structure)
-            self.add_one_structure = False
+        # Create
+        structure = class_structure.Structure(self)
+        self.add_structure(structure)
 
     def add_structure(self, structure):
         self.Structures.append(structure)
@@ -126,7 +124,7 @@ class Level:
             if not mouse_input[0]:
                 class_player.Player.stop_spray(self.Units[0])
 
-    def draw_grid(self, screen):
+    def draw_grid(self):
         report = [self.UPPER_LEFT[X], self.UPPER_LEFT[Y]]
         while report[Y] < self.LOWER_RGHT[Y]:
             while report[X] < self.LOWER_RGHT[X]:

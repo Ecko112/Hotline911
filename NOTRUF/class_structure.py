@@ -1,6 +1,7 @@
 import random
 import pygame
 from NOTRUF import class_room
+
 X = 0
 Y = 1
 
@@ -19,14 +20,13 @@ class Structure:
     # Variables
     nb_rooms_level_1 = 0
 
-    def __init__(self, name, MAIN, LEVEL):
+    def __init__(self, level):
         # INIT
-        self.name = name
-        self.MAIN = MAIN
-        self.LEVEL = LEVEL
+        self.LEVEL = level
+        self.MAIN = self.LEVEL.MAIN
         # LONGUEURS
         self.MIN_ROOM = self.LEVEL.MIN_ROOM
-        self.GRID_SIZE = self.MIN_ROOM//6
+        self.GRID_SIZE = self.LEVEL.GRID_SIZE
         self.DOOR_SIZE = self.LEVEL.DOOR_SIZE
         self.ZONE_LENGTH = random.randrange(10*self.GRID_SIZE, 48*self.GRID_SIZE, self.GRID_SIZE)
         self.ZONE_WIDTH = self.LEVEL.ZONE[Y]
@@ -39,12 +39,13 @@ class Structure:
         self.LOWER_LEFT = (self.UPPER_LEFT[X], self.UPPER_LEFT[Y] + self.ZONE_WIDTH)
         self.LOWER_RGHT = (self.UPPER_LEFT[X] + self.ZONE_LENGTH, self.UPPER_LEFT[Y] + self.ZONE_WIDTH)
         # FONCTIONS
-        self.wall_up()
         self.create_level_1()
         self.create_level_2(self.Separation[0])
+        self.wall_up()
 
     def ignite(self):
         self.burning = True
+        # Ignite ONE random room
         self.Rooms[random.randint(0, len(self.Rooms)-1)].ignite()
 
     def burn(self):
@@ -54,47 +55,49 @@ class Structure:
 
     def add_room(self, room):
         self.Rooms.append(room)
-        room.wall_up(self)
-        room.stuff_up()
 
     def wall_up(self):
-        WALL_H = class_room.Wall('WALL_H')
-        WALL_V = class_room.Wall('WALL_V')
+        # Create Upper Wall
+        wall_h = class_room.Wall('wall_h')
+        wall_h.p1 = (self.UPPER_LEFT[X] - self.WALL_SIZE // 2, self.UPPER_LEFT[Y] - self.WALL_SIZE // 2)
+        wall_h.length = self.ZONE_LENGTH + self.WALL_SIZE
+        wall_h.width = self.WALL_SIZE
+        wall_h.Rect = pygame.Rect(wall_h.p1[X], wall_h.p1[Y], wall_h.length, wall_h.width)
+        self.Walls.append(wall_h)
+        # Create Left Wall
+        wall_v = class_room.Wall('wall_v')
+        wall_v.p1 = (self.UPPER_LEFT[X] - self.WALL_SIZE // 2, self.UPPER_LEFT[Y] - self.WALL_SIZE // 2)
+        wall_v.length = self.WALL_SIZE
+        wall_v.width = self.ZONE_WIDTH + self.WALL_SIZE
+        wall_v.Rect = pygame.Rect(wall_v.p1[X], wall_v.p1[Y], wall_v.length, wall_v.width)
+        self.Walls.append(wall_v)
 
-        WALL_H.p1 = (self.UPPER_LEFT[X] - self.WALL_SIZE // 2, self.UPPER_LEFT[Y] - self.WALL_SIZE // 2)
-        WALL_H.length = self.ZONE_LENGTH + self.WALL_SIZE
-        WALL_H.width = self.WALL_SIZE
-
-        WALL_V.p1 = (self.UPPER_LEFT[X] - self.WALL_SIZE // 2, self.UPPER_LEFT[Y] - self.WALL_SIZE // 2)
-        WALL_V.length = self.WALL_SIZE
-        WALL_V.width = self.ZONE_WIDTH + self.WALL_SIZE
-
-        WALL_H.Rect = pygame.Rect(WALL_H.p1[X], WALL_H.p1[Y], WALL_H.length, WALL_H.width)
-        WALL_V.Rect = pygame.Rect(WALL_V.p1[X], WALL_V.p1[Y], WALL_V.length, WALL_V.width)
-
-        self.Walls.append(WALL_H)
-        self.Walls.append(WALL_V)
+        for room in self.Rooms:
+            room.wall_up()
 
     def create_level_1(self):
-
+        # INIT
         report = 0
         i = 1
-
+        # Remember Separation
         mid = Separation()
         self.Separation.append(mid)
-
-        # add_mid_point = True
-
+        # Create Rooms
         while self.add_one_floor_1:
-
+            # Create ONE room
             room = class_room.Room('room_' + str(i), self.MAIN, self.LEVEL, self)
             if not self.last_one_floor_1:
+                # Cas général :
+                # lengthprim = random
                 room.lengthprim = random.randrange(self.MIN_ROOM, 20*self.GRID_SIZE, self.GRID_SIZE)
+                # widthprim = random
                 room.widthprim = random.randrange(self.MIN_ROOM, 10*self.GRID_SIZE, self.GRID_SIZE)
-
+                # Vérification pour rajouter une pièce
                 self.check_room_left(room, report)
-
             if self.last_one_floor_1:
+                # Cas particulier :
+                #
+
                 self.add_one_floor_1 = False
                 self.nb_rooms_level_1 = i
 
