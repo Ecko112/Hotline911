@@ -1,5 +1,4 @@
 import pygame
-import sys
 from NOTRUF import class_level
 from NOTRUF import class_menu
 
@@ -63,4 +62,3 @@ class Main:
             self.Menu.loop_menu()
         elif self.User_Stage is 'inLevel':
             self.Level.loop_level()
-
