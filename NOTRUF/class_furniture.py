@@ -6,7 +6,6 @@ Y = 1
 
 class Furniture:
     texture = (200, 200, 150)
-    burning = False
 
     def __init__(self, pos, length, width, MAIN, LEVEL, STRUCTURE, ROOM):
         # INIT
@@ -14,6 +13,8 @@ class Furniture:
         self.LEVEL = LEVEL
         self.STRUCTURE = STRUCTURE
         self.ROOM = ROOM
+        self.burning = False
+
         # SETTINGS
         self.influence_rad = self.ROOM.GRID_SIZE
         self.pos = pos
