@@ -66,4 +66,3 @@ class Player:
                             self.player_hitbox.bottom = wall.Rect.top
 
         self.pos = [self.player_hitbox.center[X], self.player_hitbox.center[Y]]
-

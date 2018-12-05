@@ -1,4 +1,4 @@
-import pygame
+# import pygame
 import math
 from NOTRUF import class_water
 
@@ -39,15 +39,15 @@ class Hose:
             direction += self.spray/nbr_water_entities
             class_water.Water(self, direction)
 
-    def set_hose_spray(self, input):
-        self.spray += (math.pi/100)*input
+    def set_hose_spray(self, sens):
+        self.spray += (math.pi/100) * sens
         if self.spray < self.min_spray:
             self.spray = self.min_spray
         elif self.spray > self.max_spray:
             self.spray = self.max_spray
 
-    def set_hose_debit(self, input):
-        self.debit += 10*input
+    def set_hose_debit(self, sens):
+        self.debit += 10 * sens
         if self.debit < self.min_debit:
             self.debit = self.min_debit
         elif self.debit > self.max_debit:
