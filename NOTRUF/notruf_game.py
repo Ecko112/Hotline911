@@ -19,8 +19,7 @@ main = class_main.Main(SCREEN_RESOLUTION)
 
 while True:
     main.process_input()
-    if main.inLevel:
-        main.Levels[0].Structures[0].burn()
-        main.game_display()
+    main.game_display()
+
     # AIM FOR 50 FPS
     clock.tick(50)

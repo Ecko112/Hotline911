@@ -9,6 +9,7 @@ class Level:
     # Lists
     Structures = []
     Units = []
+    Water = []
     ################
     # KEY BINDINGS #
     ################
@@ -61,7 +62,7 @@ class Level:
         self.create_player()
 
     def create_player(self):
-        player = class_player.Player(self.STARTING_POS[X], self.STARTING_POS[Y], self.PLAYER_SIZE, self.MAIN, self)
+        player = class_player.Player(self)
         self.add_unit(player)
 
     def add_unit(self, unit):
@@ -129,7 +130,10 @@ class Level:
         while report[Y] < self.LOWER_RGHT[Y]:
             while report[X] < self.LOWER_RGHT[X]:
                 rect = pygame.Rect(report[X], report[Y], self.MIN_ROOM//6, self.MIN_ROOM//6)
-                pygame.draw.rect(screen, (100, 100, 100), rect, 1)
+                pygame.draw.rect(self.SCREEN, (100, 100, 100), rect, 1)
                 report[X] += self.MIN_ROOM//6
             report[Y] += self.MIN_ROOM//6
             report[X] = self.UPPER_LEFT[X]
+
+    def loop_level(self):
+        self.process_input()

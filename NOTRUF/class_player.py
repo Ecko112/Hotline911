@@ -9,38 +9,32 @@ Y = 1
 class Player:
     # Texture
     texture = (255, 0, 0)
-    # Init
-    pos = []
-    last_pos = []
-    next_pos = []
-    SIZE = 0
-    rect = None
-    in_door = False
+
     k = 1
 
-    def __init__(self, pos_x, pos_y, size, MAIN, LEVEL):
+    def __init__(self, LEVEL):
         # INIT
-        self.MAIN = MAIN
         self.LEVEL = LEVEL
-        self.pos = [int(pos_x), int(pos_y)]
-        self.last_pos = self.pos
-        self.SIZE = int(size)
-        self.step = int(size/7)
+        self.MAIN = self.LEVEL
+        ###################
+        # PLAYER SETTINGS #
+        ###################
+        self.SIZE = int(self.LEVEL.PLAYER_SIZE)
+        self.STEP = int(self.SIZE / 7)
         self.player_hitbox = pygame.Rect(0, 0, self.SIZE*2, self.SIZE*2)
+        # Set spawn default status
+        self.pos = [int(self.LEVEL.STARTING_POS[X]), int(self.LEVEL.STARTING_POS[Y])]
         self.player_hitbox.center = self.pos
         self.orientation = 0
         self.p_bouteille = self.pos
-        self.watercone = []
         self.spraying = False
+        # [DEV] Start with Hoses
         self.hose = class_hose.Hose()
 
     def paint_player(self, screen):
         pygame.draw.circle(screen, self.texture, self.pos, self.SIZE)
         pygame.draw.circle(screen, (100, 100, 100), self.p_bouteille, 15)
-        # if self.spraying:
-            # pygame.draw.polygon(screen, (42, 164, 201), self.hose.watercone)
-            # pygame.draw.aalines(screen, (100, 0, 0), True, self.hose.watercone, 1)
-            # pygame.draw.rect(screen, (150, 0, 0), self.hose.waterfront, 1)
+
         for water in self.hose.water:
             water.move_water()
 
@@ -56,7 +50,7 @@ class Player:
         self.spraying = False
 
     def mov_player(self, direction, axe):
-        self.pos[axe] += self.step * direction
+        self.pos[axe] += self.STEP * direction
         self.player_hitbox.center = self.pos
         j = 1
         for structure in self.LEVEL.Structures:
