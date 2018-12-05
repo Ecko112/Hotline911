@@ -53,12 +53,8 @@ class Player:
     def mov_player(self, direction, axe):
         self.pos[axe] += self.STEP * direction
         self.player_hitbox.center = self.pos
-        j = 1
         for structure in self.LEVEL.Structures:
-            j += 1
-            k = 1
             for wall in structure.Walls:
-                k += 1
                 if self.player_hitbox.colliderect(wall.Rect):
                     if axe == X:
                         if direction == -1:

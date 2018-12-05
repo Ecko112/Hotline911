@@ -42,7 +42,7 @@ class Main:
 
     def create_menu(self):
         self.update_user_stage('goMenu')
-        self.Menu = class_menu.menu
+        self.Menu = class_menu.Menu(self)
 
     def delete_menu(self):
         self.update_user_stage('goLevel')

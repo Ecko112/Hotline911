@@ -13,6 +13,9 @@ class Level:
     ################
     # KEY BINDINGS #
     ################
+    # Level
+    # [DEV] FORCE QUIT LEVEL
+    FORCE_QUIT_LEVEL = pygame.K_DELETE
     # Player
     UP = pygame.K_z
     DOWN = pygame.K_s
@@ -101,6 +104,9 @@ class Level:
             class_player.Player.rotate_player(unit, mouse_pos)
             # KEYBOARD INPUT
             key_input = pygame.key.get_pressed()
+            # [DEV] FORCE QUIT LEVEL
+            if key_input[self.FORCE_QUIT_LEVEL]:
+                self.MAIN.create_menu()
             # MOVE_PLAYER 4 DIRECTIONS
             if key_input[self.UP]:
                 class_player.Player.mov_player(self.Units[0], self.up, Y)
