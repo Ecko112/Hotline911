@@ -1,9 +1,11 @@
 import pygame
 import sys
 from NOTRUF import class_level
+from NOTRUF import class_menu
 
 X = 0
 Y = 1
+
 
 class Main:
     # Game Stages
@@ -38,6 +40,14 @@ class Main:
         self.update_user_stage('goMenu')
         self.Level = None
 
+    def create_menu(self):
+        self.update_user_stage('goMenu')
+        self.Menu = class_menu.menu
+
+    def delete_menu(self):
+        self.update_user_stage('goLevel')
+        self.Menu = None
+
     def update_user_stage(self, new_stage):
         if new_stage is 'goMenu':
             self.User_Stage = self.Stages[0]
@@ -46,26 +56,11 @@ class Main:
         else:
             print('MOVING USER STAGE : ERROR')
 
-    def game_display(self):
-        if self.User_Stage is 'inLevel':
-            self.Level.paint_level()
-        elif self.User_Stage is 'inMenu':
-            self.Menu.paint_menu()
-        # Update screen
-        pygame.display.flip()
-
-    def process_input(self):
-        # pygame.key.set_repeat()
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit()
-        # key_input = pygame.key.get_pressed()
-        #         if self.User_Stage is 'inLevel':
-        #             if key_input[pygame.K_DELETE]:
-        #                 self.delete_level()
-
+    def loop_main(self):
+        print(self.User_Stage)
+        print('avocado')
         if self.User_Stage is 'inMenu':
-            self.Menu.process_input()
+            self.Menu.loop_menu()
         elif self.User_Stage is 'inLevel':
-            self.Level.process_input()
+            self.Level.loop_level()
+

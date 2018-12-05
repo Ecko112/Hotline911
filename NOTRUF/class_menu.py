@@ -8,9 +8,9 @@ class Menu:
     ################
     FORCE_START_LEVEL = pygame.K_BACKSPACE
 
-    def __init__(self, main):
+    def __init__(self, MAIN):
         # INIT
-        self.MAIN = main
+        self.MAIN = MAIN
         self.SCREEN = self.MAIN.SCREEN
 
     def paint_menu(self):
@@ -19,6 +19,10 @@ class Menu:
     def process_input(self):
         # KEYBOARD INPUT
         key_input = pygame.key.get_pressed()
-        # MANUALLY START LEVEL
+        # [DEV] MANUALLY START LEVEL
         if key_input[self.FORCE_START_LEVEL]:
             self.MAIN.create_level()
+
+    def loop_menu(self):
+        self.process_input()
+        self.paint_menu()

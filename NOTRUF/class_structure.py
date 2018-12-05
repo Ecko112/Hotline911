@@ -59,14 +59,14 @@ class Structure:
 
     def wall_up(self):
         # Create Upper Wall
-        wall_h = class_room.Wall('wall_h')
+        wall_h = class_room.Wall()
         wall_h.p1 = (self.UPPER_LEFT[X] - self.WALL_SIZE // 2, self.UPPER_LEFT[Y] - self.WALL_SIZE // 2)
         wall_h.length = self.ZONE_LENGTH + self.WALL_SIZE
         wall_h.width = self.WALL_SIZE
         wall_h.Rect = pygame.Rect(wall_h.p1[X], wall_h.p1[Y], wall_h.length, wall_h.width)
         self.Walls.append(wall_h)
         # Create Left Wall
-        wall_v = class_room.Wall('wall_v')
+        wall_v = class_room.Wall()
         wall_v.p1 = (self.UPPER_LEFT[X] - self.WALL_SIZE // 2, self.UPPER_LEFT[Y] - self.WALL_SIZE // 2)
         wall_v.length = self.WALL_SIZE
         wall_v.width = self.ZONE_WIDTH + self.WALL_SIZE
@@ -86,7 +86,7 @@ class Structure:
         # Create Rooms
         while self.add_one_floor_1:
             # Create ONE room
-            room = class_room.Room('room_' + str(i), self.MAIN, self.LEVEL, self)
+            room = class_room.Room(self)
             if not self.last_one_floor_1:
                 # Cas général :
                 # lengthprim = random
@@ -138,7 +138,7 @@ class Structure:
         shapes = ('rect', 'poly')
 
         while self.add_one_floor_2:
-            room = class_room.Room('room_' + str(i), self.MAIN, self.LEVEL, self)
+            room = class_room.Room(self)
 
             room.shape = random.choice(shapes)
 
@@ -232,6 +232,7 @@ class Structure:
 
 
 class Separation:
+    # List of lower points of rooms from Floor_1
     List = []
 
     def add_point(self, point3, point4, mid_point):
