@@ -34,7 +34,7 @@ class Hose:
 
     def spray_actual_water(self):
         nbr_water_entities = int(self.spray*50)
-        direction = self.handler.orientation - self.spray/2 -(self.spray*2/nbr_water_entities)
+        direction = self.handler.orientation - self.spray/2 - (self.spray*2/nbr_water_entities)
         for water in range(0, nbr_water_entities+1, 1):
             direction += self.spray/nbr_water_entities
             class_water.Water(self, direction)
