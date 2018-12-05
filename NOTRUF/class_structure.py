@@ -7,24 +7,23 @@ Y = 1
 
 
 class Structure:
-    # Lists
-    Rooms = []
-    Separation = []
-    Walls = []
-    # Booleans
-    add_one_floor_1 = True
-    last_one_floor_1 = False
-    add_one_floor_2 = True
-    burning = False
-    # Cstes
-    # Variables
-    nb_rooms_level_1 = 0
 
     def __init__(self, level):
         # INIT
         self.LEVEL = level
         self.MAIN = self.LEVEL.MAIN
         self.SCREEN = self.LEVEL.SCREEN
+        # Lists
+        self.Rooms = []
+        self.Separation = []
+        self.Walls = []
+        # Booleans
+        self.add_one_floor_1 = True
+        self.last_one_floor_1 = False
+        self.add_one_floor_2 = True
+        self.burning = False
+        # Variables
+        self.nb_rooms_level_1 = 0
         # LONGUEURS
         self.MIN_ROOM = self.LEVEL.MIN_ROOM
         self.GRID_SIZE = self.LEVEL.GRID_SIZE

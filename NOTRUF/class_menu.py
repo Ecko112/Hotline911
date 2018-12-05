@@ -14,6 +14,10 @@ class Menu:
         # INIT
         self.MAIN = MAIN
         self.SCREEN = self.MAIN.SCREEN
+        
+    def loop_menu(self):
+        self.process_input()
+        self.paint_menu()
 
     def paint_menu(self):
         # Background
@@ -27,7 +31,3 @@ class Menu:
         # [DEV] FORCE START LEVEL
         if key_input[self.FORCE_START_LEVEL]:
             self.MAIN.create_level()
-
-    def loop_menu(self):
-        self.process_input()
-        self.paint_menu()

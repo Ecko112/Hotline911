@@ -7,29 +7,9 @@ Y = 1
 
 
 class Room:
-    # Lists
-    Walls = []
-    Furniture = []
-    # Dimensions
-    length = None
-    width = None
-    lengthsec = None
-    widthsec = None
-    lengthprim = None
-    widthprim = None
-    # Points
-    p1 = None
-    p2 = None
-    p3 = None
-    p4 = None
-    p5 = None
-    p6 = None
-    polyroom = []
-    shape = None
     # Textures
     floor_texture = (0, 255, 0)
     wall_texture = (255, 255, 255)
-    # Furniture
 
     def __init__(self, STRUCTURE):
         # INIT
@@ -38,6 +18,25 @@ class Room:
         self.MAIN = self.LEVEL.MAIN
         self.WALL_SIZE = self.STRUCTURE.WALL_SIZE
         self.GRID_SIZE = self.STRUCTURE.GRID_SIZE
+        # Lists
+        self.Walls = []
+        self.Furniture = []
+        # Dimensions
+        self.lengthprim = None
+        self.lengthsec = None
+        self.length = None
+        self.widthprim = None
+        self.width = None
+        self.widthsec = None
+        # Points
+        self.p1 = None
+        self.p2 = None
+        self.p3 = None
+        self.p4 = None
+        self.p5 = None
+        self.p6 = None
+        self.polyroom = []
+        self.shape = None
         # SET DEFAULT
         self.burning = False
         self.temp = 30
@@ -134,7 +133,7 @@ class Room:
                 wall_h11.p1 = (self.p6[X] - self.WALL_SIZE // 2, self.p6[Y] - self.WALL_SIZE // 2)
                 wall_h11.length = self.length + self.WALL_SIZE
                 wall_h11.width = self.WALL_SIZE
-                self.add_wall(wall_h11, structure)
+                self.add_wall(wall_h11)
 
             wall_v11 = Wall()
             wall_v11.p1 = (self.p2[X] - self.WALL_SIZE // 2, self.p2[Y] - self.WALL_SIZE // 2)

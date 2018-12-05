@@ -10,8 +10,6 @@ class Player:
     # Texture
     texture = (255, 0, 0)
 
-    k = 1
-
     def __init__(self, LEVEL):
         # INIT
         self.LEVEL = LEVEL
@@ -30,7 +28,7 @@ class Player:
         self.p_bouteille = self.pos
         self.spraying = False
         # [DEV] Start with Hose
-        self.hose = class_hose.Hose()
+        self.hose = class_hose.Hose(self)
 
     def paint_player(self):
         pygame.draw.circle(self.SCREEN, self.texture, self.pos, self.SIZE)

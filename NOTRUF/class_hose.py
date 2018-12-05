@@ -7,22 +7,19 @@ Y = 1
 
 
 class Hose:
-    spray = math.pi/20
-    debit = 100
-    water = []
-    watercone = []
-    waterfront_length = 0
-    waterfront = None
-    min_spray = math.pi/30
-    max_spray = 8*math.pi/20
-    min_debit = 25
-    max_debit = 250
-    # SELF
-    handler = None
-    sprayed = False
 
-    def __init__(self):
-        pass
+    def __init__(self, unit):
+        self.spray = math.pi / 20
+        self.debit = 100
+        self.water = []
+        self.min_spray = math.pi / 30
+        self.max_spray = 8 * math.pi / 20
+        self.min_debit = 25
+        self.max_debit = 250
+        # SELF
+        self.handler = unit
+        self.sprayed = False
+        self.hose_p = (int(self.handler.pos[X]+unit.SIZE*math.cos(self.handler.orientation)), int(self.handler.pos[Y]+self.handler.SIZE*math.sin(self.handler.orientation)))
 
     def spray_water(self, unit):
         self.handler = unit

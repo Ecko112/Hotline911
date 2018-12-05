@@ -6,10 +6,6 @@ Y = 1
 
 
 class Level:
-    # Lists
-    Structures = []
-    Units = []
-    Water = []
     ################
     # KEY BINDINGS #
     ################
@@ -34,6 +30,10 @@ class Level:
         self.MAIN = MAIN
         self.SCREEN_RESOLUTION = self.MAIN.SCREEN_RESOLUTION
         self.SCREEN = self.MAIN.SCREEN
+        # Lists
+        self.Structures = []
+        self.Units = []
+        self.Water = []
         # PLAYER SETTINGS
         self.PLAYER_SIZE = self.SCREEN_RESOLUTION[Y]//28.4
         # STRUCTURE SETTINGS
@@ -65,6 +65,10 @@ class Level:
         self.create_structure()
         self.create_player()
 
+    def loop_level(self):
+        self.process_input()
+        self.paint_level()
+
     def create_player(self):
         player = class_player.Player(self)
         self.add_unit(player)
@@ -87,6 +91,7 @@ class Level:
         # VEHICLES
         pygame.draw.rect(self.SCREEN, (255, 10, 20), ((self.STARTING_POS[X]-300, self.STARTING_POS[Y]), (400, self.SCREEN_RESOLUTION[Y])))
         # STRUCTURES
+        print(self.Structures)
         for structure in self.Structures:
             class_structure.Structure.paint_structure(structure)
         # UNITS
@@ -143,7 +148,3 @@ class Level:
                 report[X] += self.MIN_ROOM//6
             report[Y] += self.MIN_ROOM//6
             report[X] = self.UPPER_LEFT[X]
-
-    def loop_level(self):
-        self.process_input()
-        self.paint_level()
