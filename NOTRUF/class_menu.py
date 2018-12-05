@@ -6,8 +6,8 @@ class Menu:
     ################
     # KEY BINDINGS #
     ################
-    # Menu
-    # [DEV] FORCE START LEVEL
+    # [DEV]
+    # FORCE START LEVEL
     FORCE_START_LEVEL = pygame.K_BACKSPACE
 
     def __init__(self, MAIN):
@@ -16,6 +16,7 @@ class Menu:
         self.SCREEN = self.MAIN.SCREEN
 
     def paint_menu(self):
+        # Background
         self.SCREEN.fill((100, 100, 100))
         # Update screen
         pygame.display.flip()

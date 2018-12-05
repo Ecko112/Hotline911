@@ -13,8 +13,8 @@ class Level:
     ################
     # KEY BINDINGS #
     ################
-    # Level
-    # [DEV] FORCE QUIT LEVEL
+    # [DEV]
+    # FORCE QUIT LEVEL
     FORCE_QUIT_LEVEL = pygame.K_DELETE
     # Player
     UP = pygame.K_z
