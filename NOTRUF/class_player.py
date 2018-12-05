@@ -16,6 +16,7 @@ class Player:
         # INIT
         self.LEVEL = LEVEL
         self.MAIN = self.LEVEL
+        self.SCREEN = self.LEVEL.SCREEN
         ###################
         # PLAYER SETTINGS #
         ###################
@@ -28,12 +29,12 @@ class Player:
         self.orientation = 0
         self.p_bouteille = self.pos
         self.spraying = False
-        # [DEV] Start with Hoses
+        # [DEV] Start with Hose
         self.hose = class_hose.Hose()
 
-    def paint_player(self, screen):
-        pygame.draw.circle(screen, self.texture, self.pos, self.SIZE)
-        pygame.draw.circle(screen, (100, 100, 100), self.p_bouteille, 15)
+    def paint_player(self):
+        pygame.draw.circle(self.SCREEN, self.texture, self.pos, self.SIZE)
+        pygame.draw.circle(self.SCREEN, (100, 100, 100), self.p_bouteille, 15)
 
         for water in self.hose.water:
             water.move_water()

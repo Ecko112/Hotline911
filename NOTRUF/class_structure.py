@@ -24,6 +24,7 @@ class Structure:
         # INIT
         self.LEVEL = level
         self.MAIN = self.LEVEL.MAIN
+        self.SCREEN = self.LEVEL.SCREEN
         # LONGUEURS
         self.MIN_ROOM = self.LEVEL.MIN_ROOM
         self.GRID_SIZE = self.LEVEL.GRID_SIZE
@@ -222,18 +223,12 @@ class Structure:
 
             room_left = self.ZONE_LENGTH - (report + room.lengthprim)
 
-    def paint_structure(self, screen):
+    def paint_structure(self):
         for room in self.Rooms:
-            class_room.Room.paint_room(room, screen)
-            class_room.Room.paint_furniture(room, screen)
+            class_room.Room.paint_room(room, self.SCREEN)
+            class_room.Room.paint_furniture(room, self.SCREEN)
         for wall in self.Walls:
-            if wall.__class__ is class_room.Wall:
-                pygame.draw.rect(screen, (255, 255, 255), wall.Rect)
-
-            # elif wall.__class__ is class_room.Door and wall.passable:
-            #     pygame.draw.rect(screen, (255, 110, 110), wall.Rect)
-            # elif wall.__class__ is class_room.Door and not wall.passable:
-            #     pygame.draw.rect(screen, (110, 110, 110), wall.Rect)
+            pygame.draw.rect(self.SCREEN, (255, 255, 255), wall.Rect)
 
 
 class Separation:

@@ -76,18 +76,18 @@ class Level:
     def add_structure(self, structure):
         self.Structures.append(structure)
 
-    def paint_level(self, screen):
+    def paint_level(self):
         # BACKGROUND
         screen.fill(self.HERBE_TEXTURE)
-        pygame.draw.rect(screen, self.BITUME_TEXTURE, (self.ROUTEH, (self.SCREEN_RESOLUTION[X], self.SCREEN_RESOLUTION[Y] - self.ROUTEH[Y])))
+        pygame.draw.rect(self.SCREEN, self.BITUME_TEXTURE, (self.ROUTEH, (self.SCREEN_RESOLUTION[X], self.SCREEN_RESOLUTION[Y] - self.ROUTEH[Y])))
         # VEHICLES
-        pygame.draw.rect(screen, (255, 10, 20), ((self.STARTING_POS[X]-300, self.STARTING_POS[Y]), (400, self.SCREEN_RESOLUTION[Y])))
+        pygame.draw.rect(self.SCREEN, (255, 10, 20), ((self.STARTING_POS[X]-300, self.STARTING_POS[Y]), (400, self.SCREEN_RESOLUTION[Y])))
         # STRUCTURES
         for structure in self.Structures:
-            class_structure.Structure.paint_structure(structure, screen)
+            class_structure.Structure.paint_structure(structure)
         # UNITS
         for unit in self.Units:
-            class_player.Player.paint_player(unit, screen)
+            class_player.Player.paint_player(unit)
         # [DEV] GRID
         # self.draw_grid(screen)
 
@@ -137,3 +137,4 @@ class Level:
 
     def loop_level(self):
         self.process_input()
+        self.paint_level()
