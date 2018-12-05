@@ -56,8 +56,6 @@ class Main:
             print('MOVING USER STAGE : ERROR')
 
     def loop_main(self):
-        print(self.User_Stage)
-        print('avocado')
         if self.User_Stage is 'inMenu':
             self.Menu.loop_menu()
         elif self.User_Stage is 'inLevel':

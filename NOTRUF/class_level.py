@@ -91,7 +91,6 @@ class Level:
         # VEHICLES
         pygame.draw.rect(self.SCREEN, (255, 10, 20), ((self.STARTING_POS[X]-300, self.STARTING_POS[Y]), (400, self.SCREEN_RESOLUTION[Y])))
         # STRUCTURES
-        print(self.Structures)
         for structure in self.Structures:
             class_structure.Structure.paint_structure(structure)
         # UNITS

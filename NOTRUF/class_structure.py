@@ -126,7 +126,7 @@ class Structure:
             report += room.lengthprim
 
             self.add_room(room)
-            # print(room.name, '\n', room.length, '\t', room.width, '\t', room.lengthsec, '\t', room.widthsec)
+            print(room.length, '\t', room.width, '\t', room.lengthsec, '\t', room.widthsec)
             i += 1
 
     def create_level_2(self, separation):
@@ -232,7 +232,8 @@ class Structure:
 
 class Separation:
     # List of lower points of rooms from Floor_1
-    List = []
+    def __init__(self):
+        self.List = []
 
     def add_point(self, point3, point4, mid_point):
         self.List.append((point4, point3, mid_point))
