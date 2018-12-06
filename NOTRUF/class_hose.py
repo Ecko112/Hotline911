@@ -13,10 +13,11 @@ class Hose:
         # INIT
         self.LEVEL = self.handler.LEVEL
         self.MAIN = self.LEVEL.MAIN
-        self.spray = math.pi / 20
+        self.spray = 16 * math.pi / 20
         self.debit = 100
-        self.min_spray = math.pi / 30
-        self.max_spray = 8 * math.pi / 20
+        self.min_spray = math.pi / 50
+        self.middle_spray = 0
+        self.max_spray = 16 * math.pi / 20
         self.min_debit = 25
         self.max_debit = 250
         # SELF

@@ -20,8 +20,8 @@ class Water:
         self.direction = direction
         # Set Rect object
         self.size = self.debit/10
-        if self.size > 20:
-            self.size = 20
+        if self.size > 50:
+            self.size = 50
         elif self.size < 10:
             self.size = 10
 
@@ -32,6 +32,8 @@ class Water:
 
     def paint_water(self):
         pygame.draw.rect(self.SCREEN, self.texture, self.rect)
+        # pygame.draw.circle(self.SCREEN, self.texture, self.pos, int(self.size/2))
+        pass
 
     def move_water(self):
         for structure in self.parent_hose.handler.LEVEL.Structures:
