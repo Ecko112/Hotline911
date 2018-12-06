@@ -21,7 +21,13 @@ class Water:
         self.pos = [self.parent_hose.hose_p[X], self.parent_hose.hose_p[Y]]
         self.direction = direction
         # Set Rect object
-        self.rect = pygame.Rect(0, 0, self.debit/5, self.debit/5)
+        self.size = self.debit/10
+        if self.size > 20:
+            self.size = 20
+        elif self.size < 10:
+            self.size = 10
+
+        self.rect = pygame.Rect(0, 0, self.size, self.size)
         self.rect.center = self.pos
         # Add to level list
         self.LEVEL.Water.append(self)
