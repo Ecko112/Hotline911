@@ -6,8 +6,6 @@ Y = 1
 
 
 class Water:
-    debit = 20
-    spawnpos = [0, 0]
 
     def __init__(self, hose, direction, LEVEL):
         # INIT
