@@ -32,7 +32,6 @@ class Water:
 
     def paint_water(self):
         pygame.draw.rect(self.SCREEN, self.texture, self.rect)
-        # pygame.draw.circle(self.SCREEN, self.texture, self.pos, int(self.size/2))
         pass
 
     def move_water(self):
@@ -50,10 +49,10 @@ class Water:
         if self.debit > 1:
             if self.debit%2:
                 self.texture = (0, 50, 50)
-                # self.direction += math.pi/2
+                self.direction += math.pi/10
             else:
                 self.texture = (0, 20, 20)
-                # self.direction -= math.pi/2
+                self.direction -= math.pi/10
             # MRU depending on initial direction
             self.pos[X] += 10*math.cos(self.direction)
             self.pos[Y] += 10*math.sin(self.direction)

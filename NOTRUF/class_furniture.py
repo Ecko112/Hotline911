@@ -70,6 +70,3 @@ class Furniture:
 
         self.influence_rect = pygame.Rect(0, 0, self.length + self.influence_rad, self.width + self.influence_rad)
         self.influence_rect.center = self.pos
-
-
-

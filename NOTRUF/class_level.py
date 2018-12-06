@@ -141,7 +141,6 @@ class Level:
         # Update screen
         pygame.display.flip()
 
-
     def draw_grid(self):
         report = [self.UPPER_LEFT[X], self.UPPER_LEFT[Y]]
         while report[Y] < self.LOWER_RGHT[Y]:
