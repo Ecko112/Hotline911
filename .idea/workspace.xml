@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4cb16893-2c36-4c10-aea1-1e635de52f2e" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/NOTRUF/class_menu.py" beforeDir="false" afterPath="$PROJECT_DIR$/NOTRUF/class_menu.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NOTRUF/notruf_game.py" beforeDir="false" afterPath="$PROJECT_DIR$/NOTRUF/notruf_game.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -16,7 +16,7 @@
     <session id="212449679">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="60" />
+          <entry key="project.closed" value="61" />
           <entry key="project.open.time.0" value="9" />
           <entry key="project.open.time.1" value="7" />
           <entry key="project.open.time.10" value="1" />
@@ -35,13 +35,13 @@
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="classesINPROGRESS" value="1" />
-          <entry key="py" value="184" />
+          <entry key="py" value="185" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="PLAIN_TEXT" value="5" />
-          <entry key="Python" value="179" />
+          <entry key="Python" value="180" />
           <entry key="Scratch" value="1" />
         </counts>
       </usages-collector>
@@ -49,14 +49,14 @@
         <counts>
           <entry key="classesINPROGRESS" value="181" />
           <entry key="dummy" value="48" />
-          <entry key="py" value="70952" />
+          <entry key="py" value="72231" />
           <entry key="txt" value="83" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="PLAIN_TEXT" value="276" />
-          <entry key="Python" value="70987" />
+          <entry key="Python" value="72266" />
           <entry key="Scratch" value="1" />
         </counts>
       </usages-collector>
@@ -95,9 +95,9 @@
             <entry file="file://$PROJECT_DIR$/NOTRUF/class_menu.py">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="242">
-                  <caret line="37" lean-forward="true" selection-start-line="37" selection-end-line="37" />
+                  <caret line="32" lean-forward="true" selection-start-line="32" selection-end-line="32" />
                   <folding>
-                    <marker date="1544137310529" expanded="true" signature="92:93" ph="..." />
+                    <marker date="1544140159868" expanded="true" signature="94:95" ph="..." />
                   </folding>
                 </state>
               </provider>
@@ -142,11 +142,11 @@
       </split-first>
       <split-second>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file pinned="false" current-in-tab="false">
+          <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/NOTRUF/notruf_game.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="91">
-                  <caret line="25" selection-start-line="25" selection-end-line="25" />
+                <state relative-caret-position="210">
+                  <caret line="14" column="17" selection-start-line="14" selection-start-column="17" selection-end-line="14" selection-end-column="17" />
                   <folding>
                     <element signature="e#10#23#0" expanded="true" />
                   </folding>
@@ -175,7 +175,7 @@
               </provider>
             </entry>
           </file>
-          <file pinned="false" current-in-tab="true">
+          <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/NOTRUF/class_main.py">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="331">
@@ -238,7 +238,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/../../PPI/Flappy/Flappy.py" />
         <option value="$PROJECT_DIR$/test_output.py" />
         <option value="$PROJECT_DIR$/constantesNOTRUF.py" />
         <option value="$PROJECT_DIR$/create_building.py" />
@@ -288,6 +287,7 @@
         <option value="$PROJECT_DIR$/NOTRUF/class_level.py" />
         <option value="$PROJECT_DIR$/NOTRUF/class_furniture.py" />
         <option value="$PROJECT_DIR$/NOTRUF/notruf_game.py" />
+        <option value="$PROJECT_DIR$/NOTRUF/class_button.py" />
         <option value="$PROJECT_DIR$/NOTRUF/class_menu.py" />
       </list>
     </option>
@@ -738,7 +738,14 @@
       <option name="project" value="LOCAL" />
       <updated>1544118180148</updated>
     </task>
-    <option name="localTasksCounter" value="34" />
+    <task id="LOCAL-00034" summary="ras">
+      <created>1544137535267</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1544137535267</updated>
+    </task>
+    <option name="localTasksCounter" value="35" />
     <servers />
   </component>
   <component name="TodoView">
@@ -759,7 +766,7 @@
       <window_info id="Favorites" order="2" sideWeight="0.500813" side_tool="true" weight="0.24944155" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3284553" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.32626426" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.32626426" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39967373" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -839,7 +846,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/NOTRUF/notruf_game.py</url>
-          <line>28</line>
+          <line>29</line>
           <option name="timeStamp" value="3" />
         </line-breakpoint>
       </breakpoints>
@@ -1009,16 +1016,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/NOTRUF/notruf_game.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="91">
-          <caret line="25" selection-start-line="25" selection-end-line="25" />
-          <folding>
-            <element signature="e#10#23#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/NOTRUF/class_main.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="331">
@@ -1029,12 +1026,25 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/NOTRUF/notruf_game.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="14" column="17" selection-start-line="14" selection-start-column="17" selection-end-line="14" selection-end-column="17" />
+          <folding>
+            <element signature="e#10#23#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/NOTRUF/class_button.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/NOTRUF/class_menu.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="242">
-          <caret line="37" lean-forward="true" selection-start-line="37" selection-end-line="37" />
+          <caret line="32" lean-forward="true" selection-start-line="32" selection-end-line="32" />
           <folding>
-            <marker date="1544137310529" expanded="true" signature="92:93" ph="..." />
+            <marker date="1544140159868" expanded="true" signature="94:95" ph="..." />
           </folding>
         </state>
       </provider>

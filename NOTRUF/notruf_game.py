@@ -5,6 +5,7 @@ from NOTRUF import class_main
 
 # SETTINGS
 SCREEN_RESOLUTION = (1366, 713)
+
 FPS = 50
 
 
