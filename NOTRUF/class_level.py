@@ -67,39 +67,17 @@ class Level:
 
     def loop_level(self):
         self.process_input()
+        self.update_level()
         self.paint_level()
 
     def create_player(self):
         player = class_player.Player(self)
-        self.add_unit(player)
-
-    def add_unit(self, unit):
-        self.Units.append(unit)
+        self.Units.append(player)
 
     def create_structure(self):
         # Create
         structure = class_structure.Structure(self)
-        self.add_structure(structure)
-
-    def add_structure(self, structure):
         self.Structures.append(structure)
-
-    def paint_level(self):
-        # BACKGROUND
-        self.SCREEN.fill(self.HERBE_TEXTURE)
-        pygame.draw.rect(self.SCREEN, self.BITUME_TEXTURE, (self.ROUTEH, (self.SCREEN_RESOLUTION[X], self.SCREEN_RESOLUTION[Y] - self.ROUTEH[Y])))
-        # VEHICLES
-        pygame.draw.rect(self.SCREEN, (255, 10, 20), ((self.STARTING_POS[X]-300, self.STARTING_POS[Y]), (400, self.SCREEN_RESOLUTION[Y])))
-        # STRUCTURES
-        for structure in self.Structures:
-            class_structure.Structure.paint_structure(structure)
-        # UNITS
-        for unit in self.Units:
-            class_player.Player.paint_player(unit)
-        # [DEV] GRID
-        # self.draw_grid(screen)
-        # Update screen
-        pygame.display.flip()
 
     def process_input(self):
         mouse_pos = pygame.mouse.get_pos()
@@ -137,6 +115,32 @@ class Level:
                 class_player.Player.spray(self.Units[0])
             if not mouse_input[0]:
                 class_player.Player.stop_spray(self.Units[0])
+
+    def update_level(self):
+        for water in self.Water:
+            water.move_water()
+
+    def paint_level(self):
+        # BACKGROUND
+        self.SCREEN.fill(self.HERBE_TEXTURE)
+        pygame.draw.rect(self.SCREEN, self.BITUME_TEXTURE, (self.ROUTEH, (self.SCREEN_RESOLUTION[X], self.SCREEN_RESOLUTION[Y] - self.ROUTEH[Y])))
+        # VEHICLES
+        pygame.draw.rect(self.SCREEN, (255, 10, 20), ((self.STARTING_POS[X]-300, self.STARTING_POS[Y]), (400, self.SCREEN_RESOLUTION[Y])))
+        # STRUCTURES
+        for structure in self.Structures:
+            class_structure.Structure.paint_structure(structure)
+        # WATER PARTICLES
+        for water in self.Water:
+            water.paint_water()
+        # UNITS
+        for unit in self.Units:
+            unit.paint_player()
+        # [DEV] GRID
+        # self.draw_grid(screen)
+
+        # Update screen
+        pygame.display.flip()
+
 
     def draw_grid(self):
         report = [self.UPPER_LEFT[X], self.UPPER_LEFT[Y]]

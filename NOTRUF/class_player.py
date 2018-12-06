@@ -34,16 +34,13 @@ class Player:
         pygame.draw.circle(self.SCREEN, self.texture, self.pos, self.SIZE)
         pygame.draw.circle(self.SCREEN, (100, 100, 100), self.p_bouteille, 15)
 
-        for water in self.hose.water:
-            water.move_water()
-
     def rotate_player(self, mouse_pos):
         diff_m_p = mouse_pos[X] - self.pos[X], mouse_pos[Y] - self.pos[Y]
         self.orientation = math.atan2(diff_m_p[Y], diff_m_p[X])
         self.p_bouteille = (int(self.pos[X]+10*math.cos(self.orientation + math.pi)), int(self.pos[Y]+10*math.sin(self.orientation + math.pi)))
 
     def spray(self):
-        class_hose.Hose.spray_water(self.hose, self)
+        self.hose.spray_water(self)
 
     def stop_spray(self):
         self.spraying = False

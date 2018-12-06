@@ -15,6 +15,7 @@ class Water:
         self.MAIN = self.LEVEL.MAIN
         self.SCREEN = self.LEVEL.SCREEN
         self.parent_hose = hose
+        self.texture = (10, 0, 0)
         # Set water particle
         self.debit = self.parent_hose.debit
         self.pos = [self.parent_hose.hose_p[X], self.parent_hose.hose_p[Y]]
@@ -25,21 +26,20 @@ class Water:
         # Add to level list
         self.LEVEL.Water.append(self)
 
-    def draw_water(self):
+    def paint_water(self):
         pygame.draw.rect(self.SCREEN, self.texture, self.rect)
 
     def move_water(self):
-        screen = self.parent_hose.handler.MAIN.screen
         for structure in self.parent_hose.handler.LEVEL.Structures:
             for wall in structure.Walls:
                 if self.rect.colliderect(wall.Rect):
-                    self.parent_hose.water.remove(self)
+                    self.LEVEL.Water.remove(self)
                     return 'collision mur'
         for structure in self.parent_hose.handler.LEVEL.Structures:
             for room in structure.Rooms:
                 for furniture in room.Furniture:
                     if self.rect.colliderect(furniture.rect):
-                        self.parent_hose.water.remove(self)
+                        self.LEVEL.Water.remove(self)
                         return 'collision object'
         if self.debit > 1:
             if self.debit%2:
@@ -49,10 +49,9 @@ class Water:
                 self.texture = (0, 20, 20)
                 # self.direction -= math.pi/2
             # MRU depending on initial direction
-            self.pos[X] += self.debit*math.cos(self.direction)
-            self.pos[Y] += self.debit*math.sin(self.direction)
+            self.pos[X] += 10*math.cos(self.direction)
+            self.pos[Y] += 10*math.sin(self.direction)
             self.rect.center = self.pos
-            self.draw_water()
             self.debit -= 1
         else:
             self.LEVEL.Water.remove(self)
