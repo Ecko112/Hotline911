@@ -9,19 +9,24 @@ class Water:
     debit = 20
     spawnpos = [0, 0]
 
-    def __init__(self, hose, direction):
+    def __init__(self, hose, direction, LEVEL):
+        # INIT
+        self.LEVEL = LEVEL
+        self.MAIN = self.LEVEL.MAIN
+        self.SCREEN = self.LEVEL.SCREEN
         self.parent_hose = hose
-        self.direction = direction
+        # Set water particle
         self.debit = self.parent_hose.debit
-        self.parent_hose.water.append(self)
-        self.spawnpos = [self.parent_hose.hose_p[X], self.parent_hose.hose_p[Y]]
-
+        self.pos = [self.parent_hose.hose_p[X], self.parent_hose.hose_p[Y]]
+        self.direction = direction
+        # Set Rect object
         self.rect = pygame.Rect(0, 0, self.debit/5, self.debit/5)
-        self.pos = self.spawnpos
         self.rect.center = self.pos
+        # Add to level list
+        self.LEVEL.Water.append(self)
 
-    def draw_water(self, screen):
-        pygame.draw.rect(screen, texture, self.rect)
+    def draw_water(self):
+        pygame.draw.rect(self.SCREEN, self.texture, self.rect)
 
     def move_water(self):
         screen = self.parent_hose.handler.MAIN.screen
@@ -38,22 +43,16 @@ class Water:
                         return 'collision object'
         if self.debit > 1:
             if self.debit%2:
-                texture = (0, 50, 50)
+                self.texture = (0, 50, 50)
                 # self.direction += math.pi/2
             else:
-                texture = (0, 20, 20)
+                self.texture = (0, 20, 20)
                 # self.direction -= math.pi/2
-            self.pos[X] += 10*math.cos(self.direction)
-            self.pos[Y] += 10*math.sin(self.direction)
+            # MRU depending on initial direction
+            self.pos[X] += self.debit*math.cos(self.direction)
+            self.pos[Y] += self.debit*math.sin(self.direction)
             self.rect.center = self.pos
-            pygame.draw.rect(screen, texture, self.rect)
-            self.debit -= 1
-        elif -5 <= self.debit <= 1:
-            texture = (255, 0, 255)
-            self.pos[X] -= 10*math.cos(self.direction)
-            self.pos[Y] -= 10*math.sin(self.direction)
-            self.rect.center = self.pos
-            pygame.draw.rect(screen, texture, self.rect)
+            self.draw_water()
             self.debit -= 1
         else:
-            self.parent_hose.water.remove(self)
+            self.LEVEL.Water.remove(self)

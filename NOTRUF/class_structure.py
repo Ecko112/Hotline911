@@ -126,7 +126,7 @@ class Structure:
             report += room.lengthprim
 
             self.add_room(room)
-            print(room.length, '\t', room.width, '\t', room.lengthsec, '\t', room.widthsec)
+            # print(room.length, '\t', room.width, '\t', room.lengthsec, '\t', room.widthsec)
             i += 1
 
     def create_level_2(self, separation):
