@@ -15,15 +15,14 @@ class Unit:
 
     def mov_player(self, direction, axe):
         self.pos[axe] += 3*direction
-        # print(self.hose)
         self.hose.set_hose_line()
 
     def paint_player(self):
-        pygame.draw.circle(self.screen, (255, 0, 0), self.pos, self.size)
+        pygame.draw.circle(self.screen, (32, 32, 32), self.pos, self.size)
 
 
 class Hose:
-    texture = (0, 0, 0)
+    texture = (206, 5, 5)
     hose_line = [[200, 200], [200, 200]]
     polyhose = []
 
@@ -35,8 +34,6 @@ class Hose:
         self.handler.hose = self
 
     def paint_hose(self):
-        # print(len(self.hose_line))
-        print(self.hose_line)
         pygame.draw.lines(self.screen, self.texture, False, self.hose_line, 10)
 
         # pygame.draw.polygon(self.screen, self.texture, self.polyhose)

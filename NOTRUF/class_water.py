@@ -16,9 +16,8 @@ class Water:
         self.parent_hose = hose
         self.texture = (10, 0, 0)
         # Set water particle
-        # rand_modif = random.randrange(-10, 10, 1)
-        rand_modif = 0
-        self.debit = self.parent_hose.debit + rand_modif
+        # rand_modifdebit = (1000 + (random.randrange(-200, 200, 1)))/1000
+        self.debit = self.parent_hose.debit
         self.pos = [self.parent_hose.hose_p[X], self.parent_hose.hose_p[Y]]
         self.direction = direction
         # Set Rect object

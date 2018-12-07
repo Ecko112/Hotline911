@@ -1,4 +1,5 @@
 import pygame
+import sys
 from NOTRUF import class_level
 from NOTRUF import class_menu
 
@@ -55,7 +56,17 @@ class Main:
         else:
             print('MOVING USER STAGE : ERROR')
 
+    def process_input(self):
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                self.exit_game()
+
+    def exit_game(self):
+        pygame.quit()
+        sys.exit()
+
     def loop_main(self):
+        self.process_input()
         if self.User_Stage is 'inMenu':
             self.Menu.loop_menu()
         elif self.User_Stage is 'inLevel':

@@ -27,17 +27,24 @@ class Player:
         self.orientation = 0
         self.p_bouteille = self.pos
         self.spraying = False
+        # Set image
+        self.player_png = pygame.image.load('/home/louis/Documents/Universite/INFO2056/notruf112/NOTRUF/IMAGES/unit_attack.png')
+        self.player_png = pygame.transform.scale(self.player_png, (55, 70))
         # [DEV] Start with Hose
         self.hose = class_hose.Hose(self)
 
     def paint_player(self):
         pygame.draw.circle(self.SCREEN, self.texture, self.pos, self.SIZE)
         pygame.draw.circle(self.SCREEN, (100, 100, 100), self.p_bouteille, 15)
+        self.SCREEN.blit(self.player_png, (self.pos[X]-self.SIZE, self.pos[Y]-self.SIZE))
 
     def rotate_player(self, mouse_pos):
         diff_m_p = mouse_pos[X] - self.pos[X], mouse_pos[Y] - self.pos[Y]
-        self.orientation = math.atan2(diff_m_p[Y], diff_m_p[X])
+        new_orientation = math.atan2(diff_m_p[Y], diff_m_p[X])
+        diff_orientation = (self.orientation - new_orientation)*180/math.pi
+        self.player_png = pygame.transform.rotate(self.player_png, diff_orientation)
         self.p_bouteille = (int(self.pos[X]+10*math.cos(self.orientation + math.pi)), int(self.pos[Y]+10*math.sin(self.orientation + math.pi)))
+        self.orientation = new_orientation
 
     def spray(self):
         self.hose.spray_water(self)

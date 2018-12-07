@@ -20,6 +20,7 @@ class Menu:
         self.MAIN = MAIN
         self.SCREEN = self.MAIN.SCREEN
         self.SCREEN_RESOLUTION = self.MAIN.SCREEN_RESOLUTION
+        self.Buttons = []
         # Set Logo
         self.logo_size = (int(self.SCREEN_RESOLUTION[X]//2.61), int(self.SCREEN_RESOLUTION[X]//11.87))
         self.logo_pos = [0, 0]
@@ -53,6 +54,13 @@ class Menu:
         # [DEV] FORCE START LEVEL
         if key_input[self.FORCE_START_LEVEL]:
             self.MAIN.create_level()
+        # MOUSE INPUT
+        mouse_pos = pygame.mouse.get_pos()
+        mouse_input = pygame.mouse.get_pressed()
+        if mouse_input[0]:
+            for button in self.Buttons:
+                if button.title.get_rect(topleft=button.pos).collidepoint(mouse_pos):
+                    self.MAIN.exit_game()
 
 
 class Button:
@@ -71,7 +79,10 @@ class Button:
         self.size = self.font.size(self.text)
         # Create Surface
         self.title = self.font.render(text, True, self.font_color, self.back_color)
+        self.MENU.Buttons.append(self)
 
     def paint_button(self):
         self.SCREEN.blit(self.title, self.pos)
 
+    def isClicked(self):
+        pass
