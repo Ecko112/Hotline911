@@ -21,11 +21,11 @@ class Water:
         self.pos = [self.parent_hose.hose_p[X], self.parent_hose.hose_p[Y]]
         self.direction = direction
         # Set Rect object
-        self.size = self.debit/10
-        if self.size > 50:
-            self.size = 50
-        elif self.size < 10:
-            self.size = 10
+        self.size = 10
+        # if self.size > 50:
+        #     self.size = 50
+        # elif self.size < 10:
+        #     self.size = 10
 
         self.rect = pygame.Rect(0, 0, self.size, self.size)
         self.rect.center = self.pos
@@ -51,10 +51,8 @@ class Water:
         if self.debit > 1:
             if self.debit%2:
                 self.texture = (0, 50, 50)
-                self.direction += math.pi/10
             else:
                 self.texture = (0, 20, 20)
-                self.direction -= math.pi/10
             # MRU depending on initial direction
             rand_modif = (1000+(random.randrange(-200, 200, 1)))/1000
             self.pos[X] += 10*math.cos(self.direction)*rand_modif

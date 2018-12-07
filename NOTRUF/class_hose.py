@@ -13,11 +13,11 @@ class Hose:
         # INIT
         self.LEVEL = self.handler.LEVEL
         self.MAIN = self.LEVEL.MAIN
-        self.spray = math.pi / 50
+        self.spray = 60
         self.debit = 100
-        self.min_spray = math.pi / 50
+        self.min_spray = 30
         self.middle_spray = 0
-        self.max_spray = 16 * math.pi / 20
+        self.max_spray = 160
         self.min_debit = 25
         self.max_debit = 250
         # SELF
@@ -36,19 +36,20 @@ class Hose:
             pass
 
     def spray_actual_water(self):
-        nbr_water_entities = int(self.spray*50)
-        # nbr_water_entities = 3
-        direction = self.handler.orientation - self.spray/2 - (self.spray*2/nbr_water_entities)
+        nbr_water_entities = int(self.spray/10)
+        nbr_water_entities = 3
+        direction = self.handler.orientation - self.spray
         for water in range(0, nbr_water_entities+1, 1):
             direction += self.spray/nbr_water_entities
             class_water.Water(self, direction, self.LEVEL)
 
     def set_hose_spray(self, sens):
-        self.spray += (math.pi/100) * sens
+        self.spray += 5 * sens
         if self.spray < self.min_spray:
             self.spray = self.min_spray
         elif self.spray > self.max_spray:
             self.spray = self.max_spray
+        print(self.spray)
 
     def set_hose_debit(self, sens):
         self.debit += 10 * sens
