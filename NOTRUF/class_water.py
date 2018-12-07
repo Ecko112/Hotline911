@@ -1,5 +1,6 @@
 import pygame
 import math
+import random
 
 X = 0
 Y = 1
@@ -15,7 +16,9 @@ class Water:
         self.parent_hose = hose
         self.texture = (10, 0, 0)
         # Set water particle
-        self.debit = self.parent_hose.debit
+        # rand_modif = random.randrange(-10, 10, 1)
+        rand_modif = 0
+        self.debit = self.parent_hose.debit + rand_modif
         self.pos = [self.parent_hose.hose_p[X], self.parent_hose.hose_p[Y]]
         self.direction = direction
         # Set Rect object
@@ -54,8 +57,9 @@ class Water:
                 self.texture = (0, 20, 20)
                 self.direction -= math.pi/10
             # MRU depending on initial direction
-            self.pos[X] += 10*math.cos(self.direction)
-            self.pos[Y] += 10*math.sin(self.direction)
+            rand_modif = (1000+(random.randrange(-200, 200, 1)))/1000
+            self.pos[X] += 10*math.cos(self.direction)*rand_modif
+            self.pos[Y] += 10*math.sin(self.direction)*rand_modif
             self.rect.center = self.pos
             self.debit -= 1
         else:

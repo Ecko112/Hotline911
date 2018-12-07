@@ -20,13 +20,14 @@ class Menu:
         self.MAIN = MAIN
         self.SCREEN = self.MAIN.SCREEN
         self.SCREEN_RESOLUTION = self.MAIN.SCREEN_RESOLUTION
-        # Set title
-        self.title_font_size = int(self.SCREEN_RESOLUTION[X]/12.1964)
-        self.title_font = pygame.font.SysFont('monospace', self.title_font_size, True)
-        self.title = Button("HOTLINE911", self.title_font, (255, 255, 255), (255, 0, 0), self)
-        self.title.pos = [(self.SCREEN_RESOLUTION[X]-self.title.size[X])//2, self.SCREEN_RESOLUTION[Y]//15]
+        # Set Logo
+        self.logo_size = (int(self.SCREEN_RESOLUTION[X]//2.61), int(self.SCREEN_RESOLUTION[X]//11.87))
+        self.logo_pos = [0, 0]
+        self.logo_png = pygame.image.load('/home/louis/Documents/Universite/INFO2056/notruf112/NOTRUF/IMAGES/logo.png').convert_alpha(self.SCREEN)
+        self.logo_png = pygame.transform.scale(self.logo_png, self.logo_size)
+
         # Set Exit Game
-        self.exit_game_font_size = int(self.title_font_size/3)
+        self.exit_game_font_size = int(self.SCREEN_RESOLUTION[X]//39.02)
         self.exit_game_font = pygame.font.SysFont('monospace', self.exit_game_font_size)
         self.exit_game = Button("Exit Game", self.exit_game_font, (255, 255, 255), (255, 0, 0), self)
         self.exit_game.pos = [(self.SCREEN_RESOLUTION[X]-self.exit_game.size[X])//2, 8*self.SCREEN_RESOLUTION[Y]//10]
@@ -38,9 +39,9 @@ class Menu:
     def paint_menu(self):
         # Background
         self.SCREEN.fill((100, 100, 100))
+        # Logo
+        self.SCREEN.blit(self.logo_png, self.logo_pos)
         # Buttons
-        # Title
-        self.title.paint_button()
         # Exit
         self.exit_game.paint_button()
         # Update screen
