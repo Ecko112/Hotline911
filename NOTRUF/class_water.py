@@ -55,8 +55,9 @@ class Water:
                 self.texture = (0, 20, 20)
             # MRU depending on initial direction
             rand_modif = (1000+(random.randrange(-200, 200, 1)))/1000
-            self.pos[X] += 10*math.cos(self.direction)*rand_modif
-            self.pos[Y] += 10*math.sin(self.direction)*rand_modif
+            # rand_modif = 1
+            self.pos[X] += 10*math.cos(self.direction*(math.pi/180))*rand_modif
+            self.pos[Y] += 10*math.sin(self.direction*(math.pi/180))*rand_modif
             self.rect.center = self.pos
             self.debit -= 1
         else:

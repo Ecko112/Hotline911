@@ -40,42 +40,18 @@ class Player:
             player_png = pygame.image.load(path).convert_alpha(self.SCREEN)
             player_png_0 = pygame.transform.scale(player_png, (self.SIZE * 5 // 2, self.SIZE * 5 // 2))
             player_png_0 = pygame.transform.rotate(player_png_0, -90)
-            # player_png_60 = pygame.transform.rotate(player_png, -60)
             self.Images.append(player_png_0)
-            # self.Images.append(player_png_30)
-            # self.Images.append(player_png_60)
 
     def paint_player(self):
         # pygame.draw.circle(self.SCREEN, self.texture, self.pos, self.SIZE)
         # pygame.draw.circle(self.SCREEN, (100, 100, 100), self.p_bouteille, 15)
         self.SCREEN.blit(self.current_image, (self.pos[X]-self.SIZE*5//4, self.pos[Y]-self.SIZE*5//4))
 
-    def get_quadri(self):
-        if -2*math.pi/4 <= self.orientation < -1*math.pi/4:
-            return 0
-        elif -1*math.pi/4 <= self.orientation < 0:
-            return 1
-        elif 0 <= self.orientation < 1*math.pi/4:
-            return 2
-        elif 1*math.pi/4 <= self.orientation < 2*math.pi/4:
-            return 3
-        elif 2*math.pi/4 <= self.orientation < 3*math.pi/4:
-            return 4
-        elif 3*math.pi/4 <= self.orientation < 4*math.pi/4:
-            return 5
-        elif 4*math.pi/4 <= self.orientation < 5*math.pi/4:
-            return 6
-        elif 5*math.pi/4 <= self.orientation < 6*math.pi/4:
-            return 7
-        else:
-            return 7
-
     def rotate_player(self, mouse_pos):
         diff_m_p = mouse_pos[X] - self.pos[X], mouse_pos[Y] - self.pos[Y]
         self.orientation = (180/math.pi)*math.atan2(diff_m_p[Y], diff_m_p[X])
         if self.orientation < 0:
             self.orientation += 360
-        # self.current_image = self.Images[self.get_quadri()]
         self.current_image = pygame.transform.rotate(self.Images[0], -self.orientation)
         # self.p_bouteille = (int(self.pos[X]+10*math.cos(self.orientation + math.pi)), int(self.pos[Y]+10*math.sin(self.orientation + math.pi)))
 

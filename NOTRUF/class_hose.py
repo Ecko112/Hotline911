@@ -15,7 +15,7 @@ class Hose:
         self.MAIN = self.LEVEL.MAIN
         self.spray = 60
         self.debit = 100
-        self.min_spray = 30
+        self.min_spray = 10
         self.middle_spray = 0
         self.max_spray = 160
         self.min_debit = 25
@@ -26,7 +26,7 @@ class Hose:
 
     def spray_water(self, unit):
         self.handler = unit
-        self.hose_p = (int(self.handler.pos[X]+unit.SIZE*math.cos(self.handler.orientation)), int(self.handler.pos[Y]+self.handler.SIZE*math.sin(self.handler.orientation)))
+        self.hose_p = (int(self.handler.pos[X]+unit.SIZE*math.cos(self.handler.orientation*(math.pi/180))), int(self.handler.pos[Y]+self.handler.SIZE*math.sin(self.handler.orientation*(math.pi/180))))
         unit.spraying = True
         if len(self.LEVEL.Water) < 500:
             self.spray_actual_water()
@@ -36,10 +36,11 @@ class Hose:
             pass
 
     def spray_actual_water(self):
-        nbr_water_entities = int(self.spray/10)
-        nbr_water_entities = 3
-        direction = self.handler.orientation - self.spray
+        nbr_water_entities = int(self.spray/3)
+        # nbr_water_entities = 3
+        direction = self.handler.orientation - self.spray/2
         for water in range(0, nbr_water_entities+1, 1):
+            # direction += self.spray/nbr_water_entities
             direction += self.spray/nbr_water_entities
             class_water.Water(self, direction, self.LEVEL)
 
@@ -49,7 +50,6 @@ class Hose:
             self.spray = self.min_spray
         elif self.spray > self.max_spray:
             self.spray = self.max_spray
-        print(self.spray)
 
     def set_hose_debit(self, sens):
         self.debit += 10 * sens
