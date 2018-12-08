@@ -30,7 +30,7 @@ class Water:
         #     self.size = 10
 
         self.rect = pygame.Rect(0, 0, self.size, self.size)
-        self.rect.center = self.pos
+        self.rect.center = self.spawnpos
         # Add to level list
         self.LEVEL.Water.append(self)
 
@@ -50,7 +50,10 @@ class Water:
                     if self.rect.colliderect(furniture.rect):
                         self.LEVEL.Water.remove(self)
                         return 'collision object'
-        if get_dist(self.spawnpos, self.pos) > self.max_dist:
+        if get_dist(self.spawnpos, self.pos) < self.max_dist:
+            print(self.pos)
+            print(self.spawnpos)
+            print(get_dist(self.spawnpos, self.pos), self.max_dist)
             if self.debit%2:
                 self.texture = (0, 50, 50)
             else:
