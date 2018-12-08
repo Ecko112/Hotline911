@@ -1,5 +1,6 @@
 from NOTRUF import class_structure, class_player
 import pygame
+import random
 
 clock = pygame.time.Clock()
 
@@ -66,9 +67,9 @@ class Level:
         ##############
         self.create_structure()
         self.create_player()
+        self.ignite()
 
     def loop_level(self):
-        global i
         self.process_input()
         self.update_level()
         self.paint_level()
@@ -120,6 +121,9 @@ class Level:
                 class_player.Player.spray(self.Units[0])
             if not mouse_input[0]:
                 class_player.Player.stop_spray(self.Units[0])
+
+    def ignite(self):
+        self.Structures[random.randint(0, len(self.Structures)-1)].ignite()
 
     def update_level(self):
         for water in self.Water:

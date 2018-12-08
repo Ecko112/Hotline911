@@ -3,12 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="4cb16893-2c36-4c10-aea1-1e635de52f2e" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NOTRUF/class_furniture.py" beforeDir="false" afterPath="$PROJECT_DIR$/NOTRUF/class_furniture.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/NOTRUF/class_level.py" beforeDir="false" afterPath="$PROJECT_DIR$/NOTRUF/class_level.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/NOTRUF/class_menu.py" beforeDir="false" afterPath="$PROJECT_DIR$/NOTRUF/class_menu.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NOTRUF/class_room.py" beforeDir="false" afterPath="$PROJECT_DIR$/NOTRUF/class_room.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NOTRUF/class_structure.py" beforeDir="false" afterPath="$PROJECT_DIR$/NOTRUF/class_structure.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NOTRUF/notruf_game.py" beforeDir="false" afterPath="$PROJECT_DIR$/NOTRUF/notruf_game.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -55,14 +51,14 @@
         <counts>
           <entry key="classesINPROGRESS" value="181" />
           <entry key="dummy" value="48" />
-          <entry key="py" value="76416" />
+          <entry key="py" value="76477" />
           <entry key="txt" value="139" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="PLAIN_TEXT" value="332" />
-          <entry key="Python" value="76451" />
+          <entry key="Python" value="76512" />
           <entry key="Scratch" value="1" />
         </counts>
       </usages-collector>
@@ -94,15 +90,15 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/NOTRUF/class_level.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
-              <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="8" />
+            <state relative-caret-position="-285">
+              <caret line="11" column="20" lean-forward="true" selection-start-line="11" selection-start-column="20" selection-end-line="11" selection-end-column="20" />
               <folding>
                 <element signature="e#0#48#0" expanded="true" />
-                <marker date="1544277895715" expanded="true" signature="2349:2354" ph="..." />
-                <marker date="1544277895715" expanded="true" signature="4243:4248" ph="..." />
+                <marker date="1544278747164" expanded="true" signature="2368:2373" ph="..." />
+                <marker date="1544278747164" expanded="true" signature="4361:4366" ph="..." />
               </folding>
             </state>
           </provider>
@@ -111,8 +107,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/NOTRUF/class_structure.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="211">
-              <caret line="52" column="19" lean-forward="true" selection-start-line="52" selection-start-column="19" selection-end-line="52" selection-end-column="19" />
+            <state relative-caret-position="181">
+              <caret line="50" selection-start-line="50" selection-end-line="51" />
               <folding>
                 <element signature="e#0#13#0" expanded="true" />
                 <marker date="1544275411879" expanded="true" signature="8746:8775" ph="..." />
@@ -124,8 +120,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/UNDER_PROGRESS/output.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="351">
-              <caret line="32" column="22" lean-forward="true" selection-start-line="32" selection-start-column="22" selection-end-line="32" selection-end-column="22" />
+            <state relative-caret-position="-9">
+              <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="8" />
               <folding>
                 <element signature="e#0#13#0" expanded="true" />
               </folding>
@@ -133,13 +129,13 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/NOTRUF/class_menu.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="61">
-              <caret line="62" column="28" lean-forward="true" selection-start-line="62" selection-start-column="28" selection-end-line="62" selection-end-column="28" />
+            <state relative-caret-position="781">
+              <caret line="53" column="17" lean-forward="true" selection-start-line="53" selection-start-column="17" selection-end-line="53" selection-end-column="17" />
               <folding>
-                <marker date="1544278111983" expanded="true" signature="122:123" ph="..." />
+                <marker date="1544278644420" expanded="true" signature="122:123" ph="..." />
               </folding>
             </state>
           </provider>
@@ -288,8 +284,8 @@
         <option value="$PROJECT_DIR$/NOTRUF/class_structure.py" />
         <option value="$PROJECT_DIR$/NOTRUF/class_room.py" />
         <option value="$PROJECT_DIR$/NOTRUF/notruf_game.py" />
-        <option value="$PROJECT_DIR$/NOTRUF/class_level.py" />
         <option value="$PROJECT_DIR$/NOTRUF/class_menu.py" />
+        <option value="$PROJECT_DIR$/NOTRUF/class_level.py" />
       </list>
     </option>
   </component>
@@ -807,7 +803,14 @@
       <option name="project" value="LOCAL" />
       <updated>1544270498007</updated>
     </task>
-    <option name="localTasksCounter" value="42" />
+    <task id="LOCAL-00042" summary="ras">
+      <created>1544278402427</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1544278402427</updated>
+    </task>
+    <option name="localTasksCounter" value="43" />
     <servers />
   </component>
   <component name="TodoView">
@@ -1043,27 +1046,6 @@
     <entry file="file://$PROJECT_DIR$/UNDER_PROGRESS/IMAGES/unitUP.png">
       <provider selected="true" editor-type-id="images" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/UNDER_PROGRESS/output.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="351">
-          <caret line="32" column="22" lean-forward="true" selection-start-line="32" selection-start-column="22" selection-end-line="32" selection-end-column="22" />
-          <folding>
-            <element signature="e#0#13#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/NOTRUF/class_structure.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="211">
-          <caret line="52" column="19" lean-forward="true" selection-start-line="52" selection-start-column="19" selection-end-line="52" selection-end-column="19" />
-          <folding>
-            <element signature="e#0#13#0" expanded="true" />
-            <marker date="1544275411879" expanded="true" signature="8746:8775" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/NOTRUF/class_room.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="211">
@@ -1088,18 +1070,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/NOTRUF/class_level.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="8" />
-          <folding>
-            <element signature="e#0#48#0" expanded="true" />
-            <marker date="1544277895715" expanded="true" signature="2349:2354" ph="..." />
-            <marker date="1544277895715" expanded="true" signature="4243:4248" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/NOTRUF/class_main.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-135">
@@ -1110,12 +1080,45 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/UNDER_PROGRESS/output.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-9">
+          <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="8" />
+          <folding>
+            <element signature="e#0#13#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/NOTRUF/class_menu.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="61">
-          <caret line="62" column="28" lean-forward="true" selection-start-line="62" selection-start-column="28" selection-end-line="62" selection-end-column="28" />
+        <state relative-caret-position="781">
+          <caret line="53" column="17" lean-forward="true" selection-start-line="53" selection-start-column="17" selection-end-line="53" selection-end-column="17" />
           <folding>
-            <marker date="1544278111983" expanded="true" signature="122:123" ph="..." />
+            <marker date="1544278644420" expanded="true" signature="122:123" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/NOTRUF/class_structure.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="181">
+          <caret line="50" selection-start-line="50" selection-end-line="51" />
+          <folding>
+            <element signature="e#0#13#0" expanded="true" />
+            <marker date="1544275411879" expanded="true" signature="8746:8775" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/NOTRUF/class_level.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-285">
+          <caret line="11" column="20" lean-forward="true" selection-start-line="11" selection-start-column="20" selection-end-line="11" selection-end-column="20" />
+          <folding>
+            <element signature="e#0#48#0" expanded="true" />
+            <marker date="1544278747164" expanded="true" signature="2368:2373" ph="..." />
+            <marker date="1544278747164" expanded="true" signature="4361:4366" ph="..." />
           </folding>
         </state>
       </provider>

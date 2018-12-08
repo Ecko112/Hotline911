@@ -41,7 +41,6 @@ class Menu:
         self.exit_game.pos = [(self.SCREEN_RESOLUTION[X]-self.exit_game.size[X])//2, 8*self.SCREEN_RESOLUTION[Y]//10]
 
     def loop_menu(self):
-        global i
         self.process_input()
         self.paint_menu()
         # LOCK 10 FPS
