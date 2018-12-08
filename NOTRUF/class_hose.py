@@ -42,7 +42,9 @@ class Hose:
         for water in range(0, nbr_water_entities+1, 1):
             # direction += self.spray/nbr_water_entities
             direction += self.spray/nbr_water_entities
-            class_water.Water(self, direction, self.LEVEL)
+            alpha = self.handler.orientation - direction
+            max_dist = self.debit*math.cos(alpha*(math.pi/180))
+            class_water.Water(self, direction, max_dist, self.LEVEL)
 
     def set_hose_spray(self, sens):
         self.spray += 5 * sens

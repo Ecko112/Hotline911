@@ -8,7 +8,7 @@ Y = 1
 
 class Water:
 
-    def __init__(self, hose, direction, LEVEL):
+    def __init__(self, hose, direction, max_dist, LEVEL):
         # INIT
         self.LEVEL = LEVEL
         self.MAIN = self.LEVEL.MAIN
@@ -18,7 +18,9 @@ class Water:
         # Set water particle
         # rand_modifdebit = (1000 + (random.randrange(-200, 200, 1)))/1000
         self.debit = self.parent_hose.debit
-        self.pos = [self.parent_hose.hose_p[X], self.parent_hose.hose_p[Y]]
+        self.max_dist = max_dist
+        self.spawnpos = [self.parent_hose.hose_p[X], self.parent_hose.hose_p[Y]]
+        self.pos = self.spawnpos
         self.direction = direction
         # Set Rect object
         self.size = 10
@@ -48,7 +50,7 @@ class Water:
                     if self.rect.colliderect(furniture.rect):
                         self.LEVEL.Water.remove(self)
                         return 'collision object'
-        if self.debit > 1:
+        if get_dist(self.spawnpos, self.pos) > self.max_dist:
             if self.debit%2:
                 self.texture = (0, 50, 50)
             else:
@@ -59,6 +61,9 @@ class Water:
             self.pos[X] += 10*math.cos(self.direction*(math.pi/180))*rand_modif
             self.pos[Y] += 10*math.sin(self.direction*(math.pi/180))*rand_modif
             self.rect.center = self.pos
-            self.debit -= 1
         else:
             self.LEVEL.Water.remove(self)
+
+
+def get_dist(point1, point2):
+    return int(math.sqrt(((point1[X]-point2[X])**2)+(point1[Y]-point2[Y])**2))
