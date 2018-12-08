@@ -1,6 +1,7 @@
 import pygame
 # import math
 pygame.font.init()
+clock = pygame.time.Clock()
 
 X = 0
 Y = 1
@@ -23,9 +24,15 @@ class Menu:
         self.Buttons = []
         # Set Logo
         self.logo_size = (int(self.SCREEN_RESOLUTION[X]//2.61), int(self.SCREEN_RESOLUTION[X]//11.87))
-        self.logo_pos = [0, 0]
+        self.logo_pos = [(self.SCREEN_RESOLUTION[X]-self.logo_size[X])//2, 0]
         self.logo_png = pygame.image.load('/home/louis/Documents/Universite/INFO2056/notruf112/NOTRUF/IMAGES/logo.png').convert_alpha(self.SCREEN)
         self.logo_png = pygame.transform.scale(self.logo_png, self.logo_size)
+
+        # Set Start Level
+        self.start_level_font_size = int(self.SCREEN_RESOLUTION[X] // 39.02)
+        self.start_level_font = pygame.font.SysFont('monospace', self.start_level_font_size)
+        self.start_level = Button("Start New Level", self.start_level_font, (255, 255, 255), (255, 0, 0), self)
+        self.start_level.pos = [(self.SCREEN_RESOLUTION[X]-self.start_level.size[X])//2, 3*self.SCREEN_RESOLUTION[Y]//10]
 
         # Set Exit Game
         self.exit_game_font_size = int(self.SCREEN_RESOLUTION[X]//39.02)
@@ -34,8 +41,11 @@ class Menu:
         self.exit_game.pos = [(self.SCREEN_RESOLUTION[X]-self.exit_game.size[X])//2, 8*self.SCREEN_RESOLUTION[Y]//10]
 
     def loop_menu(self):
+        global i
         self.process_input()
         self.paint_menu()
+        # LOCK 10 FPS
+        clock.tick(10)
 
     def paint_menu(self):
         # Background
@@ -43,6 +53,8 @@ class Menu:
         # Logo
         self.SCREEN.blit(self.logo_png, self.logo_pos)
         # Buttons
+        # Start Level
+        self.start_level.paint_button()
         # Exit
         self.exit_game.paint_button()
         # Update screen
@@ -60,7 +72,10 @@ class Menu:
         if mouse_input[0]:
             for button in self.Buttons:
                 if button.title.get_rect(topleft=button.pos).collidepoint(mouse_pos):
-                    self.MAIN.exit_game()
+                    if button is self.exit_game:
+                        self.MAIN.exit_game()
+                    elif button is self.start_level:
+                        self.MAIN.create_level()
 
 
 class Button:

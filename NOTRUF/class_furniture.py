@@ -7,12 +7,12 @@ Y = 1
 class Furniture:
     texture = (200, 200, 150)
 
-    def __init__(self, pos, length, width, MAIN, LEVEL, STRUCTURE, ROOM):
+    def __init__(self, pos, length, width, ROOM):
         # INIT
-        self.MAIN = MAIN
-        self.LEVEL = LEVEL
-        self.STRUCTURE = STRUCTURE
         self.ROOM = ROOM
+        self.STRUCTURE = self.ROOM.STRUCTURE
+        self.LEVEL = self.ROOM.LEVEL
+        self.MAIN = self.ROOM.LEVEL
         self.burning = False
 
         # SETTINGS

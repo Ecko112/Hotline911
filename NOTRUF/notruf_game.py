@@ -12,7 +12,6 @@ FPS = 50
 # PYGAME.INIT() #
 #################
 pygame.init()
-clock = pygame.time.Clock()
 
 # CREATE_MAIN_CLASS
 main = class_main.Main(SCREEN_RESOLUTION)
@@ -22,7 +21,4 @@ main.create_menu()
 #################
 while True:
     main.loop_main()
-
-    # LOCK FPS
-    clock.tick(FPS)
 #############

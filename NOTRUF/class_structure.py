@@ -43,6 +43,7 @@ class Structure:
         self.create_level_1()
         self.create_level_2(self.Separation[0])
         self.wall_up()
+        self.stuff_up()
 
     def ignite(self):
         self.burning = True
@@ -229,6 +230,10 @@ class Structure:
             class_room.Room.paint_furniture(room, self.SCREEN)
         for wall in self.Walls:
             pygame.draw.rect(self.SCREEN, (255, 255, 255), wall.Rect)
+
+    def stuff_up(self):
+        for room in self.Rooms:
+            room.stuff_up()
 
 
 class Separation:

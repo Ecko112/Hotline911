@@ -39,7 +39,7 @@ class Room:
         self.shape = None
         # SET DEFAULT
         self.burning = False
-        self.temp = 30
+        self.heat = 30
 
     def ignite(self):
         self.burning = True
@@ -50,7 +50,7 @@ class Room:
         if self.burning:
             for object in self.Furniture:
                 object.burn()
-            if 400 <= int(self.temp) <= 401:
+            if 400 <= int(self.heat) <= 401:
                 self.flashover()
         else:
             pass
@@ -82,7 +82,7 @@ class Room:
             posy = random.randrange(width // 2, abs(self.width) + 1 - width // 2, self.GRID_SIZE)
             position = [posx + self.p1[X], self.p1[Y] + posy]
 
-            class_furniture.Furniture(position, length, width, self.MAIN, self.LEVEL, self.STRUCTURE, self)
+            class_furniture.Furniture(position, length, width, self)
 
     def wall_up(self):
         self.poly_room()

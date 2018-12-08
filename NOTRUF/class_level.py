@@ -1,6 +1,8 @@
 from NOTRUF import class_structure, class_player
 import pygame
 
+clock = pygame.time.Clock()
+
 X = 0
 Y = 1
 
@@ -66,9 +68,12 @@ class Level:
         self.create_player()
 
     def loop_level(self):
+        global i
         self.process_input()
         self.update_level()
         self.paint_level()
+        # LOCK 50 FPS
+        clock.tick(50)
 
     def create_player(self):
         player = class_player.Player(self)
