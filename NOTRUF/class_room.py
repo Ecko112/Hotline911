@@ -16,6 +16,7 @@ class Room:
         self.STRUCTURE = STRUCTURE
         self.LEVEL = self.STRUCTURE.LEVEL
         self.MAIN = self.LEVEL.MAIN
+        self.SCREEN = self.STRUCTURE.SCREEN
         self.WALL_SIZE = self.STRUCTURE.WALL_SIZE
         self.GRID_SIZE = self.STRUCTURE.GRID_SIZE
         # Lists
@@ -63,15 +64,11 @@ class Room:
     def poly_room(self):
         self.polyroom = [self.p1, self.p2, self.p3, self.p4, self.p5, self.p6]
 
-    def paint_room(self, screen):
+    def paint_room(self):
         self.poly_room()
-        pygame.draw.polygon(screen, self.floor_texture, self.polyroom)
-
-    def paint_furniture(self, screen):
+        pygame.draw.polygon(self.SCREEN, self.floor_texture, self.polyroom)
         for objet in self.Furniture:
-            pygame.draw.rect(screen, objet.texture, objet.rect)
-            # [DEV] DRAW RADIATION ZONE
-            pygame.draw.rect(screen, (0, 0, 0), objet.influence_rect, 2)
+            objet.paint_furniture()
 
     def stuff_up(self):
         nbr_meubles = random.randint(1, 5)

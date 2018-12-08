@@ -126,6 +126,8 @@ class Level:
         self.Structures[random.randint(0, len(self.Structures)-1)].ignite()
 
     def update_level(self):
+        for structure in self.Structures:
+            structure.burn()
         for water in self.Water:
             water.move_water()
 

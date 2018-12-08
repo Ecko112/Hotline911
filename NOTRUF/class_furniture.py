@@ -1,15 +1,21 @@
 import pygame
 
+pygame.font.init()
+
 X = 0
 Y = 1
 
 
 class Furniture:
     texture = (200, 200, 150)
+    font = pygame.font.SysFont('monospace', 20)
+
+    ignition_tresh = 80
 
     def __init__(self, pos, length, width, ROOM):
         # INIT
         self.ROOM = ROOM
+        self.SCREEN = self.ROOM.SCREEN
         self.STRUCTURE = self.ROOM.STRUCTURE
         self.LEVEL = self.ROOM.LEVEL
         self.MAIN = self.ROOM.LEVEL
@@ -34,9 +40,14 @@ class Furniture:
         self.ROOM.Furniture.append(self)
         self.STRUCTURE.Furniture.append(self)
 
+    def paint_furniture(self):
+        pygame.draw.rect(self.SCREEN, self.texture, self.rect)
+        # [DEV] DRAW RADIATION ZONE
+        pygame.draw.rect(self.SCREEN, (0, 0, 0), self.influence_rect, 2)
+
     def ignite(self):
         self.burning = True
-        self.heat = 81
+        self.heat = self.ignition_tresh
         self.influence_rect = pygame.Rect(0, 0, self.length + self.influence_rad, self.width + self.influence_rad)
         self.influence_rect.center = self.pos
         self.influence_rad = 0
