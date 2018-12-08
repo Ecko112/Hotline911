@@ -50,7 +50,7 @@ class Room:
         if self.burning:
             for object in self.Furniture:
                 object.burn()
-            if 400 < int(self.temp) < 401:
+            if 400 <= int(self.temp) <= 401:
                 self.flashover()
         else:
             pass
@@ -87,10 +87,12 @@ class Room:
     def wall_up(self):
         self.poly_room()
         if self.shape == 'rect':
-            if self.length > self.STRUCTURE.DOOR_SIZE + 50:
+            # MURS HORIZONTAUX
+            if self.length > self.STRUCTURE.DOOR_SIZE + 4*self.WALL_SIZE:
+                # I can fit a door
                 wall_h11 = Wall()
                 wall_h11.p1 = (self.p4[X] - self.WALL_SIZE // 2, self.p4[Y] - self.WALL_SIZE // 2)
-                wall_h11.length = random.randrange(35, self.length - self.STRUCTURE.DOOR_SIZE - 25, 25)
+                wall_h11.length = random.randrange(2*self.WALL_SIZE, self.length - self.STRUCTURE.DOOR_SIZE - self.WALL_SIZE*2, self.WALL_SIZE)
                 wall_h11.width = self.WALL_SIZE
                 self.add_wall(wall_h11)
 
@@ -101,12 +103,14 @@ class Room:
                 self.add_wall(wall_h12)
 
             else:
+                # I can't fit a door
                 wall_h11 = Wall()
                 wall_h11.p1 = (self.p4[X] - self.WALL_SIZE // 2, self.p4[Y] - self.WALL_SIZE // 2)
                 wall_h11.length = self.WALL_SIZE + self.length
                 wall_h11.width = self.WALL_SIZE
                 self.add_wall(wall_h11)
 
+            # MUR VERTICAL
             if True:
                 wall_v11 = Wall()
                 wall_v11.p1 = (self.p2[X] - self.WALL_SIZE // 2, self.p2[Y] - self.WALL_SIZE // 2)
@@ -115,10 +119,12 @@ class Room:
                 self.add_wall(wall_v11)
 
         elif self.shape == 'poly':
-            if self.length >= self.STRUCTURE.DOOR_SIZE + 60:
+            # MURS HORIZONTAUX
+            if self.length >= self.STRUCTURE.DOOR_SIZE + 4*self.WALL_SIZE:
+                # I can fit a door
                 wall_h11 = Wall()
                 wall_h11.p1 = (self.p6[X] - self.WALL_SIZE // 2, self.p6[Y] - self.WALL_SIZE // 2)
-                wall_h11.length = random.randrange(30, self.length - self.STRUCTURE.DOOR_SIZE - 30, 10)
+                wall_h11.length = random.randrange(2*self.WALL_SIZE, self.length - self.STRUCTURE.DOOR_SIZE - 2*self.WALL_SIZE, self.WALL_SIZE)
                 wall_h11.width = self.WALL_SIZE
                 self.add_wall(wall_h11)
 
@@ -129,23 +135,25 @@ class Room:
                 self.add_wall(wall_h12)
 
             else:
+                # I can't fit a door
                 wall_h11 = Wall()
                 wall_h11.p1 = (self.p6[X] - self.WALL_SIZE // 2, self.p6[Y] - self.WALL_SIZE // 2)
                 wall_h11.length = self.length + self.WALL_SIZE
                 wall_h11.width = self.WALL_SIZE
                 self.add_wall(wall_h11)
+            # MURS VERTICAUX
+            if True:
+                wall_v11 = Wall()
+                wall_v11.p1 = (self.p2[X] - self.WALL_SIZE // 2, self.p2[Y] - self.WALL_SIZE // 2)
+                wall_v11.length = self.WALL_SIZE
+                wall_v11.width = self.widthprim + self.WALL_SIZE
+                self.add_wall(wall_v11)
 
-            wall_v11 = Wall()
-            wall_v11.p1 = (self.p2[X] - self.WALL_SIZE // 2, self.p2[Y] - self.WALL_SIZE // 2)
-            wall_v11.length = self.WALL_SIZE
-            wall_v11.width = self.widthprim + self.WALL_SIZE
-            self.add_wall(wall_v11)
-
-            wall_v12 = Wall()
-            wall_v12.p1 = (self.p4[X] - self.WALL_SIZE // 2, self.p4[Y] - self.WALL_SIZE // 2)
-            wall_v12.length = self.WALL_SIZE
-            wall_v12.width = self.widthsec + self.WALL_SIZE
-            self.add_wall(wall_v12)
+                wall_v12 = Wall()
+                wall_v12.p1 = (self.p4[X] - self.WALL_SIZE // 2, self.p4[Y] - self.WALL_SIZE // 2)
+                wall_v12.length = self.WALL_SIZE
+                wall_v12.width = self.widthsec + self.WALL_SIZE
+                self.add_wall(wall_v12)
 
     def add_wall(self, wall):
         wall.Rect = pygame.Rect(wall.p1[X], wall.p1[Y], wall.length, wall.width)

@@ -38,14 +38,14 @@ class Player:
         for file in ('unit_att_UP.png', 'unit_att_RGHT.png', 'unit_att_DOWN.png', 'unit_att_LEFT.png'):
             path = '/home/louis/Documents/Universite/INFO2056/notruf112/UNDER_PROGRESS/IMAGES/' + file
             player_png = pygame.image.load(path).convert_alpha(self.SCREEN)
-            player_png_0 = pygame.transform.scale(player_png, (self.SIZE * 5 // 2, self.SIZE * 5 // 2))
+            player_png_0 = pygame.transform.scale(player_png, (self.SIZE * 6 // 2, self.SIZE * 6 // 2))
             player_png_0 = pygame.transform.rotate(player_png_0, -90)
             self.Images.append(player_png_0)
 
     def paint_player(self):
         # pygame.draw.circle(self.SCREEN, self.texture, self.pos, self.SIZE)
         # pygame.draw.circle(self.SCREEN, (100, 100, 100), self.p_bouteille, 15)
-        self.SCREEN.blit(self.current_image, (self.pos[X]-self.SIZE*5//4, self.pos[Y]-self.SIZE*5//4))
+        self.SCREEN.blit(self.current_image, (self.pos[X]-self.SIZE*6//4, self.pos[Y]-self.SIZE*6//4))
 
     def rotate_player(self, mouse_pos):
         diff_m_p = mouse_pos[X] - self.pos[X], mouse_pos[Y] - self.pos[Y]

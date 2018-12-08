@@ -16,21 +16,23 @@ class Furniture:
         self.burning = False
 
         # SETTINGS
-        self.influence_rad = self.ROOM.GRID_SIZE
         self.pos = pos
         self.length = length
         self.width = width
         self.rect = pygame.Rect(0, 0, self.length, self.width)
         self.rect.center = self.pos
+
         self.influence_rect = pygame.Rect(0, 0, self.length, self.width)
         self.influence_rect.center = self.pos
-        self.influence_max_length = self.ROOM.GRID_SIZE * 5/2
-        self.influence_max_width = self.influence_max_length
+
+        self.influence_rad = self.ROOM.GRID_SIZE
+        self.influence_max = self.ROOM.GRID_SIZE * 5 / 2
         self.influence = 1/100
         self.influence_room = self.influence
         self.heat = self.ROOM.heat
 
         self.ROOM.Furniture.append(self)
+        self.STRUCTURE.Furniture.append(self)
 
     def ignite(self):
         self.burning = True
@@ -60,13 +62,13 @@ class Furniture:
         elif int(self.heat) == 80:
             self.ignite()
         elif 80 <= self.heat < 400:
-            if self.influence_rad < self.influence_max_length:
+            if self.influence_rad < self.influence_max:
                 self.influence_rad += 1/50
                 self.influence_room += self.heat//1000
             else:
-                self.influence_rad = self.influence_max_length
+                self.influence_rad = self.influence_max
         elif self.heat >= 400:
-            self.influence_rad = self.influence_max_length
+            self.influence_rad = self.influence_max
 
         self.influence_rect = pygame.Rect(0, 0, self.length + self.influence_rad, self.width + self.influence_rad)
         self.influence_rect.center = self.pos
