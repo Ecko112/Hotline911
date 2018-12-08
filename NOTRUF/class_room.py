@@ -8,8 +8,8 @@ Y = 1
 
 class Room:
     # Textures
-    floor_texture = (0, 255, 0)
-    wall_texture = (255, 255, 255)
+    floor_texture = (145, 109, 61)
+    wall_texture = (132, 132, 120)
 
     def __init__(self, STRUCTURE):
         # INIT

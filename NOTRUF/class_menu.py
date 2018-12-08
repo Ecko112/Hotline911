@@ -23,22 +23,22 @@ class Menu:
         self.SCREEN_RESOLUTION = self.MAIN.SCREEN_RESOLUTION
         self.Buttons = []
         # Set Logo
-        self.logo_size = (int(self.SCREEN_RESOLUTION[X]//2.61), int(self.SCREEN_RESOLUTION[X]//11.87))
-        self.logo_pos = [(self.SCREEN_RESOLUTION[X]-self.logo_size[X])//2, 0]
-        self.logo_png = pygame.image.load('/home/louis/Documents/Universite/INFO2056/notruf112/NOTRUF/IMAGES/logo.png').convert_alpha(self.SCREEN)
+        self.logo_size = (int(self.SCREEN_RESOLUTION[X]//1.5/2), int(self.SCREEN_RESOLUTION[X]//9.04/2))
+        self.logo_pos = [2*self.SCREEN_RESOLUTION[X]/100, 2*self.SCREEN_RESOLUTION[X]/100]
+        self.logo_png = pygame.image.load('/home/louis/Documents/Universite/INFO2056/notruf112/UNDER_PROGRESS/IMAGES/logo908x151.png').convert_alpha(self.SCREEN)
         self.logo_png = pygame.transform.scale(self.logo_png, self.logo_size)
 
         # Set Start Level
         self.start_level_font_size = int(self.SCREEN_RESOLUTION[X] // 39.02)
         self.start_level_font = pygame.font.SysFont('monospace', self.start_level_font_size)
-        self.start_level = Button("Start New Level", self.start_level_font, (255, 255, 255), (255, 0, 0), self)
-        self.start_level.pos = [(self.SCREEN_RESOLUTION[X]-self.start_level.size[X])//2, 3*self.SCREEN_RESOLUTION[Y]//10]
+        self.start_level = Button(" Start New Level ", self.start_level_font, (255, 255, 255), (255, 0, 0), self)
+        self.start_level.pos = [2*self.SCREEN_RESOLUTION[X]/100, 30*self.SCREEN_RESOLUTION[Y]//100]
 
         # Set Exit Game
         self.exit_game_font_size = int(self.SCREEN_RESOLUTION[X]//39.02)
         self.exit_game_font = pygame.font.SysFont('monospace', self.exit_game_font_size)
-        self.exit_game = Button("Exit Game", self.exit_game_font, (255, 255, 255), (255, 0, 0), self)
-        self.exit_game.pos = [(self.SCREEN_RESOLUTION[X]-self.exit_game.size[X])//2, 8*self.SCREEN_RESOLUTION[Y]//10]
+        self.exit_game = Button(" Exit Game ", self.exit_game_font, (255, 255, 255), (255, 0, 0), self)
+        self.exit_game.pos = [2*self.SCREEN_RESOLUTION[X]/100, 37*self.SCREEN_RESOLUTION[Y]//100]
 
     def loop_menu(self):
         self.process_input()

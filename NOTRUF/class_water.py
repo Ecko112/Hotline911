@@ -16,23 +16,20 @@ class Water:
         self.parent_hose = hose
         self.texture = (10, 0, 0)
         # Set water particle
-        # rand_modifdebit = (1000 + (random.randrange(-200, 200, 1)))/1000
         self.debit = self.parent_hose.debit
         self.max_dist = max_dist
         self.spawnpos = [self.parent_hose.hose_p[X], self.parent_hose.hose_p[Y]]
         self.pos = self.spawnpos
         self.direction = direction
         # Set Rect object
-        self.size = 10
-        # if self.size > 50:
-        #     self.size = 50
-        # elif self.size < 10:
-        #     self.size = 10
+        self.size = 15
 
         self.rect = pygame.Rect(0, 0, self.size, self.size)
         self.rect.center = self.spawnpos
         # Add to level list
         self.LEVEL.Water.append(self)
+        # print(self.max_dist)
+        # print(self.debit)
 
     def paint_water(self):
         pygame.draw.rect(self.SCREEN, self.texture, self.rect)
@@ -50,20 +47,19 @@ class Water:
                     if self.rect.colliderect(furniture.rect):
                         self.LEVEL.Water.remove(self)
                         return 'collision object'
-        if get_dist(self.spawnpos, self.pos) < self.max_dist:
-            print(self.pos)
-            print(self.spawnpos)
-            print(get_dist(self.spawnpos, self.pos), self.max_dist)
+        if get_dist(self.parent_hose.hose_p, self.pos) < self.max_dist:
             if self.debit%2:
-                self.texture = (0, 50, 50)
+                self.texture = (80, 159, 239)
             else:
-                self.texture = (0, 20, 20)
+                self.texture = (70, 140, 210)
             # MRU depending on initial direction
-            rand_modif = (1000+(random.randrange(-200, 200, 1)))/1000
+            rand_modif = (100+(random.randrange(-20, 20, 1)))/100
+            # [DEV] Disable Randomized Water Movement
             # rand_modif = 1
-            self.pos[X] += 10*math.cos(self.direction*(math.pi/180))*rand_modif
-            self.pos[Y] += 10*math.sin(self.direction*(math.pi/180))*rand_modif
+            self.pos[X] += 20*math.cos(self.direction*(math.pi/180))*rand_modif
+            self.pos[Y] += 20*math.sin(self.direction*(math.pi/180))*rand_modif
             self.rect.center = self.pos
+            self.debit -= 1
         else:
             self.LEVEL.Water.remove(self)
 

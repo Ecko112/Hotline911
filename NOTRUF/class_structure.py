@@ -229,7 +229,7 @@ class Structure:
             class_room.Room.paint_room(room, self.SCREEN)
             class_room.Room.paint_furniture(room, self.SCREEN)
         for wall in self.Walls:
-            pygame.draw.rect(self.SCREEN, (255, 255, 255), wall.Rect)
+            pygame.draw.rect(self.SCREEN, (132, 132, 120), wall.Rect)
 
     def stuff_up(self):
         for room in self.Rooms:
