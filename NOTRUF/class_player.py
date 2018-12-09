@@ -55,10 +55,19 @@ class Player:
         self.current_image = pygame.transform.rotate(self.Images[0], -self.orientation)
         # self.p_bouteille = (int(self.pos[X]+10*math.cos(self.orientation + math.pi)), int(self.pos[Y]+10*math.sin(self.orientation + math.pi)))
 
-    def spray(self):
-        self.hose.spray_water(self)
+    def spray_baton(self):
+        self.hose.set_hose_spray(0)
+        self.hose.spray_water()
 
-    def stop_spray(self):
+    def spray_medium(self):
+        self.hose.set_hose_spray(1)
+        self.hose.spray_water()
+
+    def spray_bouclier(self):
+        self.hose.set_hose_spray(2)
+        self.hose.spray_water()
+
+    def spray_stop(self):
         self.spraying = False
 
     def mov_player(self, direction, axe):

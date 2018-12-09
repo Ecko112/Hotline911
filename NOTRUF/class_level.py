@@ -2,6 +2,7 @@ from NOTRUF import class_structure, class_player
 import pygame
 import random
 
+pygame.init()
 clock = pygame.time.Clock()
 
 X = 0
@@ -23,10 +24,8 @@ class Level:
     up = left = -1
     down = rght = 1
     # Hose
-    increase_spray = pygame.K_UP
-    decrease_spray = pygame.K_DOWN
-    increase_debit = pygame.K_RIGHT
-    decrease_debit = pygame.K_LEFT
+    increase_debit = pygame.K_a
+    decrease_debit = pygame.K_e
 
     def __init__(self, MAIN):
         # INIT
@@ -109,18 +108,24 @@ class Level:
                 self.Units[0].hose.set_hose_debit(1)
             elif key_input[self.decrease_debit]:
                 self.Units[0].hose.set_hose_debit(-1)
-            # SET_HOSE_ANGLE +/-
-            if key_input[self.increase_spray]:
-                self.Units[0].hose.set_hose_spray(1)
-            elif key_input[self.decrease_spray]:
-                self.Units[0].hose.set_hose_spray(-1)
+            for event in pygame.event.get():
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    if event.button == 1:
+                        self.Units[0].hose.set_hose_debit(1)
+                    elif event.button == 5:
+                        self.Units[0].hose.set_hose_debit(-1)
+
             # MOUSE INPUT
             mouse_input = pygame.mouse.get_pressed()
             # HOSE_OPEN/CLOSE
             if mouse_input[0]:
-                class_player.Player.spray(self.Units[0])
-            if not mouse_input[0]:
-                class_player.Player.stop_spray(self.Units[0])
+                self.Units[0].spray_baton()
+            elif mouse_input[2]:
+                self.Units[0].spray_bouclier()
+            elif mouse_input[1]:
+                self.Units[0].spray_medium()
+            else:
+                self.Units[0].spray_stop()
 
     def ignite(self):
         self.Structures[random.randint(0, len(self.Structures)-1)].ignite()

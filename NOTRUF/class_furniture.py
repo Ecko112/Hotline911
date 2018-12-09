@@ -68,17 +68,19 @@ class Furniture:
             self.ROOM.heat += self.influence_room
         elif self.isHeatingUp():
             self.heat += 1/100
-        if self.heat <= 80:
+        print('object temp ', self.heat)
+        print('room temp ', self.ROOM.heat, "\n")
+        if self.heat <= self.ignition_tresh:
             self.influence_rad = 0
-        elif int(self.heat) == 80:
+        elif int(self.heat) == self.ignition_tresh:
             self.ignite()
-        elif 80 <= self.heat < 400:
+        elif self.ignition_tresh <= self.heat < 400:
             if self.influence_rad < self.influence_max:
                 self.influence_rad += 1/50
-                self.influence_room += self.heat//1000
+                self.influence_room += self.heat//100
             else:
                 self.influence_rad = self.influence_max
-        elif self.heat >= 400:
+        elif 400 <= self.heat:
             self.influence_rad = self.influence_max
 
         self.influence_rect = pygame.Rect(0, 0, self.length + self.influence_rad, self.width + self.influence_rad)
