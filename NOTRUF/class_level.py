@@ -37,7 +37,7 @@ class Level:
         self.Units = []
         self.Water = []
         # PLAYER SETTINGS
-        self.PLAYER_SIZE = self.SCREEN_RESOLUTION[Y]//28.4
+        self.PLAYER_SIZE = int(self.SCREEN_RESOLUTION[Y]//28.4)
         # STRUCTURE SETTINGS
         self.MIN_ROOM = self.PLAYER_SIZE * 6
         self.DOOR_SIZE = self.PLAYER_SIZE * 3 - 10

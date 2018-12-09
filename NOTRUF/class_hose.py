@@ -16,17 +16,16 @@ class Hose:
         # Spray Settings
         min_spray = 10
         medium_spray = 60
-        max_spray = 160
+        max_spray = 150
         self.spray_presets = [min_spray, medium_spray, max_spray]
         self.spray = self.spray_presets[0]
-
-        self.min_debit = 70
+        # Debit Settings
+        self.min_debit = 100
         self.max_debit = 350
-        self.debit = 100
-
+        self.debit = 180
         # SELF
         self.sprayed = False
-        self.hose_p = (int(self.handler.pos[X] + UNIT.SIZE * math.cos(self.handler.orientation)), int(self.handler.pos[Y] + self.handler.SIZE * math.sin(self.handler.orientation)))
+        self.hose_p = []
 
     def spray_water(self):
         self.hose_p = (int(self.handler.pos[X]+self.handler.SIZE*math.cos(self.handler.orientation*(math.pi/180))), int(self.handler.pos[Y]+self.handler.SIZE*math.sin(self.handler.orientation*(math.pi/180))))
@@ -46,9 +45,10 @@ class Hose:
             direction += self.spray/nbr_water_entities
             alpha = direction - self.handler.orientation
             max_dist = self.debit / math.cos(alpha * (math.pi / 180))
-            if self.spray > 60:
+            if self.spray == self.spray_presets[2]:
                 max_dist /= 8
-            else:
+            elif self.spray == self.spray_presets[1]:
+                max_dist /= 2
                 pass
 
             class_water.Water(self, direction, max_dist, self.LEVEL)

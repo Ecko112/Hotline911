@@ -25,7 +25,14 @@ class Water:
         # self.rand_modif = 1
         self.direction = direction
         # Set Rect object
-        self.size = 15
+        if self.parent_hose.spray == self.parent_hose.spray_presets[0]:
+            self.size = random.randrange(15, 20, 1)
+        elif self.parent_hose.spray == self.parent_hose.spray_presets[1]:
+            self.size = random.randrange(10, 15, 1)
+        elif self.parent_hose.spray == self.parent_hose.spray_presets[2]:
+            self.size = random.randrange(3, 10, 1)
+        else:
+            self.size = 1
 
         self.rect = pygame.Rect(0, 0, self.size, self.size)
         self.rect.center = self.spawnpos
@@ -39,19 +46,12 @@ class Water:
         pass
 
     def move_water(self):
-        # for structure in self.parent_hose.handler.LEVEL.Structures:
-        #     for wall in structure.Walls:
-        #         if self.rect.colliderect(wall.Rect):
-        #             self.LEVEL.Water.remove(self)
-        #             return 'collision mur'
-        # for structure in self.parent_hose.handler.LEVEL.Structures:
-        #     for room in structure.Rooms:
-        #         for furniture in room.Furniture:
-        #             if self.rect.colliderect(furniture.rect):
-        #                 self.LEVEL.Water.remove(self)
-        #                 return 'collision object'
         for structure in self.LEVEL.Structures:
             if collision(self, structure.Walls):
+                self.LEVEL.Water.remove(self)
+                return
+        for structure in self.LEVEL.Structures:
+            if collision(self, structure.Furniture):
                 self.LEVEL.Water.remove(self)
                 return
         if get_dist(self.parent_hose.hose_p, self.pos) < self.max_dist:

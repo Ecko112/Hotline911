@@ -40,7 +40,7 @@ class Room:
         self.shape = None
         # SET DEFAULT
         self.burning = False
-        self.heat = 30
+        self.temp = 30
 
     def ignite(self):
         self.burning = True
@@ -51,7 +51,7 @@ class Room:
         if self.burning:
             for object in self.Furniture:
                 object.burn()
-            if 400 <= int(self.heat) <= 401:
+            if 400 <= int(self.temp) <= 401:
                 self.flashover()
         else:
             pass
@@ -59,7 +59,7 @@ class Room:
     def flashover(self):
         for object in self.Furniture:
             object.ignite()
-            object.heat = 400 + 1
+            object.temp = 400 + 1
 
     def poly_room(self):
         self.polyroom = [self.p1, self.p2, self.p3, self.p4, self.p5, self.p6]

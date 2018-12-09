@@ -29,23 +29,26 @@ class Player:
         self.p_bouteille = self.pos
         self.spraying = False
         # Set images
+        self.scaled_up = 2.75
+        self.scaled_up *= self.SIZE
+        self.scaled_up = int(self.scaled_up)
         self.load_images()
         self.current_image = self.Images[0]
         # [DEV] Start with Hose
         self.hose = class_hose.Hose(self)
 
     def load_images(self):
-        for file in ('unit_att_UP.png', 'unit_att_RGHT.png', 'unit_att_DOWN.png', 'unit_att_LEFT.png'):
+        for file in ['unit.png']:
             path = '/home/louis/Documents/Universite/INFO2056/notruf112/UNDER_PROGRESS/IMAGES/' + file
             player_png = pygame.image.load(path).convert_alpha(self.SCREEN)
-            player_png_0 = pygame.transform.scale(player_png, (self.SIZE * 6 // 2, self.SIZE * 6 // 2))
+            player_png_0 = pygame.transform.scale(player_png, (self.scaled_up, self.scaled_up))
             player_png_0 = pygame.transform.rotate(player_png_0, -90)
             self.Images.append(player_png_0)
 
     def paint_player(self):
-        # pygame.draw.circle(self.SCREEN, self.texture, self.pos, self.SIZE)
-        # pygame.draw.circle(self.SCREEN, (100, 100, 100), self.p_bouteille, 15)
-        self.SCREEN.blit(self.current_image, (self.pos[X]-self.SIZE*6//4, self.pos[Y]-self.SIZE*6//4))
+        angle = self.orientation*(math.pi/180)
+        report = abs(self.scaled_up//2*math.sin(angle)*math.cos(angle))
+        self.SCREEN.blit(self.current_image, (self.pos[X]-self.scaled_up//2-report, self.pos[Y]-self.scaled_up//2-report))
 
     def rotate_player(self, mouse_pos):
         diff_m_p = mouse_pos[X] - self.pos[X], mouse_pos[Y] - self.pos[Y]
