@@ -1,4 +1,4 @@
-# import pygame
+import pygame
 import math
 from NOTRUF import class_water
 
@@ -13,6 +13,7 @@ class Hose:
         # INIT
         self.LEVEL = self.handler.LEVEL
         self.MAIN = self.LEVEL.MAIN
+        self.SCREEN = self.LEVEL.SCREEN
         # Spray Settings
         min_spray = 10
         medium_spray = 60
@@ -26,6 +27,21 @@ class Hose:
         # SELF
         self.sprayed = False
         self.hose_p = []
+        self.hose_line = [self.handler.pos, self.handler.pos]
+        self.texture = (206, 5, 5)
+        self.LEVEL.Tools.append(self)
+
+    def paint_hose(self):
+        self.set_hose_line()
+        pygame.draw.lines(self.SCREEN, self.texture, False, self.hose_line, 10)
+
+    def set_hose_line(self):
+        self.hose_line[-1] = self.handler.pos
+        dist = get_dist(self.handler.pos, self.hose_line[-2])
+        if dist > 75:
+            self.hose_line.insert(-1, self.handler.pos[:])
+        elif len(self.hose_line) > 3 and get_dist(self.handler.pos, self.hose_line[-3]) < 100:
+            self.hose_line.pop(-2)
 
     def spray_water(self):
         self.hose_p = (int(self.handler.pos[X]+self.handler.SIZE*math.cos(self.handler.orientation*(math.pi/180))), int(self.handler.pos[Y]+self.handler.SIZE*math.sin(self.handler.orientation*(math.pi/180))))
@@ -62,3 +78,9 @@ class Hose:
             self.debit = self.min_debit
         elif self.debit > self.max_debit:
             self.debit = self.max_debit
+
+
+def get_dist(point1, point2):
+    return int(math.sqrt(((point1[X]-point2[X])**2)+(point1[Y]-point2[Y])**2))
+
+

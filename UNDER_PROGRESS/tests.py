@@ -36,8 +36,6 @@ class Hose:
     def paint_hose(self):
         pygame.draw.lines(self.screen, self.texture, False, self.hose_line, 10)
 
-        # pygame.draw.polygon(self.screen, self.texture, self.polyhose)
-
     def set_hose_line(self):
         self.hose_line[-1] = self.handler.pos
         dist = get_dist(self.handler.pos, self.hose_line[-2])
@@ -45,11 +43,6 @@ class Hose:
             self.hose_line.insert(-1, self.handler.pos[:])
         elif len(self.hose_line) > 3 and get_dist(self.handler.pos, self.hose_line[-3]) < 100:
             self.hose_line.pop(-2)
-        #     # if len(self.hose_line) > 3:
-        #     #     self.hose_line.pop(-2)
-        # 3 < len(self.hose_line):
-        #     self.hose_line.pop(-1)
-        #     self.hose_line.insert(-1, self.handler.pos[:])
 
     def set_2_point(self):
         for point in self.hose_line:

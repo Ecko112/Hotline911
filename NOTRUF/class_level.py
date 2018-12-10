@@ -1,4 +1,4 @@
-from NOTRUF import class_structure, class_player
+from NOTRUF import class_structure, class_player, class_hose
 import pygame
 import random
 
@@ -7,7 +7,6 @@ clock = pygame.time.Clock()
 
 X = 0
 Y = 1
-
 
 
 class Level:
@@ -37,6 +36,7 @@ class Level:
         self.Structures = []
         self.Units = []
         self.Water = []
+        self.Tools = []
         self.Burning = []
         # PLAYER SETTINGS
         self.PLAYER_SIZE = int(self.SCREEN_RESOLUTION[Y]//28.4)
@@ -63,6 +63,10 @@ class Level:
         self.HERBE_TEXTURE = self.MAIN.GREEN
         self.BETON_TEXTURE = self.MAIN.LIGHT_GREY
         self.BITUME_TEXTURE = self.MAIN.DARK_GREY
+        # FONTS
+        self.victory_font_size = int(self.SCREEN_RESOLUTION[X] // 20)
+        self.victory_font = pygame.font.SysFont('monospace', self.victory_font_size)
+        self.victory_message = self.victory_font.render('Mission Accomplished', True, (0, 0, 0))
         ##############
         # FILL LEVEL #
         ##############
@@ -71,19 +75,11 @@ class Level:
         self.ignite()
 
     def loop_level(self):
-        if len(self.Burning) == 0:
-            print('fin de mission')
-            for struct in self.Structures:
-                print("STRUCT")
-                for room in struct.Rooms:
-                    print("ROOM")
-                    print(room.temp)
-                    print("OBJET")
-                    for obj in room.Furniture:
-                        print(obj.health)
+
         self.process_input()
         self.update_level()
         self.paint_level()
+
         # LOCK 50 FPS
         clock.tick(50)
 
@@ -152,19 +148,25 @@ class Level:
         # BACKGROUND
         self.SCREEN.fill(self.HERBE_TEXTURE)
         pygame.draw.rect(self.SCREEN, self.BITUME_TEXTURE, (self.ROUTEH, (self.SCREEN_RESOLUTION[X], self.SCREEN_RESOLUTION[Y] - self.ROUTEH[Y])))
-        # VEHICLES
-        pygame.draw.rect(self.SCREEN, (255, 10, 20), ((self.STARTING_POS[X]-300, self.STARTING_POS[Y]), (400, self.SCREEN_RESOLUTION[Y])))
         # STRUCTURES
         for structure in self.Structures:
             class_structure.Structure.paint_structure(structure)
+        # TOOLS
+        for tool in self.Tools:
+            if tool.__class__ is class_hose.Hose:
+                tool.paint_hose()
         # WATER PARTICLES
         for water in self.Water:
             water.paint_water()
         # UNITS
         for unit in self.Units:
             unit.paint_player()
+        # VEHICLES
+        pygame.draw.rect(self.SCREEN, (255, 10, 20), ((self.STARTING_POS[X]-300, self.STARTING_POS[Y]), (400, self.SCREEN_RESOLUTION[Y])))
         # [DEV] GRID
         # self.draw_grid()
+        if len(self.Burning) == 0:
+            self.victory()
         # Update screen
         pygame.display.flip()
 
@@ -179,3 +181,4 @@ class Level:
             report[X] = self.UPPER_LEFT[X]
 
     def victory(self):
+        self.SCREEN.blit(self.victory_message, (0, 0))
