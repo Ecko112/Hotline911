@@ -152,7 +152,7 @@ class Level:
         for unit in self.Units:
             unit.paint_player()
         # [DEV] GRID
-        self.draw_grid()
+        # self.draw_grid()
         # Update screen
         pygame.display.flip()
 
