@@ -37,10 +37,11 @@ class Room:
         self.p5 = None
         self.p6 = None
         self.polyroom = []
+        # self.Rect = pygame.Rect/
         self.shape = None
         # SET DEFAULT
         self.burning = False
-        self.temp = 30
+        self.temp = 70
 
     def ignite(self):
         self.burning = True
@@ -50,18 +51,24 @@ class Room:
     def burn(self):
         for object in self.Furniture:
             object.burn()
+            if object.burning:
+                self.burning = True
+                self.temp += 0.1/self.grid_area*object.grid_area
         if 400 <= int(self.temp) <= 401:
             self.flashover()
+        if self.burning:
+            print(self.temp, "\n")
 
     def cool_down(self, effect):
-        self.temp -= effect
-        if self.temp < 30:
-            self.temp = 30
+        temp = self.temp - effect/self.grid_area
+        if temp > 80:
+            self.temp = temp
 
     def flashover(self):
         for object in self.Furniture:
             object.ignite()
             object.temp = 400
+        self.floor_texture = (230, 0, 0)
 
     def poly_room(self):
         self.polyroom = [self.p1, self.p2, self.p3, self.p4, self.p5, self.p6]
@@ -69,6 +76,7 @@ class Room:
     def paint_room(self):
         self.poly_room()
         pygame.draw.polygon(self.SCREEN, self.floor_texture, self.polyroom)
+        pygame.draw.rect(self.SCREEN, (255, 255, 0), self.Rect, 2)
         for objet in self.Furniture:
             objet.paint_furniture()
 
@@ -82,6 +90,11 @@ class Room:
             position = [posx + self.p1[X], self.p1[Y] + posy]
 
             class_furniture.Furniture(position, length, width, self)
+
+    def get_a_rect(self):
+        self.area = ((self.lengthprim*self.widthprim)+(self.lengthsec*self.widthsec))
+        self.grid_area = int(self.area/(self.GRID_SIZE**2))
+        self.Rect = pygame.Rect(self.p1[X], self.p1[Y], self.length, self.width)
 
     def wall_up(self):
         self.poly_room()

@@ -53,7 +53,7 @@ class Furniture:
     def isHeatingUp(self):
         for other in self.STRUCTURE.Furniture:
             if other.burning:
-                return self.Rect.collidelist([other.influence_Rect]) != -1
+                return self.Rect.collidelist([other.influence_Rect]) != -1, other in self.ROOM.Furniture
 
     def cool_down(self, effect):
         self.temp -= effect/self.grid_area*2
@@ -69,8 +69,11 @@ class Furniture:
             if self.temp < 700:
                 self.temp += 1/self.grid_area
         else:
-            if self.isHeatingUp():
-                self.temp += 0.1
+            if self.isHeatingUp()[0]:
+                if self.isHeatingUp()[1]:
+                    self.temp += 0.1
+                if not self.isHeatingUp()[1]:
+                    self.temp += 0.005
             else:
                 if self.temp > self.ROOM.temp:
                     self.temp -= 0.1

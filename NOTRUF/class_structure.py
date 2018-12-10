@@ -57,6 +57,7 @@ class Structure:
 
     def add_room(self, room):
         self.Rooms.append(room)
+        room.get_a_rect()
 
     def wall_up(self):
         # Create Upper Wall
