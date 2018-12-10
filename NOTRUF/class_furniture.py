@@ -26,15 +26,17 @@ class Furniture:
         self.length = length
         self.width = width
         self.area = self.length*self.width
+        self.health = self.area
         self.grid_area = int(self.area/(self.ROOM.GRID_SIZE**2))
         self.Rect = self.influence_Rect = pygame.Rect(0, 0, self.length, self.width)
         self.Rect.center = self.influence_Rect.center = self.pos
 
-        self.influence_rad = self.STRUCTURE.GRID_SIZE
+        self.influence_rad = 0
         self.influence_rad_max = self.STRUCTURE.GRID_SIZE * 3
         self.influence = 1/100
         self.influence_room = self.influence
         self.temp = self.ROOM.temp
+        self.wetness = 0
 
         self.ROOM.Furniture.append(self)
         self.STRUCTURE.Furniture.append(self)
@@ -48,37 +50,64 @@ class Furniture:
         self.burning = True
         self.temp = self.ignition_tresh
         self.texture = (255, 0, 0)
-        pass
+        self.LEVEL.Burning.append(self)
+
+    def extinguish(self):
+        self.burning = False
+        self.temp = self.ROOM.temp
+        self.texture = (0, 255, 0)
+        self.LEVEL.Burning.remove(self)
+        print('burning',    self.LEVEL.Burning)
+
+    def destroy(self):
+        self.burning = False
+        self.texture = (255, 255, 0)
+        self.LEVEL.Burning.remove(self)
+        self.STRUCTURE.Furniture.remove(self)
+        self.ROOM.Furniture.remove(self)
+        print(self.LEVEL.Burning)
 
     def isHeatingUp(self):
-        for other in self.STRUCTURE.Furniture:
-            if other.burning:
-                return self.Rect.collidelist([other.influence_Rect]) != -1, other in self.ROOM.Furniture
+        return self.Rect.collidelist([other.influence_Rect for other in self.LEVEL.Burning]) != -1
 
     def cool_down(self, effect):
         self.temp -= effect/self.grid_area*2
-        # if self.temp < 30:
-        #     self.temp = 30
+        self.wetness += effect/self.grid_area*2
+        print(self.temp)
+        print(self.wetness)
+        print(self.health, "\n")
 
     def burn(self):
+        if self.health <= 0:
+            self.destroy()
+            return
+        if self.wetness > 100:
+            self.wetness = 100
+        elif self.wetness < 0:
+            self.wetness = 0
         if self.temp < 30:
             self.temp = 30
-        elif self.temp > 700:
+        elif self.temp >= 700:
             self.temp = 600
         if self.burning:
+            if self.wetness >= 100:
+                self.extinguish()
+                return
             if self.temp < 700:
-                self.temp += 1/self.grid_area
+                self.temp += 1/self.grid_area*((100-self.wetness)/100)
+            self.health -= 1/self.grid_area
         else:
-            if self.isHeatingUp()[0]:
-                if self.isHeatingUp()[1]:
-                    self.temp += 0.1
-                if not self.isHeatingUp()[1]:
-                    self.temp += 0.005
+            if self.isHeatingUp():
+                # if self.isHeatingUp()[1]:
+                self.temp += 0.1
+                # if not self.isHeatingUp()[1]:
+                    # self.temp += 0.005
             else:
                 if self.temp > self.ROOM.temp:
                     self.temp -= 0.1
             if self.temp-2 <= self.ignition_tresh <= self.temp+2:
                 self.ignite()
+        self.wetness -= self.temp/100
         self.update_influence()
         self.update_rect()
         # print(self.temp)
@@ -88,7 +117,7 @@ class Furniture:
         self.influence_Rect.center = self.pos
         if self.temp <= self.ignition_tresh:
             self.texture = (0, 0, 255)
-        elif 30 < self.temp <= 255:
+        elif self.ignition_tresh < self.temp <= 255:
             self.texture = (self.temp, 0, 0)
         else:
             self.texture = (255, 0, 0)

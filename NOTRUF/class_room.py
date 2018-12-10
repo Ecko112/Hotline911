@@ -37,11 +37,10 @@ class Room:
         self.p5 = None
         self.p6 = None
         self.polyroom = []
-        # self.Rect = pygame.Rect/
         self.shape = None
         # SET DEFAULT
         self.burning = False
-        self.temp = 70
+        self.temp = 30
 
     def ignite(self):
         self.burning = True
@@ -56,8 +55,6 @@ class Room:
                 self.temp += 0.1/self.grid_area*object.grid_area
         if 400 <= int(self.temp) <= 401:
             self.flashover()
-        if self.burning:
-            print(self.temp, "\n")
 
     def cool_down(self, effect):
         temp = self.temp - effect/self.grid_area
@@ -83,13 +80,13 @@ class Room:
     def stuff_up(self):
         nbr_meubles = random.randint(1, 5)
         for meuble in range(nbr_meubles):
-            length = random.randrange(self.GRID_SIZE, abs(self.length) // 2, self.GRID_SIZE)
-            width = random.randrange(self.GRID_SIZE, abs(self.width) // 2, self.GRID_SIZE)
-            posx = random.randrange(length // 2, abs(self.length) + 1 - length // 2, self.GRID_SIZE)
-            posy = random.randrange(width // 2, abs(self.width) + 1 - width // 2, self.GRID_SIZE)
+            object_length = random.randrange(self.GRID_SIZE, abs(self.length) // 2, self.GRID_SIZE)
+            object_width = random.randrange(self.GRID_SIZE, abs(self.width) // 2, self.GRID_SIZE)
+            posx = random.randrange(object_length // 2, abs(self.length) + 1 - object_length // 2, self.GRID_SIZE)
+            posy = random.randrange(object_width // 2, abs(self.width) + 1 - object_width // 2, self.GRID_SIZE)
             position = [posx + self.p1[X], self.p1[Y] + posy]
 
-            class_furniture.Furniture(position, length, width, self)
+            class_furniture.Furniture(position, object_length, object_width, self)
 
     def get_a_rect(self):
         self.area = ((self.lengthprim*self.widthprim)+(self.lengthsec*self.widthsec))

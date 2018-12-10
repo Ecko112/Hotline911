@@ -9,6 +9,7 @@ X = 0
 Y = 1
 
 
+
 class Level:
     ################
     # KEY BINDINGS #
@@ -36,6 +37,7 @@ class Level:
         self.Structures = []
         self.Units = []
         self.Water = []
+        self.Burning = []
         # PLAYER SETTINGS
         self.PLAYER_SIZE = int(self.SCREEN_RESOLUTION[Y]//28.4)
         # STRUCTURE SETTINGS
@@ -69,6 +71,16 @@ class Level:
         self.ignite()
 
     def loop_level(self):
+        if len(self.Burning) == 0:
+            print('fin de mission')
+            for struct in self.Structures:
+                print("STRUCT")
+                for room in struct.Rooms:
+                    print("ROOM")
+                    print(room.temp)
+                    print("OBJET")
+                    for obj in room.Furniture:
+                        print(obj.health)
         self.process_input()
         self.update_level()
         self.paint_level()
@@ -165,3 +177,5 @@ class Level:
                 report[X] += self.MIN_ROOM//6
             report[Y] += self.MIN_ROOM//6
             report[X] = self.UPPER_LEFT[X]
+
+    def victory(self):

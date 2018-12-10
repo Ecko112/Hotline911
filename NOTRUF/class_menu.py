@@ -97,6 +97,3 @@ class Button:
 
     def paint_button(self):
         self.SCREEN.blit(self.title, self.pos)
-
-    def isClicked(self):
-        pass
