@@ -8,8 +8,8 @@ Y = 1
 
 class Room:
     # Textures
-    floor_texture = (145, 109, 61)
-    wall_texture = (132, 132, 120)
+    floor_texture = (168, 119, 90)
+    wall_texture = (135, 130, 130)
 
     def __init__(self, STRUCTURE):
         # INIT
@@ -48,18 +48,20 @@ class Room:
         self.Furniture[random.randint(0, len(self.Furniture)-1)].ignite()
 
     def burn(self):
-        if self.burning:
-            for object in self.Furniture:
-                object.burn()
-            if 400 <= int(self.temp) <= 401:
-                self.flashover()
-        else:
-            pass
+        for object in self.Furniture:
+            object.burn()
+        if 400 <= int(self.temp) <= 401:
+            self.flashover()
+
+    def cool_down(self, effect):
+        self.temp -= effect
+        if self.temp < 30:
+            self.temp = 30
 
     def flashover(self):
         for object in self.Furniture:
             object.ignite()
-            object.temp = 400 + 1
+            object.temp = 400
 
     def poly_room(self):
         self.polyroom = [self.p1, self.p2, self.p3, self.p4, self.p5, self.p6]

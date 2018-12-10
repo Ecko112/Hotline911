@@ -26,6 +26,7 @@ class Player:
         self.pos = [int(self.LEVEL.STARTING_POS[X]), int(self.LEVEL.STARTING_POS[Y])]
         self.player_hitbox.center = self.pos
         self.orientation = 0
+        self.prev_orientation = self.orientation
         self.p_bouteille = self.pos
         self.spraying = False
         # Set images
@@ -51,12 +52,16 @@ class Player:
         self.SCREEN.blit(self.current_image, (self.pos[X]-self.scaled_up//2-report, self.pos[Y]-self.scaled_up//2-report))
 
     def rotate_player(self, mouse_pos):
+        self.prev_orientation = self.orientation
         diff_m_p = mouse_pos[X] - self.pos[X], mouse_pos[Y] - self.pos[Y]
-        self.orientation = (180/math.pi)*math.atan2(diff_m_p[Y], diff_m_p[X])
+        self.orientation = int((180/math.pi)*math.atan2(diff_m_p[Y], diff_m_p[X]))
         if self.orientation < 0:
             self.orientation += 360
-        self.current_image = pygame.transform.rotate(self.Images[0], -self.orientation)
-        # self.p_bouteille = (int(self.pos[X]+10*math.cos(self.orientation + math.pi)), int(self.pos[Y]+10*math.sin(self.orientation + math.pi)))
+        # [DEV] ROTATION PRECISION
+        if abs(self.orientation-self.prev_orientation) > 5:
+            self.current_image = pygame.transform.rotate(self.Images[0], -self.orientation)
+        else:
+            self.orientation = self.prev_orientation
 
     def spray_baton(self):
         self.hose.set_hose_spray(0)
