@@ -35,6 +35,8 @@ class Hose:
     def paint_hose(self):
         if self.handler is not None:
             self.set_hose_line()
+        else:
+            pygame.draw.circle(self.SCREEN, (255, 255, 0), self.pos, self.LEVEL.SCREEN_RESOLUTION[X]//200)
         pygame.draw.lines(self.SCREEN, self.texture, False, self.hose_line, 10)
 
     def get_picked_up(self, unit):
