@@ -58,7 +58,7 @@ class Player:
         if self.orientation < 0:
             self.orientation += 360
         # [DEV] ROTATION PRECISION
-        if abs(self.orientation-self.prev_orientation) > 5:
+        if abs(self.orientation-self.prev_orientation) >= 0:
             self.current_image = pygame.transform.rotate(self.Images[0], -self.orientation)
         else:
             self.orientation = self.prev_orientation

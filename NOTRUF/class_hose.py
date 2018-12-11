@@ -40,8 +40,13 @@ class Hose:
         dist = get_dist(self.handler.pos, self.hose_line[-2])
         if dist > 75:
             self.hose_line.insert(-1, self.handler.pos[:])
-        elif len(self.hose_line) > 3 and get_dist(self.handler.pos, self.hose_line[-3]) < 100:
-            self.hose_line.pop(-2)
+        elif len(self.hose_line) > 3:
+            if get_dist(self.handler.pos, self.hose_line[-3]) < 100:
+                self.hose_line.pop(-2)
+        elif len(self.hose_line) == 2:
+            if get_dist(self.hose_line[0], self.hose_line[1]) < 100:
+                self.hose_line.pop(-1)
+                self.hose_line.append(self.handler.pos)
 
     def spray_water(self):
         self.hose_p = (int(self.handler.pos[X]+self.handler.SIZE*math.cos(self.handler.orientation*(math.pi/180))), int(self.handler.pos[Y]+self.handler.SIZE*math.sin(self.handler.orientation*(math.pi/180))))

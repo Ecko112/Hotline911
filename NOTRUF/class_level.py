@@ -150,7 +150,7 @@ class Level:
         pygame.draw.rect(self.SCREEN, self.BITUME_TEXTURE, (self.ROUTEH, (self.SCREEN_RESOLUTION[X], self.SCREEN_RESOLUTION[Y] - self.ROUTEH[Y])))
         # STRUCTURES
         for structure in self.Structures:
-            class_structure.Structure.paint_structure(structure)
+            structure.paint_structure()
         # TOOLS
         for tool in self.Tools:
             if tool.__class__ is class_hose.Hose:

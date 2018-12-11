@@ -13,6 +13,7 @@ class Structure:
         self.LEVEL = level
         self.MAIN = self.LEVEL.MAIN
         self.SCREEN = self.LEVEL.SCREEN
+        self.wall_texture = (170, 160, 160)
         # Lists
         self.Rooms = []
         self.Separation = []
@@ -229,7 +230,7 @@ class Structure:
         for room in self.Rooms:
             room.paint_room()
         for wall in self.Walls:
-            pygame.draw.rect(self.SCREEN, (132, 132, 120), wall.Rect)
+            pygame.draw.rect(self.SCREEN, self.wall_texture, wall.Rect)
 
     def stuff_up(self):
         for room in self.Rooms:

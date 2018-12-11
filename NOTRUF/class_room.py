@@ -5,11 +5,13 @@ from NOTRUF import class_furniture
 X = 0
 Y = 1
 
+t = 0
+
 
 class Room:
     # Textures
     floor_texture = (168, 119, 90)
-    wall_texture = (135, 130, 130)
+    wall_texture = (170, 160, 0)
 
     def __init__(self, STRUCTURE):
         # INIT
@@ -22,6 +24,7 @@ class Room:
         # Lists
         self.Walls = []
         self.Furniture = []
+        self.Burning = []
         # Dimensions
         self.lengthprim = None
         self.lengthsec = None
@@ -39,22 +42,32 @@ class Room:
         self.polyroom = []
         self.shape = None
         # SET DEFAULT
-        self.burning = False
+        self.on_fire = False
         self.temp = 30
+        # OTHER
+        self.temp_font_size = 40
+        self.temp_font = pygame.font.SysFont('monospace', self.temp_font_size)
+        self.temp_message = self.temp_font.render(str(self.temp), False, (0, 0, 0))
 
     def ignite(self):
-        self.burning = True
+        self.on_fire = True
         # IGNITE A RANDOM OBJECT IN THE ROOM
         self.Furniture[random.randint(0, len(self.Furniture)-1)].ignite()
 
     def burn(self):
+        if len(self.Burning) == 0:
+            self.on_fire = False
         for object in self.Furniture:
             object.burn()
             if object.burning:
-                self.burning = True
+                self.on_fire = True
                 self.temp += 0.1/self.grid_area*object.grid_area
-        if 400 <= int(self.temp) <= 401:
-            self.flashover()
+        if self.on_fire:
+            if 400 <= int(self.temp) <= 401:
+                self.flashover()
+        else:
+            if 30 < self.temp:
+                self.temp -= 1/self.grid_area
 
     def cool_down(self, effect):
         temp = self.temp - effect/self.grid_area
@@ -76,6 +89,14 @@ class Room:
         pygame.draw.rect(self.SCREEN, (255, 255, 0), self.Rect, 2)
         for objet in self.Furniture:
             objet.paint_furniture()
+        # [DEV] BLIT TEMPERATURE
+        global t
+        if t == 10:
+            self.temp_message = self.temp_font.render(str(self.temp), False, (0, 0, 0))
+            t = 0
+        else:
+            t += 1
+        self.SCREEN.blit(self.temp_message, self.p1)
 
     def stuff_up(self):
         nbr_meubles = random.randint(1, 5)
