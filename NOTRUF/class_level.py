@@ -76,10 +76,15 @@ class Level:
         self.create_structure()
         self.ignite()
         self.create_truck()
+        self.intro_is_done = False
         self.intro()
 
     def intro(self):
-        self.Vehicles[0].intro()
+        while not self.intro_is_done:
+            self.Vehicles[0].arrival()
+            self.update_level()
+            self.paint_level()
+            clock.tick(15000)
         self.create_player()
 
     def loop_level(self):

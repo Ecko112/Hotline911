@@ -32,8 +32,9 @@ class Truck:
         pygame.draw.rect(self.SCREEN, (255, 10, 20), (self.pos, (self.length, self.width)))
         pygame.draw.circle(self.SCREEN, (0, 0, 0), self.hose_pos, self.length//30)
 
-    def intro(self):
-        while self.pos[X] < self.SCREEN_RESOLUTION[X] - self.length*2:
-            self.pos[X] += 1
-            self.hose_pos[X] += 1
-            self.LEVEL.paint_level()
+    def arrival(self):
+        if self.pos[X] < self.SCREEN_RESOLUTION[X] - self.length*2:
+            self.pos[X] += self.SCREEN_RESOLUTION[X]//1366
+            self.hose_pos[X] += self.SCREEN_RESOLUTION[X]//1366
+        else:
+            self.LEVEL.intro_is_done = True
