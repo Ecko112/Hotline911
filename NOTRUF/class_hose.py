@@ -9,11 +9,12 @@ Y = 1
 class Hose:
 
     def __init__(self, UNIT):
-        self.handler = UNIT
         # INIT
+        self.handler = UNIT
         self.LEVEL = self.handler.LEVEL
         self.MAIN = self.LEVEL.MAIN
         self.SCREEN = self.LEVEL.SCREEN
+        self.pos = self.handler.pos
         # Spray Settings
         min_spray = 10
         medium_spray = 60
@@ -26,7 +27,6 @@ class Hose:
         self.debit = 180
         # SELF
         self.sprayed = False
-        self.hose_p = []
         self.hose_line = [self.handler.pos, self.handler.pos]
         self.texture = (206, 5, 5)
         self.LEVEL.Tools.append(self)

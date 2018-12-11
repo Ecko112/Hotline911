@@ -104,34 +104,28 @@ class Level:
                 self.MAIN.create_menu()
             # MOVE_PLAYER 4 DIRECTIONS
             if key_input[self.UP]:
-                class_player.Player.mov_player(self.Units[0], self.up, Y)
+                self.Units[0].mov_player(self.up, Y)
             elif key_input[self.DOWN]:
-                class_player.Player.mov_player(self.Units[0], self.down, Y)
+                self.Units[0].mov_player(self.down, Y)
             if key_input[self.RGHT]:
-                class_player.Player.mov_player(self.Units[0], self.rght, X)
+                self.Units[0].mov_player(self.rght, X)
             elif key_input[self.LEFT]:
-                class_player.Player.mov_player(self.Units[0], self.left, X)
+                self.Units[0].mov_player(self.left, X)
             # SET_HOSE_DEBIT +/-
             if key_input[self.increase_debit]:
                 self.Units[0].hose.set_hose_debit(1)
             elif key_input[self.decrease_debit]:
                 self.Units[0].hose.set_hose_debit(-1)
-            for event in pygame.event.get():
-                if event.type == pygame.MOUSEBUTTONDOWN:
-                    if event.button == 1:
-                        self.Units[0].hose.set_hose_debit(1)
-                    elif event.button == 5:
-                        self.Units[0].hose.set_hose_debit(-1)
-
             # MOUSE INPUT
             mouse_input = pygame.mouse.get_pressed()
-            # HOSE_OPEN/CLOSE
+            # HOSE_OPEN
             if mouse_input[0]:
                 self.Units[0].spray_baton()
             elif mouse_input[2]:
                 self.Units[0].spray_bouclier()
             elif mouse_input[1]:
                 self.Units[0].spray_medium()
+            # HOSE CLOSE
             else:
                 self.Units[0].spray_stop()
 

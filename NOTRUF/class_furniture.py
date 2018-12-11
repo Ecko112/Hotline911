@@ -142,5 +142,3 @@ class Furniture:
         if self.burning:
             self.influence = self.temp//10
             self.influence_rad = self.influence * 2
-
-            # if self.influence*2 <= self.influence_rad_max:

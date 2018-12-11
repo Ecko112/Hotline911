@@ -217,10 +217,12 @@ class Structure:
                 check = False
                 self.last_one_floor_1 = True
             elif j == 50:
+                # Limiter à 50 essais
                 room.lengthprim = self.ZONE_LENGTH - report
                 self.add_one_floor_1 = False
                 check = False
             else:
+                # Reroll
                 room.lengthprim = random.randrange(self.MIN_ROOM, room.lengthprim, 50)
                 check = True
 
