@@ -10,7 +10,7 @@ class Hose:
 
     def __init__(self, TRUCK):
         # INIT
-        self.truck = TRUCK
+        self.TRUCK = TRUCK
         self.LEVEL = self.TRUCK.LEVEL
         self.MAIN = self.LEVEL.MAIN
         self.SCREEN = self.LEVEL.SCREEN
@@ -28,7 +28,7 @@ class Hose:
         # SELF
         self.handler = None
         self.sprayed = False
-        self.hose_line = [self.handler.pos, self.handler.pos]
+        self.hose_line = [self.pos, self.pos]
         self.texture = (206, 5, 5)
         self.LEVEL.Tools.append(self)
 

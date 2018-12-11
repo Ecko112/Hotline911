@@ -108,7 +108,11 @@ class Level:
                 self.MAIN.create_menu()
             # PLAYER_PICK_UP
             if key_input[self.PICK_UP]:
-                unit.pick_up_hose(self.Tools[0])
+                if unit.hose is None:
+                    unit.pick_up_hose(self.Tools[0])
+                else:
+                    unit.drop_hose()
+
             # MOVE_PLAYER 4 DIRECTIONS
             if key_input[self.UP]:
                 unit.mov_player(self.up, Y)

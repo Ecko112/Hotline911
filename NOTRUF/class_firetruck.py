@@ -20,6 +20,7 @@ class Truck:
         # TOOLS
         # Hose
         self.hose_pos = None
+        self.tool_up()
         # Save
         self.LEVEL.Vehicles.append(self)
 
@@ -29,3 +30,4 @@ class Truck:
 
     def paint_truck(self):
         pygame.draw.rect(self.SCREEN, (255, 10, 20), (self.pos, (self.length, self.width)))
+        pygame.draw.circle(self.SCREEN, (0, 0, 0), self.hose_pos, self.length//30)
