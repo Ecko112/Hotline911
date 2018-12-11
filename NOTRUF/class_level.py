@@ -118,16 +118,17 @@ class Level:
                 self.Units[0].hose.set_hose_debit(-1)
             # MOUSE INPUT
             mouse_input = pygame.mouse.get_pressed()
-            # HOSE_OPEN
-            if mouse_input[0]:
-                self.Units[0].spray_baton()
-            elif mouse_input[2]:
-                self.Units[0].spray_bouclier()
-            elif mouse_input[1]:
-                self.Units[0].spray_medium()
-            # HOSE CLOSE
-            else:
-                self.Units[0].spray_stop()
+            if self.Units[0].hose is not None:
+                # HOSE_OPEN
+                if mouse_input[0]:
+                    self.Units[0].spray_baton()
+                elif mouse_input[2]:
+                    self.Units[0].spray_bouclier()
+                elif mouse_input[1]:
+                    self.Units[0].spray_medium()
+                # HOSE CLOSE
+                else:
+                    self.Units[0].spray_stop()
 
     def ignite(self):
         self.Structures[random.randint(0, len(self.Structures)-1)].ignite()

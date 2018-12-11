@@ -36,7 +36,8 @@ class Player:
         self.load_images()
         self.current_image = self.Images[0]
         # [DEV] Start with Hose
-        self.hose = class_hose.Hose(self)
+        self.hose = None
+        # self.hose = class_hose.Hose(self)
 
     def load_images(self):
         for file in ['unit.png']:
