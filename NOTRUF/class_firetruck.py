@@ -31,3 +31,9 @@ class Truck:
     def paint_truck(self):
         pygame.draw.rect(self.SCREEN, (255, 10, 20), (self.pos, (self.length, self.width)))
         pygame.draw.circle(self.SCREEN, (0, 0, 0), self.hose_pos, self.length//30)
+
+    def intro(self):
+        while self.pos[X] < self.SCREEN_RESOLUTION[X] - self.length*2:
+            self.pos[X] += 1
+            self.hose_pos[X] += 1
+            self.LEVEL.paint_level()

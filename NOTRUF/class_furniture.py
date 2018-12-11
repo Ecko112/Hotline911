@@ -124,9 +124,6 @@ class Furniture:
     def cool_down(self, effect):
         self.temp -= effect/self.grid_area*2
         self.wetness += effect/self.grid_area*2
-        print(self.temp)
-        print(self.wetness)
-        print(self.health, "\n")
 
     def update_rect(self):
         self.influence_Rect = pygame.Rect(0, 0, self.length + self.influence_rad, self.width + self.influence_rad)

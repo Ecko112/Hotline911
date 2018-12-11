@@ -74,12 +74,15 @@ class Level:
         # FILL LEVEL #
         ##############
         self.create_structure()
-        self.create_player()
         self.ignite()
-        self.call_truck()
+        self.create_truck()
+        self.intro()
+
+    def intro(self):
+        self.Vehicles[0].intro()
+        self.create_player()
 
     def loop_level(self):
-
         self.process_input()
         self.update_level()
         self.paint_level()
@@ -93,7 +96,7 @@ class Level:
     def create_structure(self):
         class_structure.Structure(self)
 
-    def call_truck(self):
+    def create_truck(self):
         class_firetruck.Truck(self)
 
     def process_input(self):
@@ -170,7 +173,6 @@ class Level:
         # VEHICLES
         for truck in self.Vehicles:
             truck.paint_truck()
-        pygame.draw.rect(self.SCREEN, (255, 10, 20), ((self.STARTING_POS[X]-300, self.STARTING_POS[Y]), (400, self.SCREEN_RESOLUTION[Y])))
         # [DEV] GRID
         # self.draw_grid()
         if len(self.Burning) == 0:
