@@ -53,8 +53,6 @@ class Main:
             self.User_Stage = self.Stages[0]
         elif new_stage is 'goLevel':
             self.User_Stage = self.Stages[1]
-        else:
-            print('MOVING USER STAGE : ERROR')
 
     def process_input(self):
         for event in pygame.event.get():

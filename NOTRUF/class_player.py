@@ -31,9 +31,8 @@ class Player:
         self.spraying = False
         self.hose = None
         # Set images
-        self.scaled_up = 2.75
-        self.scaled_up *= self.SIZE
-        self.scaled_up = int(self.scaled_up)
+        self.scaled_up = int(self.SIZE * 2.75)
+        self.scaled_up = 70
         self.load_images()
         self.current_image = self.Images[0]
         # [DEV] Start with Hose

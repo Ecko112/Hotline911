@@ -71,7 +71,6 @@ class Furniture:
         self.texture = (0, 255, 0)
         self.influence_rad = 0
         self.LEVEL.Burning.remove(self)
-        print('burning',    self.LEVEL.Burning)
 
     def destroy(self):
         self.burning = False
@@ -79,7 +78,6 @@ class Furniture:
         self.LEVEL.Burning.remove(self)
         self.STRUCTURE.Furniture.remove(self)
         self.ROOM.Furniture.remove(self)
-        print(self.LEVEL.Burning)
 
     def burn(self):
         if self.health <= 0:
@@ -116,7 +114,6 @@ class Furniture:
         self.wetness -= self.temp/100
         self.update_influence()
         self.update_rect()
-        # print(self.temp)
 
     def isHeatingUp(self):
         return self.Rect.collidelist([other.influence_Rect for other in self.LEVEL.Burning]) != -1
