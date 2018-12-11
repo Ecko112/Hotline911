@@ -29,6 +29,7 @@ class Player:
         self.prev_orientation = self.orientation
         self.p_bouteille = self.pos
         self.spraying = False
+        self.hose = None
         # Set images
         self.scaled_up = 2.75
         self.scaled_up *= self.SIZE
@@ -36,8 +37,8 @@ class Player:
         self.load_images()
         self.current_image = self.Images[0]
         # [DEV] Start with Hose
-        self.hose = None
         # self.hose = class_hose.Hose(self)
+        self.LEVEL.Units.append(self)
 
     def load_images(self):
         for file in ['unit.png']:
@@ -63,6 +64,15 @@ class Player:
             self.current_image = pygame.transform.rotate(self.Images[0], -self.orientation)
         else:
             self.orientation = self.prev_orientation
+
+    def pick_up_hose(self, hose):
+        if get_dist(self.pos, hose.pos) <= 75:
+            hose.get_picked_up(self)
+            self.hose = hose
+
+    def drop_hose(self):
+        self.hose.get_dropped()
+        self.hose = None
 
     def spray_baton(self):
         self.hose.set_hose_spray(0)
@@ -97,3 +107,7 @@ class Player:
                             self.player_hitbox.bottom = wall.Rect.top
 
         self.pos = [self.player_hitbox.center[X], self.player_hitbox.center[Y]]
+
+
+def get_dist(point1, point2):
+    return int(math.sqrt(((point1[X]-point2[X])**2)+(point1[Y]-point2[Y])**2))

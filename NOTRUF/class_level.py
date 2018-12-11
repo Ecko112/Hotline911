@@ -1,4 +1,4 @@
-from NOTRUF import class_structure, class_player, class_hose
+from NOTRUF import class_structure, class_player, class_hose, class_firetruck
 import pygame
 import random
 
@@ -23,6 +23,8 @@ class Level:
     RGHT = pygame.K_d
     up = left = -1
     down = rght = 1
+    # interaction
+    PICK_UP = pygame.K_SPACE
     # Hose
     increase_debit = pygame.K_a
     decrease_debit = pygame.K_e
@@ -35,6 +37,7 @@ class Level:
         # Lists
         self.Structures = []
         self.Units = []
+        self.Vehicles = []
         self.Water = []
         self.Tools = []
         self.Burning = []
@@ -73,6 +76,7 @@ class Level:
         self.create_structure()
         self.create_player()
         self.ignite()
+        self.call_truck()
 
     def loop_level(self):
 
@@ -84,38 +88,41 @@ class Level:
         clock.tick(50)
 
     def create_player(self):
-        player = class_player.Player(self)
-        self.Units.append(player)
+        class_player.Player(self)
 
     def create_structure(self):
-        # Create
-        structure = class_structure.Structure(self)
-        self.Structures.append(structure)
+        class_structure.Structure(self)
+
+    def call_truck(self):
+        class_firetruck.Truck(self)
 
     def process_input(self):
         mouse_pos = pygame.mouse.get_pos()
         for unit in self.Units:
             # ROTATE_PLAYER
-            class_player.Player.rotate_player(unit, mouse_pos)
+            unit.rotate_player(mouse_pos)
             # KEYBOARD INPUT
             key_input = pygame.key.get_pressed()
             # [DEV] FORCE QUIT LEVEL
             if key_input[self.FORCE_QUIT_LEVEL]:
                 self.MAIN.create_menu()
+            # PLAYER_PICK_UP
+            if key_input[self.PICK_UP]:
+                unit.pick_up_hose(self.Tools[0])
             # MOVE_PLAYER 4 DIRECTIONS
             if key_input[self.UP]:
-                self.Units[0].mov_player(self.up, Y)
+                unit.mov_player(self.up, Y)
             elif key_input[self.DOWN]:
-                self.Units[0].mov_player(self.down, Y)
+                unit.mov_player(self.down, Y)
             if key_input[self.RGHT]:
-                self.Units[0].mov_player(self.rght, X)
+                unit.mov_player(self.rght, X)
             elif key_input[self.LEFT]:
-                self.Units[0].mov_player(self.left, X)
+                unit.mov_player(self.left, X)
             # SET_HOSE_DEBIT +/-
             if key_input[self.increase_debit]:
-                self.Units[0].hose.set_hose_debit(1)
+                unit.hose.set_hose_debit(1)
             elif key_input[self.decrease_debit]:
-                self.Units[0].hose.set_hose_debit(-1)
+                unit.hose.set_hose_debit(-1)
             # MOUSE INPUT
             mouse_input = pygame.mouse.get_pressed()
             if self.Units[0].hose is not None:
@@ -157,6 +164,8 @@ class Level:
         for unit in self.Units:
             unit.paint_player()
         # VEHICLES
+        for truck in self.Vehicles:
+            truck.paint_truck()
         pygame.draw.rect(self.SCREEN, (255, 10, 20), ((self.STARTING_POS[X]-300, self.STARTING_POS[Y]), (400, self.SCREEN_RESOLUTION[Y])))
         # [DEV] GRID
         # self.draw_grid()

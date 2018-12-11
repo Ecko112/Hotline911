@@ -21,6 +21,9 @@ class Menu:
         self.MAIN = MAIN
         self.SCREEN = self.MAIN.SCREEN
         self.SCREEN_RESOLUTION = self.MAIN.SCREEN_RESOLUTION
+        ###########
+        # BUTTONS #
+        ###########
         self.Buttons = []
         # Set Logo
         self.logo_size = (int(self.SCREEN_RESOLUTION[X]//1.5/2), int(self.SCREEN_RESOLUTION[X]//9.04/2))
@@ -52,10 +55,8 @@ class Menu:
         # Logo
         self.SCREEN.blit(self.logo_png, self.logo_pos)
         # Buttons
-        # Start Level
-        self.start_level.paint_button()
-        # Exit
-        self.exit_game.paint_button()
+        for button in self.Buttons:
+            button.paint_button()
         # Update screen
         pygame.display.flip()
 

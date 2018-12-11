@@ -8,13 +8,13 @@ Y = 1
 
 class Hose:
 
-    def __init__(self, UNIT):
+    def __init__(self, TRUCK):
         # INIT
-        self.handler = UNIT
-        self.LEVEL = self.handler.LEVEL
+        self.truck = TRUCK
+        self.LEVEL = self.TRUCK.LEVEL
         self.MAIN = self.LEVEL.MAIN
         self.SCREEN = self.LEVEL.SCREEN
-        self.pos = self.handler.pos
+        self.pos = self.TRUCK.hose_pos
         # Spray Settings
         min_spray = 10
         medium_spray = 60
@@ -26,14 +26,23 @@ class Hose:
         self.max_debit = 350
         self.debit = 180
         # SELF
+        self.handler = None
         self.sprayed = False
         self.hose_line = [self.handler.pos, self.handler.pos]
         self.texture = (206, 5, 5)
         self.LEVEL.Tools.append(self)
 
     def paint_hose(self):
-        self.set_hose_line()
+        if self.handler is not None:
+            self.set_hose_line()
         pygame.draw.lines(self.SCREEN, self.texture, False, self.hose_line, 10)
+
+    def get_picked_up(self, unit):
+        self.handler = unit
+
+    def get_dropped(self):
+        self.pos = self.handler.pos
+        self.handler = None
 
     def set_hose_line(self):
         self.hose_line[-1] = self.handler.pos
@@ -87,5 +96,3 @@ class Hose:
 
 def get_dist(point1, point2):
     return int(math.sqrt(((point1[X]-point2[X])**2)+(point1[Y]-point2[Y])**2))
-
-

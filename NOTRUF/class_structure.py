@@ -45,6 +45,8 @@ class Structure:
         self.create_level_2(self.Separation[0])
         self.wall_up()
         self.stuff_up()
+        # SAVE
+        self.LEVEL.Structures.append(self)
 
     def ignite(self):
         self.burning = True
