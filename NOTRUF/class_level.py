@@ -8,6 +8,9 @@ clock = pygame.time.Clock()
 X = 0
 Y = 1
 
+tick1 = 0
+tick2 = 0
+
 
 class Level:
     ################
@@ -23,12 +26,14 @@ class Level:
     RGHT = pygame.K_d
     up = left = -1
     down = rght = 1
-    # interaction
+    # Interaction Items
     PICK_UP = pygame.K_SPACE
     DROP = pygame.K_g
     # Hose
     increase_debit = pygame.K_a
     decrease_debit = pygame.K_e
+    # Scba
+    CHECK_SCBA = pygame.K_TAB
 
     def __init__(self, MAIN):
         # INIT
@@ -114,17 +119,31 @@ class Level:
             # [DEV] FORCE QUIT LEVEL
             if key_input[self.FORCE_QUIT_LEVEL]:
                 self.MAIN.create_menu()
+            # CHECK SCBA
+            if key_input[self.CHECK_SCBA]:
+                if unit.scba is not None:
+                    unit.scba.check()
             # PLAYER_PICK_UP
+            global tick1
+            global tick2
+            if tick1 < 10:
+                tick1 += 1
+            if tick2 < 10:
+                tick2 += 1
             if key_input[self.PICK_UP]:
-                if unit.scba is None:
+                if unit.scba is None and tick1 >= 10:
                     unit.pick_up_tool(self.Tools[1])
-                elif unit.hose is None:
+                    tick1 = 0
+                elif unit.hose is None and tick1 >= 10:
                     unit.pick_up_tool(self.Tools[0])
+                    tick1 = 0
             elif key_input[self.DROP]:
-                if unit.hose is not None:
+                if unit.hose is not None and tick2 >= 10:
                     unit.drop_hose()
-                elif unit.scba is not None:
+                    tick2 = 0
+                elif unit.scba is not None and tick2 >= 10:
                     unit.drop_scba()
+                    tick2 = 0
             # MOVE_PLAYER 4 DIRECTIONS
             if key_input[self.UP]:
                 unit.mov_player(self.up, Y)
@@ -134,14 +153,14 @@ class Level:
                 unit.mov_player(self.rght, X)
             elif key_input[self.LEFT]:
                 unit.mov_player(self.left, X)
-            # SET_HOSE_DEBIT +/-
-            if key_input[self.increase_debit]:
-                unit.hose.set_hose_debit(1)
-            elif key_input[self.decrease_debit]:
-                unit.hose.set_hose_debit(-1)
-            # MOUSE INPUT
-            mouse_input = pygame.mouse.get_pressed()
             if self.Units[0].hose is not None:
+                # SET_HOSE_DEBIT +/-
+                if key_input[self.increase_debit]:
+                    unit.hose.set_hose_debit(1)
+                elif key_input[self.decrease_debit]:
+                    unit.hose.set_hose_debit(-1)
+                # MOUSE INPUT
+                mouse_input = pygame.mouse.get_pressed()
                 # HOSE_OPEN
                 if mouse_input[0]:
                     self.Units[0].spray_baton()

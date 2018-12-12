@@ -44,7 +44,8 @@ class Truck:
 
     def arrival(self):
         if self.pos[X] < 6*self.SCREEN_RESOLUTION[X]//10:
-            self.pos[X] += self.SCREEN_RESOLUTION[X]//1366
+            self.pos[X] += self.SCREEN_RESOLUTION[X]/1366
         else:
             self.LEVEL.intro_is_done = True
+            self.pos = [int(self.pos[X]), int(self.pos[Y])]
             self.tool_up()
