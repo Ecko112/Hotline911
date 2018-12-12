@@ -1,6 +1,10 @@
 import pygame
 import math
+import os
 from NOTRUF import class_water
+
+NOTRUFDir = os.path.dirname(os.path.abspath(__file__))
+IMAGESDir = os.path.join(NOTRUFDir, 'IMAGES')
 
 X = 0
 Y = 1
@@ -15,6 +19,11 @@ class Hose:
         self.MAIN = self.LEVEL.MAIN
         self.SCREEN = self.LEVEL.SCREEN
         self.pos = self.TRUCK.hose_pos
+        # Image
+        self.scale_up = int(self.LEVEL.SCREEN_RESOLUTION[X] // 56.91)
+        self.image = pygame.image.load(IMAGESDir+'/tool_hose.png').convert_alpha(self.SCREEN)
+        self.image = pygame.transform.scale(self.image, (self.scale_up, self.scale_up))
+        self.report = 0
         # Spray Settings
         min_spray = 10
         medium_spray = 60
@@ -27,17 +36,18 @@ class Hose:
         self.debit = 180
         # SELF
         self.handler = None
+        self.hose_p = None
         self.sprayed = False
         self.hose_line = [self.pos, self.pos]
         self.texture = (206, 5, 5)
         self.LEVEL.Tools.append(self)
 
     def paint_hose(self):
+        pygame.draw.lines(self.SCREEN, self.texture, False, self.hose_line, 10)
         if self.handler is not None:
             self.set_hose_line()
         else:
-            pygame.draw.circle(self.SCREEN, (255, 255, 0), self.pos, self.LEVEL.SCREEN_RESOLUTION[X]//200)
-        pygame.draw.lines(self.SCREEN, self.texture, False, self.hose_line, 10)
+            self.SCREEN.blit(self.image, (self.pos[X] - self.scale_up // 2, self.pos[Y] - self.scale_up // 2))
 
     def get_picked_up(self, unit):
         self.handler = unit
@@ -60,20 +70,19 @@ class Hose:
                 self.hose_line.append(self.handler.pos)
 
     def spray_water(self):
-        self.hose_p = (int(self.handler.pos[X]+self.handler.SIZE*math.cos(self.handler.orientation*(math.pi/180))), int(self.handler.pos[Y]+self.handler.SIZE*math.sin(self.handler.orientation*(math.pi/180))))
         self.handler.spraying = True
         if len(self.LEVEL.Water) < 500:
             self.spray_actual_water()
         else:
             # [DEV] UNLIMITED WATER PARICLES
-            #     self.spray_actual_water()
+            # self.spray_actual_water()
             pass
 
     def spray_actual_water(self):
+        self.hose_p = (int(self.handler.pos[X]+self.handler.SIZE*math.cos(self.handler.orientation*(math.pi/180))), int(self.handler.pos[Y]+self.handler.SIZE*math.sin(self.handler.orientation*(math.pi/180))))
         nbr_water_entities = int(self.spray/3)
         direction = self.handler.orientation - self.spray/2
         for water in range(0, nbr_water_entities+1, 1):
-            # direction += self.spray/nbr_water_entities
             direction += self.spray/nbr_water_entities
             alpha = direction - self.handler.orientation
             max_dist = self.debit / math.cos(alpha * (math.pi / 180))
@@ -81,8 +90,6 @@ class Hose:
                 max_dist /= 8
             elif self.spray == self.spray_presets[1]:
                 max_dist /= 2
-                pass
-
             class_water.Water(self, direction, max_dist, self.LEVEL)
 
     def set_hose_spray(self, preset):
@@ -98,3 +105,7 @@ class Hose:
 
 def get_dist(point1, point2):
     return int(math.sqrt(((point1[X]-point2[X])**2)+(point1[Y]-point2[Y])**2))
+
+
+def get_angle(point1, point2):
+    return math.atan2(point2[Y]-point1[Y], point2[X]-point1[X])

@@ -14,7 +14,6 @@ class Menu:
     # [DEV]
     # FORCE START LEVEL
     FORCE_START_LEVEL = pygame.K_BACKSPACE
-    # Polices
 
     def __init__(self, MAIN):
         # INIT
@@ -37,11 +36,17 @@ class Menu:
         self.start_level = Button(" Start New Level ", self.start_level_font, (255, 255, 255), (255, 0, 0), self)
         self.start_level.pos = [2*self.SCREEN_RESOLUTION[X]/100, 30*self.SCREEN_RESOLUTION[Y]//100]
 
+        # Set Start Shift
+        self.start_shift_font_size = int(self.SCREEN_RESOLUTION[X]//39.02)
+        self.start_shift_font = pygame.font.SysFont('monospace', self.start_shift_font_size)
+        self.start_shift = Button(" Start New Shift ", self.start_shift_font,(255, 255 ,255), (255, 0, 0), self)
+        self.start_shift.pos = [2*self.SCREEN_RESOLUTION[X]//100, 37*self.SCREEN_RESOLUTION[Y]//100]
+
         # Set Exit Game
         self.exit_game_font_size = int(self.SCREEN_RESOLUTION[X]//39.02)
         self.exit_game_font = pygame.font.SysFont('monospace', self.exit_game_font_size)
         self.exit_game = Button(" Exit Game ", self.exit_game_font, (255, 255, 255), (255, 0, 0), self)
-        self.exit_game.pos = [2*self.SCREEN_RESOLUTION[X]/100, 37*self.SCREEN_RESOLUTION[Y]//100]
+        self.exit_game.pos = [2*self.SCREEN_RESOLUTION[X]//100, 44*self.SCREEN_RESOLUTION[Y]//100]
 
     def loop_menu(self):
         self.process_input()
@@ -76,6 +81,9 @@ class Menu:
                         self.MAIN.exit_game()
                     elif button is self.start_level:
                         self.MAIN.create_level()
+                    elif button is self.start_shift:
+                        print('clic')
+                        self.MAIN.create_firehouse()
 
 
 class Button:

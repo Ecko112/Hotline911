@@ -1,7 +1,6 @@
 import pygame
 import sys
-from NOTRUF import class_level
-from NOTRUF import class_menu
+from NOTRUF import class_level, class_menu, class_firehouse
 
 X = 0
 Y = 1
@@ -10,9 +9,11 @@ Y = 1
 class Main:
     # Game Stages
     User_Stage = None
-    Stages = ["inMenu", "inLevel"]
+    Stages = ["inMenu", "inLevel", "inFirehouse"]
     # Level
     Level = None
+    # Station
+    Firehouse = None
     # Menu
     Menu = None
     ##########
@@ -33,26 +34,31 @@ class Main:
         pygame.display.set_caption('Hotline 911')
 
     def create_level(self):
-        self.update_user_stage('goLevel')
+        self.User_Stage = self.Stages[1]
         self.Level = class_level.Level(self)
+        self.delete_menu()
+        self.delete_firehouse()
 
     def delete_level(self):
-        self.update_user_stage('goMenu')
         self.Level = None
 
     def create_menu(self):
-        self.update_user_stage('goMenu')
+        self.User_Stage = self.Stages[0]
         self.Menu = class_menu.Menu(self)
+        self.delete_level()
+        self.delete_firehouse()
 
     def delete_menu(self):
-        self.update_user_stage('goLevel')
         self.Menu = None
 
-    def update_user_stage(self, new_stage):
-        if new_stage is 'goMenu':
-            self.User_Stage = self.Stages[0]
-        elif new_stage is 'goLevel':
-            self.User_Stage = self.Stages[1]
+    def create_firehouse(self):
+        self.User_Stage = self.Stages[2]
+        self.Firehouse = class_firehouse.Firehouse(self)
+        self.delete_level()
+        self.delete_menu()
+
+    def delete_firehouse(self):
+        self.Firehouse = None
 
     def process_input(self):
         for event in pygame.event.get():
@@ -60,6 +66,9 @@ class Main:
                 self.exit_game()
 
     def exit_game(self):
+        # Could be static
+        # but easier to call from other classes
+        # when referring to self.MAIN
         pygame.quit()
         sys.exit()
 
@@ -69,3 +78,5 @@ class Main:
             self.Menu.loop_menu()
         elif self.User_Stage is 'inLevel':
             self.Level.loop_level()
+        elif self.User_Stage is 'inFirehouse':
+            self.Firehouse.loop_firehouse()

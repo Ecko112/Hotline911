@@ -118,9 +118,9 @@ class Level:
             if key_input[self.PICK_UP]:
                 if unit.hose is None:
                     unit.pick_up_hose(self.Tools[0])
-                else:
+            elif key_input[pygame.K_g]:
+                if unit.hose is not None:
                     unit.drop_hose()
-
             # MOVE_PLAYER 4 DIRECTIONS
             if key_input[self.UP]:
                 unit.mov_player(self.up, Y)
