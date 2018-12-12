@@ -16,8 +16,8 @@ class Hose:
         # INIT
         self.TRUCK = TRUCK
         self.LEVEL = self.TRUCK.LEVEL
-        self.MAIN = self.LEVEL.MAIN
-        self.SCREEN = self.LEVEL.SCREEN
+        self.MAIN = self.TRUCK.MAIN
+        self.SCREEN = self.TRUCK.SCREEN
         self.pos = self.TRUCK.hose_pos
         # Image
         self.scale_up = int(self.LEVEL.SCREEN_RESOLUTION[X] // 56.91)
@@ -51,6 +51,7 @@ class Hose:
 
     def get_picked_up(self, unit):
         self.handler = unit
+        self.handler.hose = self
 
     def get_dropped(self):
         self.pos = self.handler.pos

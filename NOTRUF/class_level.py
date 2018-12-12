@@ -1,4 +1,4 @@
-from NOTRUF import class_structure, class_player, class_hose, class_firetruck
+from NOTRUF import class_structure, class_player, class_hose, class_firetruck, class_scba
 import pygame
 import random
 
@@ -25,6 +25,7 @@ class Level:
     down = rght = 1
     # interaction
     PICK_UP = pygame.K_SPACE
+    DROP = pygame.K_g
     # Hose
     increase_debit = pygame.K_a
     decrease_debit = pygame.K_e
@@ -115,11 +116,15 @@ class Level:
                 self.MAIN.create_menu()
             # PLAYER_PICK_UP
             if key_input[self.PICK_UP]:
-                if unit.hose is None:
-                    unit.pick_up_hose(self.Tools[0])
-            elif key_input[pygame.K_g]:
+                if unit.scba is None:
+                    unit.pick_up_tool(self.Tools[1])
+                elif unit.hose is None:
+                    unit.pick_up_tool(self.Tools[0])
+            elif key_input[self.DROP]:
                 if unit.hose is not None:
                     unit.drop_hose()
+                elif unit.scba is not None:
+                    unit.drop_scba()
             # MOVE_PLAYER 4 DIRECTIONS
             if key_input[self.UP]:
                 unit.mov_player(self.up, Y)
@@ -168,6 +173,8 @@ class Level:
         for tool in self.Tools:
             if tool.__class__ is class_hose.Hose:
                 tool.paint_hose()
+            elif tool.__class__ is class_scba.Scba:
+                tool.paint_scba()
         # WATER PARTICLES
         for water in self.Water:
             water.paint_water()

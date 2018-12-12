@@ -32,15 +32,19 @@ class Truck:
         self.hose = class_hose.Hose(self)
         # Scba
         self.scba_pos = [self.pos[X]+4*self.length//10, self.pos[Y]]
+        self.scba = class_scba.Scba(self)
 
     def paint_truck(self):
         pygame.draw.rect(self.SCREEN, (255, 10, 20), (self.pos, (self.length, self.width)))
-        pygame.draw.circle(self.SCREEN, (0, 0, 0), self.hose_pos, self.length//30)
+        if self.LEVEL.intro_is_done:
+            pygame.draw.circle(self.SCREEN, (0, 0, 0), self.hose_pos, self.length//30)
+            rect = pygame.Rect(0, 0, self.length//30, self.length//30)
+            rect.center = self.scba_pos
+            pygame.draw.rect(self.SCREEN, (0, 0, 0), rect)
 
     def arrival(self):
         if self.pos[X] < 6*self.SCREEN_RESOLUTION[X]//10:
             self.pos[X] += self.SCREEN_RESOLUTION[X]//1366
-            self.hose_pos[X] += self.SCREEN_RESOLUTION[X]//1366
         else:
             self.LEVEL.intro_is_done = True
             self.tool_up()

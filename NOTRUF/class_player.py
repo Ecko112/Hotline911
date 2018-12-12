@@ -31,7 +31,7 @@ class Player:
         self.p_bouteille = self.pos
         self.spraying = False
         self.hose = None
-        self.bodyguard = None
+        self.scba = None
         # Set images
         self.scaled_up = int(self.SIZE * 2.75)
         self.load_images()
@@ -41,7 +41,7 @@ class Player:
         self.LEVEL.Units.append(self)
 
     def load_images(self):
-        for file in ['unit_idle.png', 'unit_hose.png']:
+        for file in ['unit_idle.png', 'unit_hose.png', 'unit_hose_scba.png', 'unit_idle_scba.png']:
             path = IMAGESDir+"/"+file
             player_png = pygame.image.load(path).convert_alpha(self.SCREEN)
             player_png = pygame.transform.scale(player_png, (self.scaled_up, self.scaled_up))
@@ -55,9 +55,15 @@ class Player:
 
     def rotate_player(self, mouse_pos):
         if self.hose is not None:
-            self.current_image = self.Images[1]
+            if self.scba is not None:
+                self.current_image = self.Images[2]
+            else:
+                self.current_image = self.Images[1]
         else:
-            self.current_image = self.Images[0]
+            if self.scba is not None:
+                self.current_image = self.Images[3]
+            else:
+                self.current_image = self.Images[0]
 
         self.prev_orientation = self.orientation
         diff_m_p = mouse_pos[X] - self.pos[X], mouse_pos[Y] - self.pos[Y]
@@ -70,14 +76,17 @@ class Player:
         else:
             self.orientation = self.prev_orientation
 
-    def pick_up_hose(self, hose):
-        if get_dist(self.pos, hose.pos) <= 75:
-            hose.get_picked_up(self)
-            self.hose = hose
+    def pick_up_tool(self, tool):
+        if get_dist(self.pos, tool.pos) <= 30:
+            tool.get_picked_up(self)
 
     def drop_hose(self):
         self.hose.get_dropped()
         self.hose = None
+
+    def drop_scba(self):
+        self.scba.get_dropped()
+        self.scba = None
 
     def spray_baton(self):
         self.hose.set_hose_spray(0)
