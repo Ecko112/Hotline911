@@ -20,11 +20,11 @@ class Scba:
         self.SCREEN = self.TRUCK.SCREEN
         self.SCREEN_RESOLUTION = self.TRUCK.SCREEN_RESOLUTION
         # Image
-        self.image = pygame.Rect(0, 0, 10, 20)
+        self.scale_up = int(self.LEVEL.PLAYER_SIZE*2.75)
+        self.image = pygame.image.load(IMAGESDir+'/tool_scba.png').convert_alpha(self.SCREEN)
+        self.image = pygame.transform.scale(self.image, (self.scale_up, self.scale_up))
         # SELF
         self.pos = [self.TRUCK.scba_pos[X], self.TRUCK.scba_pos[Y]-10]
-        self.Rect = pygame.Rect(0, 0, self.TRUCK.length//20, self.TRUCK.length//20)
-        self.Rect.center = self.pos
         self.handler = None
         self.texture = (10, 10, 10)
         self.capacity = 300
@@ -32,8 +32,7 @@ class Scba:
 
     def paint_scba(self):
         if self.handler is None:
-            self.Rect.center = self.pos
-            pygame.draw.rect(self.SCREEN, self.texture, self.Rect)
+            self.SCREEN.blit(self.image, (self.pos[X]-self.scale_up//2, self.pos[Y]-self.scale_up//2))
 
     def get_picked_up(self, unit):
         self.handler = unit
