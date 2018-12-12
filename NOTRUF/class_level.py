@@ -119,10 +119,10 @@ class Level:
             # [DEV] FORCE QUIT LEVEL
             if key_input[self.FORCE_QUIT_LEVEL]:
                 self.MAIN.create_menu()
-            # CHECK SCBA
-            if key_input[self.CHECK_SCBA]:
-                if unit.scba is not None:
-                    unit.scba.check()
+            # # CHECK SCBA
+            # if key_input[self.CHECK_SCBA]:
+            #     if unit.scba is not None:
+            #         unit.scba.check()
             # PLAYER_PICK_UP
             global tick1
             global tick2
@@ -153,7 +153,13 @@ class Level:
                 unit.mov_player(self.rght, X)
             elif key_input[self.LEFT]:
                 unit.mov_player(self.left, X)
-            if self.Units[0].hose is not None:
+            if unit.scba is not None:
+                #
+                if key_input[self.CHECK_SCBA]:
+                    unit.check_scba()
+                else:
+                    unit.stop_check_scba()
+            if unit.hose is not None:
                 # SET_HOSE_DEBIT +/-
                 if key_input[self.increase_debit]:
                     unit.hose.set_hose_debit(1)
@@ -163,14 +169,14 @@ class Level:
                 mouse_input = pygame.mouse.get_pressed()
                 # HOSE_OPEN
                 if mouse_input[0]:
-                    self.Units[0].spray_baton()
+                    unit.spray_baton()
                 elif mouse_input[2]:
-                    self.Units[0].spray_bouclier()
+                    unit.spray_bouclier()
                 elif mouse_input[1]:
-                    self.Units[0].spray_medium()
+                    unit.spray_medium()
                 # HOSE CLOSE
                 else:
-                    self.Units[0].spray_stop()
+                    unit.spray_stop()
 
     def ignite(self):
         self.Structures[random.randint(0, len(self.Structures)-1)].ignite()

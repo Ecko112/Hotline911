@@ -25,6 +25,7 @@ class Scba:
         self.image = pygame.transform.scale(self.image, (self.scale_up, self.scale_up))
         # SELF
         self.pos = [self.TRUCK.scba_pos[X], self.TRUCK.scba_pos[Y]-10]
+        self.bodyguard = Bodyguard(self)
         self.handler = None
         self.texture = (10, 10, 10)
         self.capacity = 300
@@ -33,6 +34,8 @@ class Scba:
     def paint_scba(self):
         if self.handler is None:
             self.SCREEN.blit(self.image, (self.pos[X]-self.scale_up//2, self.pos[Y]-self.scale_up//2))
+        elif self.handler.checking:
+            self.bodyguard.paint_bodyguard()
 
     def get_picked_up(self, unit):
         self.handler = unit
@@ -47,4 +50,8 @@ class Bodyguard:
 
     def __init__(self, SCBA):
         self.SCBA = SCBA
-        self.image = pygame.Rect()
+        self.SCREEN = self.SCBA.SCREEN
+        self.image = pygame.image.load(IMAGESDir+'/tool_bodyguard.png')
+
+    def paint_bodyguard(self):
+        self.SCREEN.blit(self.image, (0, 0))

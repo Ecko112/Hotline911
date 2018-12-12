@@ -30,6 +30,7 @@ class Player:
         self.prev_orientation = self.orientation
         self.p_bouteille = self.pos
         self.spraying = False
+        self.checking = False
         self.hose = None
         self.scba = None
         # Set images
@@ -102,6 +103,12 @@ class Player:
 
     def spray_stop(self):
         self.spraying = False
+
+    def check_scba(self):
+        self.checking = True
+
+    def stop_check_scba(self):
+        self.checking = False
 
     def mov_player(self, direction, axe):
         self.pos[axe] += self.STEP * direction
