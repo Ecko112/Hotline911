@@ -51,9 +51,8 @@ class Level:
         #
         self.ZONE[X] -= self.ZONE[X] % self.MIN_ROOM
         self.ZONE[Y] -= self.ZONE[Y] % self.MIN_ROOM
-        # PLAYER SETTINGS
-        self.STARTING_POS = (self.ZONE[X] - self.ZONE[X]//10, self.ZONE[Y] + 1*self.ZONE[Y]//10 + self.PLAYER_SIZE + 10)
         # SET USEFUL POINTS
+        self.STARTING_POS = [8*self.SCREEN_RESOLUTION[X]//10, 8*self.SCREEN_RESOLUTION[Y]//10]
         self.UPPER_LEFT = (self.SCREEN_RESOLUTION[X]//18.21, 5)
         self.LOWER_RGHT = (self.UPPER_LEFT[X]+self.ZONE[X], self.UPPER_LEFT[Y]+self.ZONE[Y])
         self.ROUTEH = (0, 11*self.ZONE[Y]//10)

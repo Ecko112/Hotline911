@@ -31,6 +31,7 @@ class Player:
         self.p_bouteille = self.pos
         self.spraying = False
         self.hose = None
+        self.bodyguard = None
         # Set images
         self.scaled_up = int(self.SIZE * 2.75)
         self.load_images()

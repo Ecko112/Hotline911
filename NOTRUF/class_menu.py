@@ -34,13 +34,13 @@ class Menu:
         self.start_level_font_size = int(self.SCREEN_RESOLUTION[X] // 39.02)
         self.start_level_font = pygame.font.SysFont('monospace', self.start_level_font_size)
         self.start_level = Button(" Start New Level ", self.start_level_font, (255, 255, 255), (255, 0, 0), self)
-        self.start_level.pos = [2*self.SCREEN_RESOLUTION[X]/100, 30*self.SCREEN_RESOLUTION[Y]//100]
+        self.start_level.pos = [2*self.SCREEN_RESOLUTION[X]/100, 37*self.SCREEN_RESOLUTION[Y]//100]
 
         # Set Start Shift
         self.start_shift_font_size = int(self.SCREEN_RESOLUTION[X]//39.02)
         self.start_shift_font = pygame.font.SysFont('monospace', self.start_shift_font_size)
         self.start_shift = Button(" Start New Shift ", self.start_shift_font,(255, 255 ,255), (255, 0, 0), self)
-        self.start_shift.pos = [2*self.SCREEN_RESOLUTION[X]//100, 37*self.SCREEN_RESOLUTION[Y]//100]
+        self.start_shift.pos = [2*self.SCREEN_RESOLUTION[X]//100, 30*self.SCREEN_RESOLUTION[Y]//100]
 
         # Set Exit Game
         self.exit_game_font_size = int(self.SCREEN_RESOLUTION[X]//39.02)
@@ -82,8 +82,7 @@ class Menu:
                     elif button is self.start_level:
                         self.MAIN.create_level()
                     elif button is self.start_shift:
-                        print('clic')
-                        self.MAIN.create_firehouse()
+                        self.MAIN.create_shift()
 
 
 class Button:

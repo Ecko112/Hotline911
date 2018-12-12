@@ -1,6 +1,6 @@
 import pygame
 import sys
-from NOTRUF import class_level, class_menu, class_firehouse
+from NOTRUF import class_level, class_menu, class_shift
 
 X = 0
 Y = 1
@@ -13,7 +13,7 @@ class Main:
     # Level
     Level = None
     # Station
-    Firehouse = None
+    Shift = None
     # Menu
     Menu = None
     ##########
@@ -51,14 +51,14 @@ class Main:
     def delete_menu(self):
         self.Menu = None
 
-    def create_firehouse(self):
+    def create_shift(self):
         self.User_Stage = self.Stages[2]
-        self.Firehouse = class_firehouse.Firehouse(self)
+        self.Shift = class_shift.Shift(self)
         self.delete_level()
         self.delete_menu()
 
     def delete_firehouse(self):
-        self.Firehouse = None
+        self.Shift = None
 
     def process_input(self):
         for event in pygame.event.get():
@@ -79,4 +79,4 @@ class Main:
         elif self.User_Stage is 'inLevel':
             self.Level.loop_level()
         elif self.User_Stage is 'inFirehouse':
-            self.Firehouse.loop_firehouse()
+            self.Shift.loop_firehouse()
