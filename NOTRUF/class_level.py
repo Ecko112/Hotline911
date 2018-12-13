@@ -8,8 +8,9 @@ clock = pygame.time.Clock()
 X = 0
 Y = 1
 
-tick1 = 0
-tick2 = 0
+tick1 = 10
+tick2 = 10
+tick3 = 10
 
 
 class Level:
@@ -19,6 +20,7 @@ class Level:
     # [DEV]
     # FORCE QUIT LEVEL
     FORCE_QUIT_LEVEL = pygame.K_DELETE
+    PAUSE = pygame.K_p
     # Player
     UP = pygame.K_z
     DOWN = pygame.K_s
@@ -40,6 +42,7 @@ class Level:
         self.MAIN = MAIN
         self.SCREEN_RESOLUTION = self.MAIN.SCREEN_RESOLUTION
         self.SCREEN = self.MAIN.SCREEN
+        self.inPause = False
         # Lists
         self.Structures = []
         self.Units = []
@@ -98,9 +101,9 @@ class Level:
 
     def loop_level(self):
         self.process_input()
-        self.update_level()
+        if not self.inPause:
+            self.update_level()
         self.paint_level()
-
         # LOCK 50 FPS
         clock.tick(50)
 
@@ -114,15 +117,25 @@ class Level:
         class_firetruck.Truck(self)
 
     def process_input(self):
-        mouse_pos = pygame.mouse.get_pos()
+        # KEYBOARD INPUT
+        key_input = pygame.key.get_pressed()
+        # [DEV] FORCE QUIT LEVEL
+        if key_input[self.FORCE_QUIT_LEVEL]:
+            self.MAIN.create_menu()
+            return
+        global tick3
+        if tick3 < 10:
+            tick3 += 1
+        if key_input[self.PAUSE] and tick3 > 10:
+            if self.MAIN.Level.inPause:
+                self.MAIN.Level.inPause = False
+            else:
+                self.MAIN.Level.inPause = True
+            tick3 = 0
         for unit in self.Units:
+            mouse_pos = pygame.mouse.get_pos()
             # ROTATE_PLAYER
             unit.rotate_player(mouse_pos)
-            # KEYBOARD INPUT
-            key_input = pygame.key.get_pressed()
-            # [DEV] FORCE QUIT LEVEL
-            if key_input[self.FORCE_QUIT_LEVEL]:
-                self.MAIN.create_menu()
             # PLAYER_PICK_UP TOOL
             global tick1
             global tick2

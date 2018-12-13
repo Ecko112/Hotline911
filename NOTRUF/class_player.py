@@ -110,6 +110,7 @@ class Player:
                 if room.temp > 50 or room.on_fire:
                     if self.player_hitbox.colliderect(room.Rect):
                         self.inRoom = True
+                    if self.inRoom:
                         if self.scba is not None:
                             self.scba.temp = str(int(room.temp))
                         else:
