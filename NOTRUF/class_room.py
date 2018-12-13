@@ -1,6 +1,7 @@
 import pygame
 import random
-from NOTRUF import class_furniture
+import class_furniture
+
 
 X = 0
 Y = 1

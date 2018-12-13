@@ -1,4 +1,4 @@
-from NOTRUF import class_structure, class_player, class_hose, class_firetruck, class_scba
+import class_structure, class_player, class_hose, class_firetruck, class_scba
 import pygame
 import random
 

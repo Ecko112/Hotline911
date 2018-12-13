@@ -1,6 +1,6 @@
 import random
 import pygame
-from NOTRUF import class_room
+import class_room
 
 X = 0
 Y = 1

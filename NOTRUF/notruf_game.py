@@ -1,6 +1,6 @@
 # IMPORTS
 import pygame
-from NOTRUF import class_main
+import class_main
 
 # SETTINGS
 SCREEN_RESOLUTION = (1366, 713)

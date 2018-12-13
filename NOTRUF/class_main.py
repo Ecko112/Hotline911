@@ -1,6 +1,6 @@
 import pygame
 import sys
-from NOTRUF import class_level, class_menu, class_shift
+import class_level, class_menu, class_shift
 
 X = 0
 Y = 1

@@ -1,7 +1,7 @@
 import pygame
 import math
 import os
-from NOTRUF import class_water
+import class_water
 
 NOTRUFDir = os.path.dirname(os.path.abspath(__file__))
 IMAGESDir = os.path.join(NOTRUFDir, 'IMAGES')

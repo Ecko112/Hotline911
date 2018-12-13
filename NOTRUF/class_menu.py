@@ -1,7 +1,11 @@
 import pygame
-# import math
+import os
 pygame.font.init()
 clock = pygame.time.Clock()
+
+
+NOTRUFDir = os.path.dirname(os.path.abspath(__file__))
+IMAGESDir = os.path.join(NOTRUFDir, 'IMAGES')
 
 X = 0
 Y = 1
@@ -27,7 +31,7 @@ class Menu:
         # Set Logo
         self.logo_size = (int(self.SCREEN_RESOLUTION[X]//1.5/2), int(self.SCREEN_RESOLUTION[X]//9.04/2))
         self.logo_pos = [2*self.SCREEN_RESOLUTION[X]/100, 2*self.SCREEN_RESOLUTION[X]/100]
-        self.logo_png = pygame.image.load('/home/louis/Documents/Universite/INFO2056/notruf112/UNDER_PROGRESS/IMAGES/logo908x151.png').convert_alpha(self.SCREEN)
+        self.logo_png = pygame.image.load(IMAGESDir+'/logo908x151.png').convert_alpha(self.SCREEN)
         self.logo_png = pygame.transform.scale(self.logo_png, self.logo_size)
 
         # Set Start Level

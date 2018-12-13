@@ -1,5 +1,4 @@
-from NOTRUF import class_player
-from NOTRUF import class_room
+import class_player
 import pygame
 clock = pygame.time.Clock()
 

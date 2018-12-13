@@ -1,4 +1,4 @@
-from NOTRUF import class_hose, class_scba
+import class_hose, class_scba
 import pygame
 
 X = 0
