@@ -1,4 +1,4 @@
-import class_hose, class_scba
+import class_hose, class_scba, class_level
 import pygame
 import os
 
@@ -22,6 +22,7 @@ class Truck:
         self.image = pygame.transform.scale(self.image, self.scale_up)
         self.pos = [-self.SCREEN_RESOLUTION[Y]//2, 98*self.SCREEN_RESOLUTION[Y]//100-self.scale_up[Y]]
         # TOOLS
+        self.door = pygame.Rect(0, 0, self.scale_up[X] // 4, self.scale_up[X] // 4)
         # Hose
         self.hose = None
         self.hose_pos = None
@@ -41,11 +42,12 @@ class Truck:
 
     def paint_truck(self):
         self.SCREEN.blit(self.image, self.pos)
-        if self.LEVEL.intro_is_done:
-            rect = pygame.Rect(0, 0, self.scale_up[X]//30, self.scale_up[X]//30)
-            rect = pygame.Rect(0, 0, 15, 15)
-            rect.center = self.scba_pos
-            pygame.draw.rect(self.SCREEN, (0, 0, 0), rect)
+        if self.LEVEL.__class__ is class_level.Level:
+            if self.LEVEL.intro_is_done:
+                self.door.bottomright = [self.pos[X] + self.scale_up[X], self.pos[Y]]
+        else:
+            self.door.bottomleft = [self.pos[X]+self.scale_up[Y], self.pos[Y]+self.scale_up[X]]
+            pygame.draw.rect(self.SCREEN, (0, 0, 0), self.door)
 
     def arrival(self):
         if self.pos[X] < 6*self.SCREEN_RESOLUTION[X]//10:

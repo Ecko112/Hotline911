@@ -6,6 +6,7 @@ clock = pygame.time.Clock()
 X = 0
 Y = 1
 
+tick1 = 0
 # This could be a sub to the Level class
 # as they share a lot of functionalities
 # but ain't nobody got time for that
@@ -26,6 +27,7 @@ class Shift:
     RGHT = pygame.K_d
     up = left = -1
     down = rght = 1
+    GET_IN = pygame.K_e
 
     def __init__(self, MAIN):
         # INIT
@@ -58,6 +60,8 @@ class Shift:
 
     def loop_firehouse(self):
         self.process_input()
+        for unit in self.Units:
+            unit.get_location_vehicle()
         self.paint_shift()
         # Lock 50 FPS
         clock.tick(50)
@@ -90,6 +94,12 @@ class Shift:
             # [DEV] FORCE START LEVEL
             if key_input[self.FORCE_START_LEVEL]:
                 self.MAIN.create_level()
+            # PLAYER ENTER VEHICLE
+            global tick1
+            if tick1 <= 20:
+                tick1 += 1
+            if unit.inDoor and key_input[self.GET_IN] and tick1 >= 20:
+                unit.leave_scene()
             # MOVE_PLAYER 4 DIRECTIONS
             if key_input[self.UP]:
                 unit.mov_player(self.up, Y)

@@ -11,6 +11,7 @@ Y = 1
 tick1 = 10
 tick2 = 10
 tick3 = 10
+tick4 = 10
 
 
 class Level:
@@ -31,6 +32,7 @@ class Level:
     # Interaction Items
     PICK_UP = pygame.K_SPACE
     DROP = pygame.K_g
+    GET_IN = pygame.K_e
     # Hose
     increase_debit = pygame.K_a
     decrease_debit = pygame.K_e
@@ -127,16 +129,24 @@ class Level:
         global tick3
         if tick3 < 10:
             tick3 += 1
-        if key_input[self.PAUSE] and tick3 > 10:
+        if key_input[self.PAUSE] and tick3 >= 10:
             if self.MAIN.Level.inPause:
                 self.MAIN.Level.inPause = False
+                tick3 = 0
             else:
                 self.MAIN.Level.inPause = True
-            tick3 = 0
+                tick3 = 0
         for unit in self.Units:
             mouse_pos = pygame.mouse.get_pos()
             # ROTATE_PLAYER
             unit.rotate_player(mouse_pos)
+            # PLAYER ENTER VEHICLE
+            global tick4
+            if tick4 <= 20:
+                tick4 += 1
+            if unit.inDoor and key_input[self.GET_IN] and tick4 >= 20:
+                unit.leave_scene()
+                tick4 = 0
             # PLAYER_PICK_UP TOOL
             global tick1
             global tick2
@@ -198,6 +208,7 @@ class Level:
     def update_level(self):
         for unit in self.Units:
             unit.get_location()
+            unit.get_location_vehicle()
             unit.breath()
         for structure in self.Structures:
             structure.burn()

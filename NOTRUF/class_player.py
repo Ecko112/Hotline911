@@ -1,6 +1,7 @@
 import pygame
 import math
 import os
+import class_level
 
 NOTRUFDir = os.path.dirname(os.path.abspath(__file__))
 IMAGESDir = os.path.join(NOTRUFDir, 'IMAGES')
@@ -14,7 +15,7 @@ class Player:
     def __init__(self, LEVEL):
         # INIT
         self.LEVEL = LEVEL
-        self.MAIN = self.LEVEL
+        self.MAIN = self.LEVEL.MAIN
         self.SCREEN = self.LEVEL.SCREEN
         self.Images = []
         ###################
@@ -26,6 +27,7 @@ class Player:
         # Set spawn default status
         self.pos = [int(self.LEVEL.STARTING_POS[X]), int(self.LEVEL.STARTING_POS[Y])]
         self.inRoom = False
+        self.inDoor = True
         self.health = 300
         self.player_hitbox.center = self.pos
         self.orientation = 0
@@ -108,7 +110,7 @@ class Player:
         for structure in self.LEVEL.Structures:
             for room in structure.Rooms:
                 if self.player_hitbox.colliderect(room.Rect):
-                    if room.temp > 80:
+                    if room.temp > 40:
                         self.inRoom = True
                     if self.scba is not None:
                         self.scba.temp = str(int(room.temp))+'°'
@@ -116,7 +118,15 @@ class Player:
                 else:
                     if self.scba is not None:
                         self.scba.temp = 'N/A'
-                    self.inRoom = False
+                        self.inRoom = False
+
+    def get_location_vehicle(self):
+        for vehicle in self.LEVEL.Vehicles:
+            if self.player_hitbox.colliderect(vehicle.door):
+                self.inDoor = True
+                return
+            else:
+                self.inDoor = False
 
     def breath(self):
         if self.inRoom:
@@ -135,6 +145,14 @@ class Player:
 
     def stop_check_scba(self):
         self.checking = False
+
+    def leave_scene(self):
+        if self.LEVEL.__class__ is class_level.Level:
+            self.inDoor = False
+            self.MAIN.create_shift()
+        else:
+            self.inDoor = False
+            self.MAIN.create_level()
 
     def mov_player(self, direction, axe):
         self.pos[axe] += self.STEP * direction
