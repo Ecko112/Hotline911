@@ -65,15 +65,15 @@ class Furniture:
     def paint_furniture(self):
         pygame.draw.rect(self.SCREEN, self.texture, self.Rect)
         # [DEV] DRAW RADIATION ZONE
-        pygame.draw.rect(self.SCREEN, (0, 0, 0), self.influence_Rect, 2)
+        # pygame.draw.rect(self.SCREEN, (0, 0, 0), self.influence_Rect, 2)
         # [DEV] BLIT TEMPERATURE
-        global t
-        if t == 10:
-            self.temp_message = self.temp_font.render(str(self.temp), False, (0, 0, 0))
-            t = 0
-        else:
-            t += 1
-        self.SCREEN.blit(self.temp_message, self.pos)
+        # global t
+        # if t == 10:
+        #     self.temp_message = self.temp_font.render(str(self.temp), False, (0, 0, 0))
+        #     t = 0
+        # else:
+        #     t += 1
+        # self.SCREEN.blit(self.temp_message, self.Rect.topleft)
 
     def ignite(self):
         self.burning = True

@@ -96,10 +96,11 @@ class Shift:
                 self.MAIN.create_level()
             # PLAYER ENTER VEHICLE
             global tick1
-            if tick1 <= 20:
+            if tick1 < 20:
                 tick1 += 1
             if unit.inDoor and key_input[self.GET_IN] and tick1 >= 20:
                 unit.leave_scene()
+                tick1 = 0
             # MOVE_PLAYER 4 DIRECTIONS
             if key_input[self.UP]:
                 unit.mov_player(self.up, Y)

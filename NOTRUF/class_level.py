@@ -142,7 +142,7 @@ class Level:
             unit.rotate_player(mouse_pos)
             # PLAYER ENTER VEHICLE
             global tick4
-            if tick4 <= 20:
+            if tick4 < 20:
                 tick4 += 1
             if unit.inDoor and key_input[self.GET_IN] and tick4 >= 20:
                 unit.leave_scene()
@@ -178,7 +178,6 @@ class Level:
             elif key_input[self.LEFT]:
                 unit.mov_player(self.left, X)
             if unit.scba is not None:
-                #
                 if key_input[self.CHECK_SCBA]:
                     unit.check_scba()
                 else:

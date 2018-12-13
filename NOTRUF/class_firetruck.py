@@ -47,7 +47,6 @@ class Truck:
                 self.door.bottomright = [self.pos[X] + self.scale_up[X], self.pos[Y]]
         else:
             self.door.bottomleft = [self.pos[X]+self.scale_up[Y], self.pos[Y]+self.scale_up[X]]
-            pygame.draw.rect(self.SCREEN, (0, 0, 0), self.door)
 
     def arrival(self):
         if self.pos[X] < 6*self.SCREEN_RESOLUTION[X]//10:
