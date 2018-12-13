@@ -1,5 +1,9 @@
 import class_hose, class_scba
 import pygame
+import os
+
+NOTRUFDir = os.path.dirname(os.path.abspath(__file__))
+IMAGESDir = os.path.join(NOTRUFDir, 'IMAGES')
 
 X = 0
 Y = 1
@@ -12,10 +16,11 @@ class Truck:
         self.MAIN = self.LEVEL.MAIN
         self.SCREEN = self.LEVEL.SCREEN
         self.SCREEN_RESOLUTION = self.LEVEL.SCREEN_RESOLUTION
-        # SET
-        self.length = int(self.SCREEN_RESOLUTION[X]//5)
-        self.width = int(self.SCREEN_RESOLUTION[X]//10)
-        self.pos = [-self.SCREEN_RESOLUTION[Y], self.SCREEN_RESOLUTION[Y]-self.width]
+        # Image
+        self.scale_up = [int(self.SCREEN_RESOLUTION[X]//5.83*1.5), int(self.SCREEN_RESOLUTION[X]//12.19*1.5)]
+        self.image = pygame.image.load(IMAGESDir+'/truck_engine.png').convert_alpha(self.SCREEN)
+        self.image = pygame.transform.scale(self.image, self.scale_up)
+        self.pos = [-self.SCREEN_RESOLUTION[Y]//2, 98*self.SCREEN_RESOLUTION[Y]//100-self.scale_up[Y]]
         # TOOLS
         # Hose
         self.hose = None
@@ -28,17 +33,16 @@ class Truck:
 
     def tool_up(self):
         # Hose
-        self.hose_pos = [self.pos[X]+2*self.length//10, self.pos[Y]]
+        self.hose_pos = [self.pos[X]+2*self.scale_up[X]//10, self.pos[Y]]
         self.hose = class_hose.Hose(self)
         # Scba
-        self.scba_pos = [self.pos[X]+4*self.length//10, self.pos[Y]]
+        self.scba_pos = [self.pos[X]+4*self.scale_up[X]//10, self.pos[Y]]
         self.scba = class_scba.Scba(self)
 
     def paint_truck(self):
-        pygame.draw.rect(self.SCREEN, (255, 10, 20), (self.pos, (self.length, self.width)))
+        self.SCREEN.blit(self.image, self.pos)
         if self.LEVEL.intro_is_done:
-            pygame.draw.circle(self.SCREEN, (0, 0, 0), self.hose_pos, self.length//30)
-            rect = pygame.Rect(0, 0, self.length//30, self.length//30)
+            rect = pygame.Rect(0, 0, self.scale_up[X]//30, self.scale_up[X]//30)
             rect.center = self.scba_pos
             pygame.draw.rect(self.SCREEN, (0, 0, 0), rect)
 
