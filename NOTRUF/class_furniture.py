@@ -10,7 +10,6 @@ t = 0
 
 class Furniture:
     texture = (200, 200, 150)
-    font = pygame.font.SysFont('monospace', 20)
 
     ignition_tresh = 80
 
@@ -32,16 +31,28 @@ class Furniture:
         self.grid_area = int(self.area/(self.ROOM.GRID_SIZE**2))
         self.Rect = self.influence_Rect = pygame.Rect(0, 0, self.length, self.width)
         self.Rect.center = self.influence_Rect.center = self.pos
-
+        # Check collision
+        collision = False
+        for wall in self.STRUCTURE.Walls:
+            if self.Rect.colliderect(wall.Rect):
+                collision = True
+        if not collision:
+            for furniture in self.STRUCTURE.Furniture:
+                if self.Rect.colliderect(furniture.Rect):
+                    collision = True
+        # Attributes
+        # Radiation Rectangle
         self.influence_rad = 0
         self.influence_rad_max = self.STRUCTURE.GRID_SIZE * 3
         self.influence = 1/100
         self.influence_room = self.influence
+        # Ignitability
         self.temp = self.ROOM.temp
         self.wetness = 0
-
-        self.ROOM.Furniture.append(self)
-        self.STRUCTURE.Furniture.append(self)
+        # Save Self
+        if not collision:
+            self.ROOM.Furniture.append(self)
+            self.STRUCTURE.Furniture.append(self)
         # OTHER
         self.temp_font_size = 20
         self.temp_font = pygame.font.SysFont('monospace', self.temp_font_size)

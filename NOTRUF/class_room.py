@@ -100,7 +100,7 @@ class Room:
 
     def stuff_up(self):
         nbr_meubles = random.randint(1, 5)
-        for meuble in range(nbr_meubles):
+        while len(self.Furniture) < nbr_meubles:
             object_length = random.randrange(self.GRID_SIZE, abs(self.length) // 2, self.GRID_SIZE)
             object_width = random.randrange(self.GRID_SIZE, abs(self.width) // 2, self.GRID_SIZE)
             posx = random.randrange(object_length // 2, abs(self.length) + 1 - object_length // 2, self.GRID_SIZE)
@@ -125,6 +125,13 @@ class Room:
                 wall_h11.length = random.randrange(2*self.WALL_SIZE, self.length - self.STRUCTURE.DOOR_SIZE - self.WALL_SIZE*2, self.WALL_SIZE)
                 wall_h11.width = self.WALL_SIZE
                 self.add_wall(wall_h11)
+
+                # I must put a zone so furniture doesn't block the door
+                doormat = Doormat()
+                doormat.p1 = [wall_h11.Rect.right, wall_h11.Rect.topright[Y]-self.GRID_SIZE]
+                doormat.length = self.STRUCTURE.DOOR_SIZE
+                doormat.width = self.GRID_SIZE*2+self.WALL_SIZE
+                self.add_wall(doormat)
 
                 wall_h12 = Wall()
                 wall_h12.p1 = (wall_h11.p1[X] + wall_h11.length + self.STRUCTURE.DOOR_SIZE, wall_h11.p1[Y])
@@ -186,7 +193,7 @@ class Room:
                 self.add_wall(wall_v12)
 
     def add_wall(self, wall):
-        wall.Rect = pygame.Rect(wall.p1[X], wall.p1[Y], wall.length, wall.width)
+        wall.get_rect()
         self.Walls.append(wall)
         self.STRUCTURE.Walls.append(wall)
 
@@ -196,3 +203,16 @@ class Wall:
     length = None
     width = None
     Rect = None
+
+    def get_rect(self):
+        self.Rect = pygame.Rect(self.p1[X], self.p1[Y], self.length, self.width)
+
+
+class Doormat:
+    p1 = None
+    length = None
+    width = None
+    Rect = None
+
+    def get_rect(self):
+        self.Rect = pygame.Rect(self.p1[X], self.p1[Y], self.length, self.width)
