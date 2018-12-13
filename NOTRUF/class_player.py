@@ -25,6 +25,8 @@ class Player:
         self.player_hitbox = pygame.Rect(0, 0, self.SIZE*2, self.SIZE*2)
         # Set spawn default status
         self.pos = [int(self.LEVEL.STARTING_POS[X]), int(self.LEVEL.STARTING_POS[Y])]
+        self.inRoom = False
+        self.health = 300
         self.player_hitbox.center = self.pos
         self.orientation = 0
         self.prev_orientation = self.orientation
@@ -37,8 +39,6 @@ class Player:
         self.scaled_up = int(self.SIZE * 2.75)
         self.load_images()
         self.current_image = self.Images[0]
-        # [DEV] Start with Hose
-        # self.hose = class_hose.Hose(self)
         self.LEVEL.Units.append(self)
 
     def load_images(self):
@@ -104,6 +104,27 @@ class Player:
     def spray_stop(self):
         self.spraying = False
 
+    def get_location(self):
+        for structure in self.LEVEL.Structures:
+            for room in structure.Rooms:
+                if self.player_hitbox.colliderect(room.Rect):
+                    self.inRoom = True
+                    return
+                else:
+                    self.inRoom = False
+
+    def breath(self):
+        if self.inRoom:
+            if self.scba is None:
+                self.health -= 0.5
+            else:
+                if self.scba.capacity > 0:
+                    self.scba.capacity -= 0.1
+                else:
+                    self.health -= 0.5
+            if self.health < 0:
+                self.die()
+
     def check_scba(self):
         self.checking = True
 
@@ -128,6 +149,13 @@ class Player:
                             self.player_hitbox.bottom = wall.Rect.top
 
         self.pos = [self.player_hitbox.center[X], self.player_hitbox.center[Y]]
+
+    def die(self):
+        if self.hose is not None:
+            self.hose.get_dropped()
+        if self.scba is not None:
+            self.scba.get_dropped()
+        self.LEVEL.failure()
 
 
 def get_dist(point1, point2):

@@ -23,7 +23,6 @@ class Hose:
         self.scale_up = int(self.LEVEL.SCREEN_RESOLUTION[X] // 56.91)
         self.image = pygame.image.load(IMAGESDir+'/tool_hose.png').convert_alpha(self.SCREEN)
         self.image = pygame.transform.scale(self.image, (self.scale_up, self.scale_up))
-        self.report = 0
         # Spray Settings
         min_spray = 10
         medium_spray = 60

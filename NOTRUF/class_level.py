@@ -71,10 +71,14 @@ class Level:
         self.HERBE_TEXTURE = self.MAIN.GREEN
         self.BETON_TEXTURE = self.MAIN.LIGHT_GREY
         self.BITUME_TEXTURE = self.MAIN.DARK_GREY
-        # FONTS
+        # Victory Message
         self.victory_font_size = int(self.SCREEN_RESOLUTION[X] // 20)
         self.victory_font = pygame.font.SysFont('monospace', self.victory_font_size)
         self.victory_message = self.victory_font.render('Mission Accomplished', True, (0, 0, 0))
+        # Failure Message
+        self.failure_font_size = int(self.SCREEN_RESOLUTION[X] // 20)
+        self.failure_font = pygame.font.SysFont('monospace', self.failure_font_size)
+        self.failure_message = self.failure_font.render('Mission Failed.', True, (0, 0, 0))
         ##############
         # FILL LEVEL #
         ##############
@@ -119,11 +123,7 @@ class Level:
             # [DEV] FORCE QUIT LEVEL
             if key_input[self.FORCE_QUIT_LEVEL]:
                 self.MAIN.create_menu()
-            # # CHECK SCBA
-            # if key_input[self.CHECK_SCBA]:
-            #     if unit.scba is not None:
-            #         unit.scba.check()
-            # PLAYER_PICK_UP
+            # PLAYER_PICK_UP TOOL
             global tick1
             global tick2
             if tick1 < 10:
@@ -182,6 +182,9 @@ class Level:
         self.Structures[random.randint(0, len(self.Structures)-1)].ignite()
 
     def update_level(self):
+        for unit in self.Units:
+            unit.get_location()
+            unit.breath()
         for structure in self.Structures:
             structure.burn()
         for water in self.Water:
@@ -213,6 +216,7 @@ class Level:
         # self.draw_grid()
         if len(self.Burning) == 0:
             self.victory()
+
         # Update screen
         pygame.display.flip()
 
@@ -228,3 +232,9 @@ class Level:
 
     def victory(self):
         self.SCREEN.blit(self.victory_message, (0, 0))
+
+    def failure(self):
+        self.SCREEN.blit(self.failure_message, (0, 0))
+        pygame.display.flip()
+        pygame.time.wait(3000)
+        self.MAIN.create_menu()

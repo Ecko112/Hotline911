@@ -3,8 +3,8 @@ import pygame
 from NOTRUF import class_main
 
 # SETTINGS
-# SCREEN_RESOLUTION = (1366, 713)
-SCREEN_RESOLUTION = (1280, 713)
+SCREEN_RESOLUTION = (1366, 713)
+# SCREEN_RESOLUTION = (1280, 713)
 #################
 # PYGAME.INIT() #
 #################
