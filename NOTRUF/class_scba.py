@@ -25,6 +25,7 @@ class Scba:
         self.image = pygame.transform.scale(self.image, (self.scale_up, self.scale_up))
         # SELF
         self.capacity = 300
+        self.temp = 'N/A'
         self.pos = [self.TRUCK.scba_pos[X], self.TRUCK.scba_pos[Y]-10]
         self.bodyguard = Bodyguard(self)
         self.handler = None
@@ -61,8 +62,14 @@ class Bodyguard:
         self.capacity_message_font_size = int(self.SCREEN_RESOLUTION[X]//60)
         self.capacity_message_font = pygame.font.SysFont('monospace', self.capacity_message_font_size)
         self.capacity_message = self.capacity_message_font.render(str(int(self.SCBA.capacity)), True, (0, 0, 0))
+        # Display Room Temp
+        self.temp_message_font_size = self.capacity_message_font_size
+        self.temp_message_font = self.capacity_message_font
+        self.temp_message = self.temp_message_font.render(self.SCBA.temp, True, (0, 0, 0))
 
     def paint_bodyguard(self):
         self.SCREEN.blit(self.image, self.pos)
+        self.temp_message = self.temp_message_font.render(self.SCBA.temp+'°', True, (0, 0, 0))
         self.capacity_message = self.capacity_message_font.render(str(int(self.SCBA.capacity)), True, (0, 0, 0))
         self.SCREEN.blit(self.capacity_message, (self.pos[X]+self.SCREEN_RESOLUTION[X]//50.59, self.pos[Y]+self.SCREEN_RESOLUTION[X]//50.59))
+        self.SCREEN.blit(self.temp_message, ((self.pos[X]+10), self.pos[Y]+self.SCREEN_RESOLUTION[X]//50.59+15))
