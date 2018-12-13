@@ -69,7 +69,7 @@ class Bodyguard:
 
     def paint_bodyguard(self):
         self.SCREEN.blit(self.image, self.pos)
-        self.temp_message = self.temp_message_font.render(self.SCBA.temp+'°', True, (0, 0, 0))
+        self.temp_message = self.temp_message_font.render(self.SCBA.temp, True, (0, 0, 0))
         self.capacity_message = self.capacity_message_font.render(str(int(self.SCBA.capacity)), True, (0, 0, 0))
         self.SCREEN.blit(self.capacity_message, (self.pos[X]+self.SCREEN_RESOLUTION[X]//50.59, self.pos[Y]+self.SCREEN_RESOLUTION[X]//50.59))
         self.SCREEN.blit(self.temp_message, ((self.pos[X]+10), self.pos[Y]+self.SCREEN_RESOLUTION[X]//50.59+15))

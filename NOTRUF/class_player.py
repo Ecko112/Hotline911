@@ -107,16 +107,15 @@ class Player:
     def get_location(self):
         for structure in self.LEVEL.Structures:
             for room in structure.Rooms:
-                if room.temp > 50 or room.on_fire:
-                    if self.player_hitbox.colliderect(room.Rect):
+                if self.player_hitbox.colliderect(room.Rect):
+                    if room.temp > 80:
                         self.inRoom = True
-                    if self.inRoom:
-                        if self.scba is not None:
-                            self.scba.temp = str(int(room.temp))
-                        else:
-                            self.scba.temp = 'N/A'
-                        return
+                    if self.scba is not None:
+                        self.scba.temp = str(int(room.temp))+'°'
+                    return
                 else:
+                    if self.scba is not None:
+                        self.scba.temp = 'N/A'
                     self.inRoom = False
 
     def breath(self):

@@ -1,4 +1,5 @@
 import class_player
+import class_firetruck
 import pygame
 clock = pygame.time.Clock()
 
@@ -33,6 +34,8 @@ class Shift:
         self.SCREEN_RESOLUTION = self.MAIN.SCREEN_RESOLUTION
         self.Units = []
         self.Structures = []
+        self.Vehicles = []
+        self.intro_is_done = False
         ############
         # TEXTURES #
         ############
@@ -42,8 +45,16 @@ class Shift:
         # PLAYER SETTINGS
         self.PLAYER_SIZE = int(self.SCREEN_RESOLUTION[Y] // 28.4)
         self.STARTING_POS = [8*self.SCREEN_RESOLUTION[X]//10, 8*self.SCREEN_RESOLUTION[Y]//10]
+        # STRUCTURE SETTINGS
+        self.MIN_ROOM = self.PLAYER_SIZE * 6
+        self.DOOR_SIZE = self.PLAYER_SIZE * 3 - 10
+        self.GRID_SIZE = self.MIN_ROOM // 6
         # Spawn Player
+        self.create_firehouse()
         self.create_player()
+        self.engine = class_firetruck.Truck(self)
+        self.engine.pos = [230, 225]
+        self.engine.image = pygame.transform.rotate(self.engine.image, -90)
 
     def loop_firehouse(self):
         self.process_input()
@@ -54,6 +65,12 @@ class Shift:
     def paint_shift(self):
         # BACKGROUND
         self.SCREEN.fill(self.HERBE_TEXTURE)
+        # FIREHOUSE
+        for structure in self.Structures:
+            structure.paint_structure()
+        # VEHICLES
+        for vehicle in self.Vehicles:
+            vehicle.paint_truck()
         # UNITS
         for unit in self.Units:
             unit.paint_player()
@@ -63,7 +80,7 @@ class Shift:
     def process_input(self):
         mouse_pos = pygame.mouse.get_pos()
         for unit in self.Units:
-            # ROTATE_PLAYERd
+            # ROTATE_PLAYER
             unit.rotate_player(mouse_pos)
             # KEYBOARD INPUT
             key_input = pygame.key.get_pressed()
@@ -98,8 +115,66 @@ class FireStation:
         # Lists
         self.Walls = []
         self.Rooms = []
+        # Longueurs
+        self.MIN_ROOM = self.LEVEL.MIN_ROOM
+        self.GRID_SIZE = self.LEVEL.GRID_SIZE
+        self.DOOR_SIZE = self.LEVEL.DOOR_SIZE
+        self.WALL_SIZE = self.MIN_ROOM // 15
         # PREDEF
-        self.predef_1 = []
+        room1 = [[200, 200], [430, 200], [430, 600], [200, 600]]
+        room2 = [[430, 200], [600, 200], [600, 400], [430, 400]]
+        self.predef_1 = [room1, room2]
+        self.LEVEL.Structures.append(self)
+        self.create_building()
 
     def create_building(self):
-        pass
+        for room in self.predef_1:
+            roum = Room(self)
+            roum.p1 = room[0]
+            roum.p2 = room[1]
+            roum.p3 = room[2]
+            roum.p4 = room[3]
+            self.Rooms.append(roum)
+
+    def paint_structure(self):
+        for room in self.Rooms:
+            room.paint_room()
+        for wall in self.Walls:
+            wall.paint_wall()
+
+
+class Room:
+    floor_texture = (168, 119, 90)
+    wall_texture = (170, 160, 0)
+
+    def __init__(self, FIREHOUSE):
+        # INIT
+        self.STRUCTURE = FIREHOUSE
+        self.LEVEL = self.STRUCTURE.LEVEL
+        self.MAIN = self.LEVEL.MAIN
+        self.SCREEN = self.LEVEL.SCREEN
+        self.WALL_SIZE = self.STRUCTURE.WALL_SIZE
+        self.GRID_SIZE = self.STRUCTURE.GRID_SIZE
+        self.p1 = None
+        self.p2 = None
+        self.p3 = None
+        self.p4 = None
+        self.p5 = None
+        self.p6 = None
+        self.polyroom = []
+
+    def paint_room(self):
+        self.poly_room()
+        pygame.draw.polygon(self.SCREEN, self.floor_texture, self.polyroom)
+
+    def poly_room(self):
+        self.polyroom = [self.p1, self.p2, self.p3, self.p4, self.p5, self.p6]
+
+
+class Locker:
+
+    def __init__(self, SHIFT):
+        self.LEVEL = SHIFT
+        self.MAIN = self.LEVEL.MAIN
+        self.SCREEN = self.LEVEL.SCREEN
+        self.SCREEN_RESOLUTION = self.LEVEL.SCREEN_RESOLUTION

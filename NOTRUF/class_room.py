@@ -91,13 +91,13 @@ class Room:
         for objet in self.Furniture:
             objet.paint_furniture()
         # [DEV] BLIT TEMPERATURE
-        global t
-        if t == 10:
-            self.temp_message = self.temp_font.render(str(self.temp), False, (0, 0, 0))
-            t = 0
-        else:
-            t += 1
-        self.SCREEN.blit(self.temp_message, self.p1)
+        # global t
+        # if t == 10:
+        #     self.temp_message = self.temp_font.render(str(self.temp), False, (0, 0, 0))
+        #     t = 0
+        # else:
+        #     t += 1
+        # self.SCREEN.blit(self.temp_message, self.p1)
 
     def stuff_up(self):
         nbr_meubles = random.randint(1, 5)
