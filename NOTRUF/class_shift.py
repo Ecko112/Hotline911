@@ -121,8 +121,8 @@ class FireStation:
         self.DOOR_SIZE = self.LEVEL.DOOR_SIZE
         self.WALL_SIZE = self.MIN_ROOM // 15
         # PREDEF
-        room1 = [[200, 200], [430, 200], [430, 600], [200, 600]]
-        room2 = [[430, 200], [600, 200], [600, 400], [430, 400]]
+        room1 = [[200, 200], [530, 200], [530, 600], [200, 600]]
+        room2 = [[530, 200], [700, 200], [700, 400], [530, 400]]
         self.predef_1 = [room1, room2]
         self.LEVEL.Structures.append(self)
         self.create_building()
