@@ -94,9 +94,10 @@ class Level:
     def intro(self):
         while not self.intro_is_done:
             self.Vehicles[0].arrival()
+            self.process_input()
             self.update_level()
             self.paint_level()
-            clock.tick(1500)
+            clock.tick(200)
         self.create_player()
 
     def loop_level(self):
