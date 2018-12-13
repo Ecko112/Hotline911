@@ -93,7 +93,7 @@ class Level:
             self.Vehicles[0].arrival()
             self.update_level()
             self.paint_level()
-            clock.tick(15000)
+            clock.tick(1500)
         self.create_player()
 
     def loop_level(self):

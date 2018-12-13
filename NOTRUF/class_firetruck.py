@@ -15,7 +15,7 @@ class Truck:
         # SET
         self.length = int(self.SCREEN_RESOLUTION[X]//5)
         self.width = int(self.SCREEN_RESOLUTION[X]//10)
-        self.pos = [0, self.SCREEN_RESOLUTION[Y]-self.width]
+        self.pos = [-self.SCREEN_RESOLUTION[Y], self.SCREEN_RESOLUTION[Y]-self.width]
         # TOOLS
         # Hose
         self.hose = None
