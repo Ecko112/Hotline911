@@ -107,9 +107,10 @@ class Player:
     def get_location(self):
         for structure in self.LEVEL.Structures:
             for room in structure.Rooms:
-                if self.player_hitbox.colliderect(room.Rect):
-                    self.inRoom = True
-                    return
+                if room.temp > 50 or room.on_fire:
+                    if self.player_hitbox.colliderect(room.Rect):
+                        self.inRoom = True
+                        return
                 else:
                     self.inRoom = False
 

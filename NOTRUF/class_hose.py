@@ -37,7 +37,7 @@ class Hose:
         self.handler = None
         self.hose_p = None
         self.sprayed = False
-        self.hose_line = [self.pos, self.pos]
+        self.hose_line = [self.pos, self.pos, self.pos]
         self.texture = (206, 5, 5)
         self.LEVEL.Tools.append(self)
 
@@ -53,8 +53,13 @@ class Hose:
         self.handler.hose = self
 
     def get_dropped(self):
-        self.pos = self.handler.pos
-        self.handler = None
+        if get_dist(self.handler.pos, self.TRUCK.hose_pos) < 35:
+            self.pos = self.TRUCK.hose_pos
+            self.hose_line = [self.pos, self.pos, self.pos]
+            self.handler = None
+        else:
+            self.pos = self.handler.pos
+            self.handler = None
 
     def set_hose_line(self):
         self.hose_line[-1] = self.handler.pos

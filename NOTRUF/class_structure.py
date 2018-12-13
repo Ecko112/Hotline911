@@ -18,6 +18,7 @@ class Structure:
         self.Rooms = []
         self.Separation = []
         self.Walls = []
+        self.Doormats = []
         self.Furniture = []
         # Booleans
         self.add_one_floor_1 = True

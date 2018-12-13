@@ -131,7 +131,7 @@ class Room:
                 doormat.p1 = [wall_h11.Rect.right, wall_h11.Rect.topright[Y]-self.GRID_SIZE]
                 doormat.length = self.STRUCTURE.DOOR_SIZE
                 doormat.width = self.GRID_SIZE*2+self.WALL_SIZE
-                self.add_wall(doormat)
+                self.add_doormat(doormat)
 
                 wall_h12 = Wall()
                 wall_h12.p1 = (wall_h11.p1[X] + wall_h11.length + self.STRUCTURE.DOOR_SIZE, wall_h11.p1[Y])
@@ -165,6 +165,13 @@ class Room:
                 wall_h11.width = self.WALL_SIZE
                 self.add_wall(wall_h11)
 
+                # I must put a zone so furniture doesn't block the door
+                doormat = Doormat()
+                doormat.p1 = [wall_h11.Rect.right, wall_h11.Rect.topright[Y] - self.GRID_SIZE]
+                doormat.length = self.STRUCTURE.DOOR_SIZE
+                doormat.width = self.GRID_SIZE * 2 + self.WALL_SIZE
+                self.add_doormat(doormat)
+
                 wall_h12 = Wall()
                 wall_h12.p1 = (wall_h11.p1[X] + wall_h11.length + self.STRUCTURE.DOOR_SIZE, wall_h11.p1[Y])
                 wall_h12.length = self.length - self.STRUCTURE.DOOR_SIZE - wall_h11.length
@@ -191,6 +198,10 @@ class Room:
                 wall_v12.length = self.WALL_SIZE
                 wall_v12.width = self.widthsec + self.WALL_SIZE
                 self.add_wall(wall_v12)
+
+    def add_doormat(self, doormat):
+        doormat.get_rect()
+        self.STRUCTURE.Doormats.append(doormat)
 
     def add_wall(self, wall):
         wall.get_rect()

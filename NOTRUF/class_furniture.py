@@ -33,12 +33,16 @@ class Furniture:
         self.Rect.center = self.influence_Rect.center = self.pos
         # Check collision
         collision = False
-        for wall in self.STRUCTURE.Walls:
-            if self.Rect.colliderect(wall.Rect):
+        for furniture in self.STRUCTURE.Furniture:
+            if self.Rect.colliderect(furniture.Rect):
                 collision = True
         if not collision:
-            for furniture in self.STRUCTURE.Furniture:
-                if self.Rect.colliderect(furniture.Rect):
+            for wall in self.STRUCTURE.Walls:
+                if self.Rect.colliderect(wall.Rect):
+                    collision = True
+        if not collision:
+            for doormat in self.STRUCTURE.Doormats:
+                if self.Rect.colliderect(doormat.Rect):
                     collision = True
         # Attributes
         # Radiation Rectangle
