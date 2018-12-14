@@ -4,10 +4,10 @@ import random
 
 pygame.init()
 clock = pygame.time.Clock()
-
+# AXLES
 X = 0
 Y = 1
-
+# TICK VARIABLES for single key strokes
 tick1 = 10
 tick2 = 10
 tick3 = 10
@@ -29,7 +29,7 @@ class Level:
     RGHT = pygame.K_d
     up = left = -1
     down = rght = 1
-    # Interaction Items
+    # Interaction
     PICK_UP = pygame.K_SPACE
     DROP = pygame.K_g
     GET_IN = pygame.K_e
@@ -40,12 +40,12 @@ class Level:
     CHECK_SCBA = pygame.K_TAB
 
     def __init__(self, MAIN):
-        # INIT
+        # INIT LEVEL
         self.MAIN = MAIN
         self.SCREEN_RESOLUTION = self.MAIN.SCREEN_RESOLUTION
         self.SCREEN = self.MAIN.SCREEN
         self.inPause = False
-        # Lists
+        # Empty Lists
         self.Structures = []
         self.Units = []
         self.Vehicles = []
@@ -59,7 +59,6 @@ class Level:
         self.DOOR_SIZE = self.PLAYER_SIZE * 3 - 10
         # BUILDABLE ZONE
         self.ZONE = [self.SCREEN_RESOLUTION[X]//1.1234, self.SCREEN_RESOLUTION[Y]//1.424]
-        #
         self.ZONE[X] -= self.ZONE[X] % self.MIN_ROOM
         self.ZONE[Y] -= self.ZONE[Y] % self.MIN_ROOM
         # SET USEFUL POINTS
@@ -89,17 +88,21 @@ class Level:
         ##############
         self.create_structure()
         self.ignite()
+        # Player Truck Arrives
         self.create_truck()
         self.intro_is_done = False
         self.intro()
 
     def intro(self):
+        # Simulation time is sped up
+        # to let the fire grow
         while not self.intro_is_done:
             self.Vehicles[0].arrival()
             self.process_input()
             self.update_level()
             self.paint_level()
             clock.tick(200)
+        # Spawn Player
         self.create_player()
 
     def loop_level(self):
@@ -126,6 +129,7 @@ class Level:
         if key_input[self.FORCE_QUIT_LEVEL]:
             self.MAIN.create_menu()
             return
+        # PAUSE [NOT WORKING]
         global tick3
         if tick3 < 10:
             tick3 += 1
@@ -136,7 +140,9 @@ class Level:
             else:
                 self.MAIN.Level.inPause = True
                 tick3 = 0
+        # Character Input
         for unit in self.Units:
+            # MOUSE Input
             mouse_pos = pygame.mouse.get_pos()
             # ROTATE_PLAYER
             unit.rotate_player(mouse_pos)
@@ -144,10 +150,11 @@ class Level:
             global tick4
             if tick4 < 20:
                 tick4 += 1
-            if unit.inDoor and key_input[self.GET_IN] and tick4 >= 20:
-                unit.leave_scene()
-                tick4 = 0
-            # PLAYER_PICK_UP TOOL
+            if len(self.Burning) == 0:
+                if unit.inDoor and key_input[self.GET_IN] and tick4 >= 20:
+                    unit.leave_scene()
+                    tick4 = 0
+            # PLAYER PICK_UP/DROP TOOL
             global tick1
             global tick2
             if tick1 < 10:
@@ -177,11 +184,13 @@ class Level:
                 unit.mov_player(self.rght, X)
             elif key_input[self.LEFT]:
                 unit.mov_player(self.left, X)
+            # CHECK BODYGUARD
             if unit.scba is not None:
                 if key_input[self.CHECK_SCBA]:
                     unit.check_scba()
                 else:
                     unit.stop_check_scba()
+            # HOSE HANDLING
             if unit.hose is not None:
                 # SET_HOSE_DEBIT +/-
                 if key_input[self.increase_debit]:
@@ -238,13 +247,14 @@ class Level:
             truck.paint_truck()
         # [DEV] GRID
         # self.draw_grid()
+        # Victory Message [WIP]
         if len(self.Burning) == 0:
             self.victory()
-
         # Update screen
         pygame.display.flip()
 
     def draw_grid(self):
+        # Draw the tiles the level is based around
         report = [self.UPPER_LEFT[X], self.UPPER_LEFT[Y]]
         while report[Y] < self.LOWER_RGHT[Y]:
             while report[X] < self.LOWER_RGHT[X]:
@@ -258,7 +268,9 @@ class Level:
         self.SCREEN.blit(self.victory_message, (0, 0))
 
     def failure(self):
+        # Player dies [WIP]
         self.SCREEN.blit(self.failure_message, (0, 0))
         pygame.display.flip()
         pygame.time.wait(3000)
+        # QUIT TO MENU
         self.MAIN.create_menu()

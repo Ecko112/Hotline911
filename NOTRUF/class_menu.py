@@ -2,11 +2,10 @@ import pygame
 import os
 pygame.font.init()
 clock = pygame.time.Clock()
-
-
+# PATHS
 NOTRUFDir = os.path.dirname(os.path.abspath(__file__))
 IMAGESDir = os.path.join(NOTRUFDir, 'IMAGES')
-
+# AXLES
 X = 0
 Y = 1
 
@@ -27,26 +26,24 @@ class Menu:
         ###########
         # BUTTONS #
         ###########
+        # Empty List
         self.Buttons = []
         # Set Logo
         self.logo_size = (int(self.SCREEN_RESOLUTION[X]//1.5/2), int(self.SCREEN_RESOLUTION[X]//9.04/2))
         self.logo_pos = [2*self.SCREEN_RESOLUTION[X]/100, 2*self.SCREEN_RESOLUTION[X]/100]
         self.logo_png = pygame.image.load(IMAGESDir+'/logo908x151.png').convert_alpha(self.SCREEN)
         self.logo_png = pygame.transform.scale(self.logo_png, self.logo_size)
-
-        # Set Start Level
+        # Set Start Level Button
         self.start_level_font_size = int(self.SCREEN_RESOLUTION[X] // 39.02)
         self.start_level_font = pygame.font.SysFont('monospace', self.start_level_font_size)
         self.start_level = Button(" Start New Level ", self.start_level_font, (255, 255, 255), (255, 0, 0), self)
         self.start_level.pos = [2*self.SCREEN_RESOLUTION[X]/100, 37*self.SCREEN_RESOLUTION[Y]//100]
-
-        # Set Start Shift
+        # Set Start Shift Button
         self.start_shift_font_size = int(self.SCREEN_RESOLUTION[X]//39.02)
         self.start_shift_font = pygame.font.SysFont('monospace', self.start_shift_font_size)
         self.start_shift = Button(" Start New Shift ", self.start_shift_font,(255, 255 ,255), (255, 0, 0), self)
         self.start_shift.pos = [2*self.SCREEN_RESOLUTION[X]//100, 30*self.SCREEN_RESOLUTION[Y]//100]
-
-        # Set Exit Game
+        # Set Exit Game Button
         self.exit_game_font_size = int(self.SCREEN_RESOLUTION[X]//39.02)
         self.exit_game_font = pygame.font.SysFont('monospace', self.exit_game_font_size)
         self.exit_game = Button(" Exit Game ", self.exit_game_font, (255, 255, 255), (255, 0, 0), self)

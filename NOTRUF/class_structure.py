@@ -64,6 +64,7 @@ class Structure:
         room.get_a_rect()
 
     def wall_up(self):
+        # This Function creates Wall instance
         # Create Upper Wall
         wall_h = class_room.Wall()
         wall_h.p1 = (self.UPPER_LEFT[X] - self.WALL_SIZE // 2, self.UPPER_LEFT[Y] - self.WALL_SIZE // 2)
