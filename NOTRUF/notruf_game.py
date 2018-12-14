@@ -1,9 +1,11 @@
+# Author
+# HOUSSA Louis s181310
+
 # IMPORTS
 import pygame
 import class_main
 # SETTINGS
-# SCREEN_RESOLUTION = (1366, 713)
-SCREEN_RESOLUTION = (1280, 713)
+SCREEN_RESOLUTION = (1366, 713)
 #################
 # PYGAME.INIT() #
 #################

@@ -1,0 +1,75 @@
+  _    _  ____ _______ _      _____ _   _ ______ ___  __ __
+ | |  | |/ __ \__   __| |    |_   _| \ | |  ____/ _ \/_ /_ |
+ | |__| | |  | | | |  | |      | | |  \| | |__ | (_) || || |
+ |  __  | |  | | | |  | |      | | | . ` |  __| \__, || || |
+ | |  | | |__| | | |  | |____ _| |_| |\  | |____  / / | || |
+ |_|  |_|\____/  |_|  |______|_____|_| \_|______|/_/  |_||_|
+
+
+This game is an attempt at a basic firefighting simulation.
+by HOUSSA Louis
+-------------------------------------------------------------------------
+Set SCREEN_RESOLUTION in notruf_game.py
+/!\ The SCREEN RATIO is 16:9 and cannot be changed as of this version /!\
+-------------------------------------------------------------------------
+RUN "notruf_game.py" using python3
+-------------------------------------------------------------------------
+FEATURES:
+- procedural building generator
+- (kinda)realistic fire behaviour
+- interactive items (SCBA and hose only in this version)
+- realistic water particle system
+- ...
+
+WIP FEATURES:
+- building textures
+- firestation building
+- end of level animations
+- air bottle refill (not in this version)
+
+NOT WORKING FEATURES:
+- pause
+- vertical doors in buildings
+- ...
+-------------------------------------------------------------------------
+KNOWN ISSUES:
+- the menu blits for one frame at the end of level introduction (idk why)
+- the end of a level is meh (but it works)
+- the firestation is not built yet (but it works)
+- user has to generate all the calls (but it works)
+- user cannot exit while animation is playing
+- user cannot pause
+-------------------------------------------------------------------------
+QUICK GUIDE
+
+# Move using ZQSD
+
+# Pick up items using SPACE_BAR
+- pick up an SCBA (Self-Contained Breathing Apparatus) to be able to breathe in fire environment
+- pick up a firehose at the back of your truck to fight fires (need to put on SCBA first)
+
+# Use FireHose using the mouse:
+1. Left Mouse Button:
+    - straight spray
+    - longest reach
+    - highly effective against burning material
+    - ineffective against smoke
+2. Right Mouse Button:
+    - largest spray
+    - smallest reach
+    - higly effective to cool down a room
+    - not very effective on burning objects
+3. Middle Mouse Button
+    - middle everything
+
+# Drop items using G
+- drop a firehose at the back of your truck will coil it in instead of dropping it on the ground
+
+# Get in truck using E
+- will generate a new level from station
+- will take you back to station if mission is accomplished
+
+# Check bodyguard using TAB
+- displays air left in tank
+- displays average room temperature
+-------------------------------------------------------------------------
