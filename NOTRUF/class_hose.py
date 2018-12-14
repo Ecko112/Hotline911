@@ -42,10 +42,12 @@ class Hose:
         self.LEVEL.Tools.append(self)
 
     def paint_hose(self):
+        # Draw Hose Line
         pygame.draw.lines(self.SCREEN, self.texture, False, self.hose_line, 10)
         if self.handler is not None:
             self.set_hose_line()
         else:
+            # Blit item png
             self.SCREEN.blit(self.image, (self.pos[X] - self.scale_up // 2, self.pos[Y] - self.scale_up // 2))
 
     def get_picked_up(self, unit):
@@ -54,10 +56,13 @@ class Hose:
 
     def get_dropped(self):
         if get_dist(self.handler.pos, self.TRUCK.hose_pos) < 35:
+            # Drop on truck
+            # Coils in the hose
             self.pos = self.TRUCK.hose_pos
             self.hose_line = [self.pos, self.pos, self.pos]
             self.handler = None
         else:
+            # Drop on floor
             self.pos = self.handler.pos
             self.handler = None
 
@@ -65,18 +70,23 @@ class Hose:
         self.hose_line[-1] = self.handler.pos
         dist = get_dist(self.handler.pos, self.hose_line[-2])
         if dist > 75:
+            # New Node
             self.hose_line.insert(-1, self.handler.pos[:])
         elif len(self.hose_line) > 3:
             if get_dist(self.handler.pos, self.hose_line[-3]) < 100:
+                # Delete one node
                 self.hose_line.pop(-2)
         elif len(self.hose_line) == 2:
             if get_dist(self.hose_line[0], self.hose_line[1]) < 100:
+                # Update last node
+                # Might be useless but I don't wanna change it at this point
                 self.hose_line.pop(-1)
                 self.hose_line.append(self.handler.pos)
 
     def spray_water(self):
         self.handler.spraying = True
         if len(self.LEVEL.Water) < 500:
+            # Spawn Water Particles
             self.spray_actual_water()
         else:
             # [DEV] UNLIMITED WATER PARICLES
@@ -84,17 +94,22 @@ class Hose:
             pass
 
     def spray_actual_water(self):
+        # Set spawn point
         self.hose_p = (int(self.handler.pos[X]+self.handler.SIZE*math.cos(self.handler.orientation*(math.pi/180))), int(self.handler.pos[Y]+self.handler.SIZE*math.sin(self.handler.orientation*(math.pi/180))))
         nbr_water_entities = int(self.spray/3)
+        # Init direction
         direction = self.handler.orientation - self.spray/2
         for water in range(0, nbr_water_entities+1, 1):
+            # Increment direction
             direction += self.spray/nbr_water_entities
             alpha = direction - self.handler.orientation
+            # Keep a triangle shape
             max_dist = self.debit / math.cos(alpha * (math.pi / 180))
             if self.spray == self.spray_presets[2]:
                 max_dist /= 8
             elif self.spray == self.spray_presets[1]:
                 max_dist /= 2
+            # Create Water Instance
             class_water.Water(self, direction, max_dist, self.LEVEL)
 
     def set_hose_spray(self, preset):

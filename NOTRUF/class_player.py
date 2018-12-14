@@ -52,11 +52,18 @@ class Player:
             self.Images.append(player_png)
 
     def paint_player(self):
+        # Since a pygame texture must remain a rectangle with
+        # edges parallels to the screen
+        # I find a new topleft point for the surface
+        # using the angle in radians
         angle = self.orientation*(math.pi/180)
+        # abs(sprite_size//2*sin(x)*cos(x))
+        # => = 0 if angle is a multiple of pi/2
         report = abs(self.scaled_up//2*math.sin(angle)*math.cos(angle))
         self.SCREEN.blit(self.current_image, (self.pos[X]-self.scaled_up//2-report, self.pos[Y]-self.scaled_up//2-report))
 
     def rotate_player(self, mouse_pos):
+        # Player Sprite based on player carried equipment
         if self.hose is not None:
             if self.scba is not None:
                 self.current_image = self.Images[2]
@@ -73,7 +80,7 @@ class Player:
         self.orientation = int((180/math.pi)*math.atan2(diff_m_p[Y], diff_m_p[X]))
         if self.orientation < 0:
             self.orientation += 360
-        # [DEV] ROTATION PRECISION
+        # [DEV] ROTATION PRECISION (default = 0°)
         if abs(self.orientation-self.prev_orientation) >= 0:
             self.current_image = pygame.transform.rotate(self.current_image, -self.orientation)
         else:
@@ -107,6 +114,7 @@ class Player:
         self.spraying = False
 
     def get_location(self):
+        # Check wether player needs to breath from air tank
         for structure in self.LEVEL.Structures:
             for room in structure.Rooms:
                 if self.player_hitbox.colliderect(room.Rect):
@@ -121,6 +129,7 @@ class Player:
                         self.inRoom = False
 
     def get_location_vehicle(self):
+        # Check wether player is near a vehicle door
         for vehicle in self.LEVEL.Vehicles:
             if self.player_hitbox.colliderect(vehicle.door):
                 self.inDoor = True
@@ -131,13 +140,17 @@ class Player:
     def breath(self):
         if self.inRoom:
             if self.scba is None:
+                # Hurt player
                 self.health -= 0.5
             else:
                 if self.scba.capacity > 0:
+                    # Breath from air tank
                     self.scba.capacity -= 0.1
                 else:
+                    # Hurt player
                     self.health -= 0.5
             if self.health < 0:
+                # Kill player
                 self.die()
 
     def check_scba(self):
@@ -157,6 +170,7 @@ class Player:
     def mov_player(self, direction, axe):
         self.pos[axe] += self.STEP * direction
         self.player_hitbox.center = self.pos
+        # Check Wall collision
         for structure in self.LEVEL.Structures:
             for wall in structure.Walls:
                 if self.player_hitbox.colliderect(wall.Rect):
@@ -170,7 +184,7 @@ class Player:
                             self.player_hitbox.top = wall.Rect.bottom
                         elif direction == 1:
                             self.player_hitbox.bottom = wall.Rect.top
-
+        # Update pos
         self.pos = [self.player_hitbox.center[X], self.player_hitbox.center[Y]]
 
     def die(self):

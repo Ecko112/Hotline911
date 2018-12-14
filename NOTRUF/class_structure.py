@@ -64,7 +64,7 @@ class Structure:
         room.get_a_rect()
 
     def wall_up(self):
-        # This Function creates Wall instance
+        # This Function creates Wall instances
         # Create Upper Wall
         wall_h = class_room.Wall()
         wall_h.p1 = (self.UPPER_LEFT[X] - self.WALL_SIZE // 2, self.UPPER_LEFT[Y] - self.WALL_SIZE // 2)
@@ -194,9 +194,8 @@ class Structure:
 
     def check_room_left(self, room, report):
         # Cette fonction vérfie qu'il y aura assez
-        # de place pour la pièce suivante
+        # de place pour la pièce suivante avec la longueur aléatoire
         # et Reroll si ce n'est pas le cas
-
         # INIT
         j = 0
         check = True
@@ -210,7 +209,7 @@ class Structure:
                 self.last_one_floor_1 = True
             elif j == 50:
                 # Limiter à 50 essais
-                # Il est impossible de mettre une pièce après
+                # Il est impossible de mettre une pièce assez grande après
                 # La pièce va donc fermer la ZONE
                 room.lengthprim = self.ZONE_LENGTH - report
                 # C'est la dernière itération de la boucle
@@ -230,13 +229,14 @@ class Structure:
             pygame.draw.rect(self.SCREEN, self.wall_texture, wall.Rect)
 
     def stuff_up(self):
+        # Fill with Furniture Instances
         for room in self.Rooms:
             room.stuff_up()
 
 
 class Separation:
     # List of lower points of rooms from Floor_1
-    # Ignorer mid_point
+    # (Ignorer mid_point)
     def __init__(self):
         self.List = []
 

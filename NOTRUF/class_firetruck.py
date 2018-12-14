@@ -43,12 +43,15 @@ class Truck:
     def paint_truck(self):
         self.SCREEN.blit(self.image, self.pos)
         if self.LEVEL.__class__ is class_level.Level:
+            # Set door hitbox in Level
             if self.LEVEL.intro_is_done:
                 self.door.bottomright = [self.pos[X] + self.scale_up[X], self.pos[Y]]
         else:
+            # Set door hitbox at Firehouse
             self.door.bottomleft = [self.pos[X]+self.scale_up[Y], self.pos[Y]+self.scale_up[X]]
 
     def arrival(self):
+        # MRU
         if self.pos[X] < 6*self.SCREEN_RESOLUTION[X]//10:
             self.pos[X] += self.SCREEN_RESOLUTION[X]/1366
         else:

@@ -18,6 +18,7 @@ class Water:
         self.texture = (10, 0, 0)
         self.has_cooled_down = False
         # Set water particle effects on temp
+        # based on randomized size
         if self.parent_hose.spray == self.parent_hose.spray_presets[0]:
             self.size = random.randrange(15, 25, 1)
             self.solid_effect = self.size / 5
@@ -50,22 +51,26 @@ class Water:
         pygame.draw.rect(self.SCREEN, self.texture, self.Rect)
 
     def move_water(self):
+        # Wall Collision
         for structure in self.LEVEL.Structures:
             for wall in structure.Walls:
                 if self.Rect.colliderect(wall.Rect):
                     self.LEVEL.Water.remove(self)
                     return
             for room in structure.Rooms:
+                # Can cool down the room only ONCE
                 if not self.has_cooled_down:
                     if self.Rect.colliderect(room.Rect):
                         room.cool_down(self.room_effect)
                         self.has_cooled_down = True
+                # Object Collision
                 for objet in room.Furniture:
                     if self.Rect.colliderect(objet.Rect):
                         objet.cool_down(self.solid_effect)
                         self.LEVEL.Water.remove(self)
                         return
         if get_dist(self.parent_hose.hose_p, self.pos) < self.max_dist:
+            # Change water texture
             if self.life%2:
                 self.texture = (80, 159, 239)
             else:
@@ -74,8 +79,10 @@ class Water:
             self.pos[X] += 20*math.cos(self.direction*(math.pi/180))*self.rand_modif
             self.pos[Y] += 20*math.sin(self.direction*(math.pi/180))*self.rand_modif
             self.Rect.center = self.pos
+            # Decrement
             self.life -= 1
         else:
+            # Water particle disappears
             self.LEVEL.Water.remove(self)
 
 

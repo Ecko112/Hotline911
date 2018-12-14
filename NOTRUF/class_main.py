@@ -68,7 +68,7 @@ class Main:
     def exit_game(self):
         # Could be static
         # but easier to call from other classes
-        # when referring to self.MAIN
+        # by using self.MAIN.exit_game()
         pygame.quit()
         sys.exit()
 

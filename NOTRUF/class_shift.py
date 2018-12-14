@@ -131,12 +131,12 @@ class FireStation:
         self.GRID_SIZE = self.LEVEL.GRID_SIZE
         self.DOOR_SIZE = self.LEVEL.DOOR_SIZE
         self.WALL_SIZE = self.MIN_ROOM // 15
-        # PREDEF
+        # PREDEFS
         room1 = [[200, 200], [530, 200], [530, 600], [200, 600]]
         room2 = [[530, 200], [700, 200], [700, 400], [530, 400]]
         self.predef_1 = [room1, room2]
-        self.LEVEL.Structures.append(self)
         self.create_building()
+        self.LEVEL.Structures.append(self)
 
     def create_building(self):
         for room in self.predef_1:
@@ -180,12 +180,3 @@ class Room:
 
     def poly_room(self):
         self.polyroom = [self.p1, self.p2, self.p3, self.p4, self.p5, self.p6]
-
-
-class Locker:
-
-    def __init__(self, SHIFT):
-        self.LEVEL = SHIFT
-        self.MAIN = self.LEVEL.MAIN
-        self.SCREEN = self.LEVEL.SCREEN
-        self.SCREEN_RESOLUTION = self.LEVEL.SCREEN_RESOLUTION

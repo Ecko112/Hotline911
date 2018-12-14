@@ -21,7 +21,6 @@ class Furniture:
         self.LEVEL = self.ROOM.LEVEL
         self.MAIN = self.ROOM.LEVEL
         self.burning = False
-
         # SETTINGS
         self.pos = pos
         self.length = length
@@ -58,6 +57,7 @@ class Furniture:
             self.ROOM.Furniture.append(self)
             self.STRUCTURE.Furniture.append(self)
         # OTHER
+        # [DEV] BLIT OBJECT TEMP
         self.temp_font_size = 20
         self.temp_font = pygame.font.SysFont('monospace', self.temp_font_size)
         self.temp_message = self.temp_font.render(str(self.temp), False, (0, 0, 0))
@@ -108,33 +108,41 @@ class Furniture:
             self.temp = 30
         elif self.temp >= 700:
             self.temp = 600
+        # This was supposed to keep the flame sprites moving
+        # because their size would depend on the temp
         if self.burning:
             if self.wetness >= 100:
                 self.extinguish()
                 return
             elif self.temp < 700:
+                # Heat up
                 self.temp += 1/self.grid_area*((100-self.wetness)/100)
+            # Consume
             self.health -= 1/self.grid_area
         else:
+            # Object is not burning
             if self.isHeatingUp():
-                # if self.isHeatingUp()[1]:
                 self.temp += 0.1
-                # if not self.isHeatingUp()[1]:
-                    # self.temp += 0.005
             else:
                 if self.temp > self.ROOM.temp:
+                    # Object temp tends towards Room temp
                     self.temp -= 0.1
             if self.temp-2 <= self.ignition_tresh <= self.temp+2:
+                # Auto-ignition
                 self.ignite()
+        # Dry over time
         self.wetness -= self.temp/100
         self.update_influence()
         self.update_rect()
 
     def isHeatingUp(self):
+        # Is it colliding with any of the radiation rects of the object
         return self.Rect.collidelist([other.influence_Rect for other in self.LEVEL.Burning]) != -1
 
     def cool_down(self, effect):
+        # Cool down based on object size and hose settings
         self.temp -= effect/self.grid_area*2
+        # Wet material to inert it
         self.wetness += effect/self.grid_area*2
 
     def update_rect(self):
@@ -149,5 +157,7 @@ class Furniture:
 
     def update_influence(self):
         if self.burning:
+            # An object gives 10% of its heat
             self.influence = self.temp//10
+            # Grow Radiation Hitbox
             self.influence_rad = self.influence * 2
